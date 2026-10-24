@@ -177,14 +177,14 @@
             </button>
         </div>
     </div>
-
-    <!-- REAL FIREBASE SCRIPT WITH DATABASE -->
+    
+<!-- REAL FIREBASE SCRIPT WITH EARNING SYSTEM -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
         
-        // NAYA IMPORT: Database (Firestore) ke liye
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+        // NAYA IMPORT: Live points update karne ke liye onSnapshot aur updateDoc
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
         // APNI ASALI API KEY YAHAN ZAROOR DAALEIN
         const firebaseConfig = {
@@ -196,32 +196,47 @@
   appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
 };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
-        
-        // DATABASE CHALU KIYA
         const db = getFirestore(app); 
 
-        // Login Function
         window.loginWithGoogle = function() {
-            signInWithPopup(auth, provider).then((result) => {
+            signInWithPopup(auth, provider).then(() => {
                 if(typeof closeLoginModal === 'function') closeLoginModal();
-            }).catch((error) => {
-                alert("Login Error: " + error.message);
-            });
+            }).catch((error) => alert("Login Error: " + error.message));
         };
 
-        // Logout Function
         window.logout = function() {
             signOut(auth);
         };
 
-        // NAYA DATABASE LOGIC
+        // EARNING FUNCTION: Jab user "Start Earning Now" dabaye
+        window.startTask = async function() {
+            if (!auth.currentUser) {
+                alert("Pehle login karein!");
+                return;
+            }
+            
+            const userRef = doc(db, "users", auth.currentUser.uid);
+            const snap = await getDoc(userRef);
+            
+            if (snap.exists()) {
+                const currentPoints = snap.data().points || 0;
+                const currentWallet = snap.data().walletBalance || 0;
+
+                // Task poora hone par 50 Points aur ₹10 badhayenge
+                await updateDoc(userRef, {
+                    points: currentPoints + 50,
+                    walletBalance: currentWallet + 10
+                });
+                
+                alert("Badhai ho! Aapne task poora kiya. 50 Points aur ₹10 aapke wallet mein add ho gaye hain!");
+            }
+        };
+
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // Jab user login ho jaye
                 document.getElementById('nav-login-btn').classList.add('hidden');
                 document.getElementById('user-profile-info').classList.remove('hidden');
                 document.getElementById('nav-username').innerText = user.displayName;
@@ -230,15 +245,10 @@
                 const label = document.querySelector('.bg-yellow-100');
                 if(label) label.style.display = 'none';
 
-                // DATABASE MEIN USER KA ACCOUNT CHECK KAREIN
                 const userRef = doc(db, "users", user.uid);
                 const userSnap = await getDoc(userRef);
 
-                if (userSnap.exists()) {
-                    // Agar purana user hai
-                    console.log("Welcome back! Data loaded.");
-                } else {
-                    // Agar NAYA user hai, toh database mein wallet banao
+                if (!userSnap.exists()) {
                     await setDoc(userRef, {
                         name: user.displayName,
                         email: user.email,
@@ -246,20 +256,36 @@
                         walletBalance: 0,
                         joinedAt: new Date()
                     });
-                    console.log("Naya account database mein ban gaya!");
                 }
+
+                // LIVE DASHBOARD UPDATE: Database se points nikal kar website par dikhana
+                onSnapshot(userRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        const pointsEl = document.getElementById('points-display');
+                        const walletEl = document.getElementById('wallet-display');
+                        
+                        if(pointsEl) pointsEl.innerText = data.points;
+                        if(walletEl) walletEl.innerText = data.walletBalance.toFixed(2);
+                    }
+                });
+
             } else {
-                // Jab user login NAHI ho
                 document.getElementById('nav-login-btn').classList.remove('hidden');
                 document.getElementById('user-profile-info').classList.add('hidden');
                 document.getElementById('user-name-display').innerText = 'Guest';
                 
                 const label = document.querySelector('.bg-yellow-100');
                 if(label) label.style.display = 'inline-block';
+                
+                // Login na hone par 0 dikhaye
+                const pointsEl = document.getElementById('points-display');
+                const walletEl = document.getElementById('wallet-display');
+                if(pointsEl) pointsEl.innerText = '0';
+                if(walletEl) walletEl.innerText = '0.00';
             }
         });
     </script>
-
     <!-- UI aur Tabs ka Script -->
     <script>
         function showTab(tabId) {
