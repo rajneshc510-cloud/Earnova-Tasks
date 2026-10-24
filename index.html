@@ -36,6 +36,7 @@
                 <div class="flex items-center gap-4 text-sm font-medium hidden sm:flex">
                     <button onclick="showTab('dashboard')" class="hover:text-cyan transition">Dashboard</button>
                     <button onclick="showTab('tasks')" class="hover:text-cyan transition">Tasks</button>
+                    <button onclick="showTab('refer')" class="hover:text-cyan transition font-bold text-yellow-500">Refer & Earn</button>
                     <button onclick="showTab('wallet')" class="hover:text-cyan transition">Wallet</button>
                 </div>
 
@@ -132,6 +133,41 @@
                     </div>
                     <p class="text-gray-600 text-sm mb-4">Just download, install and open the app for 2 minutes. No sign-up required.</p>
                     <button onclick="startAppTask(10)" class="w-full bg-cyan text-white font-bold px-4 py-3 rounded-lg shadow hover:bg-teal-500 transition">Install & Earn ₹10</button>
+                </div>
+            </div>
+        </section>
+        <!-- REFER TAB -->
+        <section id="refer" class="tab-content hidden">
+            <h2 class="text-2xl font-bold text-royalblue mb-6">Invite Friends & Earn</h2>
+            
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-green-500 text-center max-w-2xl mx-auto">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-sm">🤝</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Refer Friends, Earn Cash!</h3>
+                <p class="text-gray-600 mb-6">Get <span class="font-bold text-green-600">200 Points (₹2.00)</span> instantly for every friend who joins Earnova using your unique link.</p>
+                
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6 relative">
+                    <span class="block text-sm text-gray-500 font-bold mb-2 uppercase tracking-wide">Your Invite Link</span>
+                    <div class="flex flex-col md:flex-row gap-2">
+                        <input type="text" id="referral-link" readonly value="Login to get your link..." class="w-full bg-white border border-gray-300 px-4 py-3 rounded-lg text-gray-700 outline-none font-medium text-center md:text-left">
+                        <button onclick="copyReferralLink()" id="copy-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded-lg shadow transition whitespace-nowrap">
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mt-8">
+                    <div class="p-4 bg-blue-50 rounded-lg">
+                        <div class="font-bold text-blue-600 mb-1">1. Share Link</div>
+                        <div class="text-sm text-gray-600">Share your link on WhatsApp or Telegram.</div>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-lg">
+                        <div class="font-bold text-yellow-600 mb-1">2. Friend Joins</div>
+                        <div class="text-sm text-gray-600">They sign up using their Google account.</div>
+                    </div>
+                    <div class="p-4 bg-green-50 rounded-lg">
+                        <div class="font-bold text-green-600 mb-1">3. You Earn</div>
+                        <div class="text-sm text-gray-600">You both get a bonus! 200 points for you.</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -236,14 +272,15 @@
         import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
         // APNI ASALI API KEY YAHAN ZAROOR DAALEIN
-       const firebaseConfig = {
-  apiKey: "AIzaSyCHTnkaOHGfpE8xDQuPKijuBI8KgnL1rhI",
-  authDomain: "earnova-tasks.firebaseapp.com",
-  projectId: "earnova-tasks",
-  storageBucket: "earnova-tasks.firebasestorage.app",
-  messagingSenderId: "128153402677",
-  appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
-};
+        const firebaseConfig = {
+            apiKey: "AAPKI_SAHI_WALI_KEY", 
+            authDomain: "earnova-tasks.firebaseapp.com",
+            projectId: "earnova-tasks",
+            storageBucket: "earnova-tasks.firebasestorage.app",
+            messagingSenderId: "128153402677",
+            appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
+        };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
@@ -259,116 +296,86 @@
             signOut(auth);
         };
 
-        // DAILY BONUS FUNCTION
-        window.claimDailyBonus = async function() {
-            if (!auth.currentUser) {
+        // NAYA: COPY REFERRAL LINK FUNCTION
+        window.copyReferralLink = function() {
+            const linkInput = document.getElementById('referral-link');
+            if (linkInput && linkInput.value && linkInput.value !== "Login to get your link...") {
+                linkInput.select();
+                navigator.clipboard.writeText(linkInput.value).then(() => {
+                    const copyBtn = document.getElementById('copy-btn');
+                    copyBtn.innerText = "Copied! ✓";
+                    copyBtn.classList.replace('bg-green-500', 'bg-gray-600');
+                    setTimeout(() => {
+                        copyBtn.innerText = "Copy Link";
+                        copyBtn.classList.replace('bg-gray-600', 'bg-green-500');
+                    }, 2000);
+                });
+            } else {
                 alert("Pehle login karein!");
-                return;
             }
+        };
+
+        window.claimDailyBonus = async function() {
+            if (!auth.currentUser) return alert("Pehle login karein!");
             const userRef = doc(db, "users", auth.currentUser.uid);
             const snap = await getDoc(userRef);
             if (snap.exists()) {
                 const data = snap.data();
-                const currentPoints = data.points || 0;
-                const lastCheckIn = data.lastCheckInDate || ""; 
                 const todayDate = new Date().toDateString();
-
-                if (lastCheckIn === todayDate) {
-                    alert("Aap aaj ka bonus pehle hi le chuke hain. Kripya kal wapas aayen!");
-                    return;
-                }
-                await updateDoc(userRef, {
-                    points: currentPoints + 50,
-                    lastCheckInDate: todayDate
-                });
+                if (data.lastCheckInDate === todayDate) return alert("Aap aaj ka bonus pehle hi le chuke hain. Kripya kal wapas aayen!");
+                await updateDoc(userRef, { points: (data.points || 0) + 50, lastCheckInDate: todayDate });
                 alert(`Success! 50 Points aapke account mein add ho gaye hain.`);
             }
         };
 
-        // NAYA: POINTS CONVERSION FUNCTION
         window.convertPoints = async function() {
-            if (!auth.currentUser) {
-                alert("Pehle login karein!");
-                return;
+            if (!auth.currentUser) return alert("Pehle login karein!");
+            const pointsToConvert = parseInt(document.getElementById('convert-points-input').value);
+            if (isNaN(pointsToConvert) || pointsToConvert < 100 || pointsToConvert % 100 !== 0) {
+                return alert("Kripya 100 ke multiples mein points dalein (jaise 100, 200, 500).");
             }
-            
-            const pointsInput = document.getElementById('convert-points-input').value;
-            const pointsToConvert = parseInt(pointsInput);
-
-            if (isNaN(pointsToConvert) || pointsToConvert < 100) {
-                alert("Kam se kam 100 points convert karne honge.");
-                return;
-            }
-
-            if (pointsToConvert % 100 !== 0) {
-                alert("Kripya 100 ke multiples mein points dalein (jaise 100, 200, 500, 1000).");
-                return;
-            }
-
             const userRef = doc(db, "users", auth.currentUser.uid);
             const snap = await getDoc(userRef);
-            
             if (snap.exists()) {
-                const currentPoints = snap.data().points || 0;
-                const currentWallet = snap.data().walletBalance || 0;
-                
-                if (pointsToConvert > currentPoints) {
-                    alert("Aapke paas itne points nahi hain!");
-                    return;
-                }
-                
-                const cashToAdd = pointsToConvert / 100; // 100 Points = 1 Rupee
-                
+                if (pointsToConvert > (snap.data().points || 0)) return alert("Aapke paas itne points nahi hain!");
                 await updateDoc(userRef, {
-                    points: currentPoints - pointsToConvert,
-                    walletBalance: currentWallet + cashToAdd
+                    points: (snap.data().points || 0) - pointsToConvert,
+                    walletBalance: (snap.data().walletBalance || 0) + (pointsToConvert / 100)
                 });
-                
                 document.getElementById('convert-points-input').value = '';
-                alert(`Success! Aapne ${pointsToConvert} points ko ₹${cashToAdd.toFixed(2)} mein badal liya hai.`);
+                alert(`Success! Aapne ${pointsToConvert} points ko ₹${(pointsToConvert/100).toFixed(2)} mein badal liya hai.`);
             }
         };
 
-        // APP TASK FUNCTION
         window.startAppTask = async function(rewardAmount) {
             if (!auth.currentUser) return alert("Pehle login karein!");
             alert("Aapko Play Store par bheja ja raha hai... Kripya App install karein!");
             const userRef = doc(db, "users", auth.currentUser.uid);
             const snap = await getDoc(userRef);
             if (snap.exists()) {
-                const currentWallet = snap.data().walletBalance || 0;
-                await updateDoc(userRef, { walletBalance: currentWallet + rewardAmount });
+                await updateDoc(userRef, { walletBalance: (snap.data().walletBalance || 0) + rewardAmount });
                 alert(`Task Verified! Badhai ho, aapke wallet mein ₹${rewardAmount} add ho gaye hain.`);
             }
         };
 
-        // WITHDRAWAL FUNCTION 
         window.requestWithdrawal = async function() {
             if (!auth.currentUser) return alert("Pehle login karein!");
-            
             const paymentMethod = document.getElementById('payment-method').value;
             const paymentDetail = document.getElementById('payment-detail').value;
             const withdrawAmount = parseFloat(document.getElementById('withdraw-amount').value);
-
             if (paymentDetail.trim() === "") return alert(`Kripya apni ${paymentMethod} details dalein.`);
             if (isNaN(withdrawAmount) || withdrawAmount < 50) return alert("Kam se kam ₹50 nikal sakte hain.");
 
             const userRef = doc(db, "users", auth.currentUser.uid);
             const snap = await getDoc(userRef);
             if (snap.exists()) {
-                const currentWallet = snap.data().walletBalance || 0;
-                const currentPending = snap.data().pendingWithdrawals || 0; 
-                
-                if (withdrawAmount > currentWallet) return alert("Aapke wallet mein itne paise nahi hain!");
-                
+                if (withdrawAmount > (snap.data().walletBalance || 0)) return alert("Aapke wallet mein itne paise nahi hain!");
                 await updateDoc(userRef, {
-                    walletBalance: currentWallet - withdrawAmount,
-                    pendingWithdrawals: currentPending + withdrawAmount
+                    walletBalance: (snap.data().walletBalance || 0) - withdrawAmount,
+                    pendingWithdrawals: (snap.data().pendingWithdrawals || 0) + withdrawAmount
                 });
-                
-                document.getElementById('withdraw-amount').value = '';
-                document.getElementById('payment-detail').value = '';
-                alert(`Success! Aapki ₹${withdrawAmount} ki request (${paymentMethod}) lag gayi hai.`);
+                document.getElementById('withdraw-amount').value = ''; document.getElementById('payment-detail').value = '';
+                alert(`Success! Aapki ₹${withdrawAmount} ki request lag gayi hai.`);
             }
         };
 
@@ -381,44 +388,33 @@
                 document.getElementById('user-name-display').innerText = user.displayName;
                 const label = document.querySelector('.bg-yellow-100'); if(label) label.style.display = 'none';
 
+                // NAYA: Generate Unique Referral Link for user (Using their UID)
+                const myReferralCode = user.uid.substring(0, 8).toUpperCase();
+                const refLinkInput = document.getElementById('referral-link');
+                if (refLinkInput) refLinkInput.value = `https://rajneshc510-cloud.github.io/Earnova-Tasks/?ref=${myReferralCode}`;
+
                 const userRef = doc(db, "users", user.uid);
                 const userSnap = await getDoc(userRef);
-
                 if (!userSnap.exists()) {
-                    await setDoc(userRef, {
-                        name: user.displayName, email: user.email, points: 0, walletBalance: 0, pendingWithdrawals: 0, joinedAt: new Date()
-                    });
+                    await setDoc(userRef, { name: user.displayName, email: user.email, points: 0, walletBalance: 0, pendingWithdrawals: 0, joinedAt: new Date() });
                 }
 
                 onSnapshot(userRef, (docSnap) => {
                     if (docSnap.exists()) {
                         const data = docSnap.data();
-                        
-                        // Header and Dashboard Displays
-                        const pointsEl = document.getElementById('points-display');
-                        const walletEl = document.getElementById('wallet-display');
-                        const withdrawEl = document.getElementById('withdraw-balance-display');
-                        const pendingEl = document.getElementById('pending-display'); 
-                        const walletPointsEl = document.getElementById('wallet-points-display'); // NAYA
-                        
-                        if(pointsEl) pointsEl.innerText = data.points || 0;
-                        if(walletPointsEl) walletPointsEl.innerText = data.points || 0;
-                        if(walletEl) walletEl.innerText = (data.walletBalance || 0).toFixed(2);
-                        if(withdrawEl) withdrawEl.innerText = (data.walletBalance || 0).toFixed(2);
-                        if(pendingEl) pendingEl.innerText = (data.pendingWithdrawals || 0).toFixed(2);
+                        const updateEl = (id, val) => { if(document.getElementById(id)) document.getElementById(id).innerText = val; };
+                        updateEl('points-display', data.points || 0);
+                        updateEl('wallet-points-display', data.points || 0);
+                        updateEl('wallet-display', (data.walletBalance || 0).toFixed(2));
+                        updateEl('withdraw-balance-display', (data.walletBalance || 0).toFixed(2));
+                        updateEl('pending-display', (data.pendingWithdrawals || 0).toFixed(2));
 
-                        // Daily Bonus Button Logic
-                        const todayDate = new Date().toDateString();
                         const dailyBtn = document.getElementById('daily-checkin-btn');
                         if (dailyBtn) {
-                            if (data.lastCheckInDate === todayDate) {
-                                dailyBtn.innerText = "Claimed for Today ✓";
-                                dailyBtn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
-                                dailyBtn.classList.add('bg-gray-400', 'cursor-not-allowed'); dailyBtn.disabled = true;
+                            if (data.lastCheckInDate === new Date().toDateString()) {
+                                dailyBtn.innerText = "Claimed for Today ✓"; dailyBtn.className = "bg-gray-400 text-white font-bold px-8 py-3 rounded-full shadow-md cursor-not-allowed flex items-center"; dailyBtn.disabled = true;
                             } else {
-                                dailyBtn.innerText = "Claim 50 Points";
-                                dailyBtn.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
-                                dailyBtn.classList.remove('bg-gray-400', 'cursor-not-allowed'); dailyBtn.disabled = false;
+                                dailyBtn.innerText = "Claim 50 Points"; dailyBtn.className = "bg-yellow-500 text-white font-bold px-8 py-3 rounded-full shadow-md hover:bg-yellow-600 transition flex items-center"; dailyBtn.disabled = false;
                             }
                         }
                     }
