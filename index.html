@@ -178,56 +178,77 @@
         </div>
     </div>
 
+    <!-- REAL FIREBASE SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCHTnkaOHGfpE8xDQupKIjuBI8KgnL1rhI",
+            authDomain: "earnova-tasks.firebaseapp.com",
+            projectId: "earnova-tasks",
+            storageBucket: "earnova-tasks.firebasestorage.app",
+            messagingSenderId: "128153402677",
+            appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Login Function
+        window.loginWithGoogle = function() {
+            signInWithPopup(auth, provider).then((result) => {
+                closeLoginModal();
+            }).catch((error) => {
+                alert("Login Error: " + error.message);
+            });
+        };
+
+        // Logout Function
+        window.logout = function() {
+            signOut(auth);
+        };
+
+        // Check User Status (Logged in or not)
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Jab user login ho
+                document.getElementById('nav-login-btn').classList.add('hidden');
+                document.getElementById('user-profile-info').classList.remove('hidden');
+                document.getElementById('nav-username').innerText = user.displayName;
+                document.getElementById('user-name-display').innerText = user.displayName;
+                
+                const label = document.querySelector('.bg-yellow-100');
+                if(label) label.style.display = 'none';
+            } else {
+                // Jab user login NAHI ho
+                document.getElementById('nav-login-btn').classList.remove('hidden');
+                document.getElementById('user-profile-info').classList.add('hidden');
+                document.getElementById('user-name-display').innerText = 'Guest';
+                
+                const label = document.querySelector('.bg-yellow-100');
+                if(label) label.style.display = 'inline-block';
+            }
+        });
+    </script>
+
+    <!-- UI aur Tabs ka Script -->
     <script>
-        // Tabs badalne ka function
         function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
         }
 
-        // Modal Open / Close Logic
-        function openLoginModal() {
-            document.getElementById('login-modal').classList.remove('hidden');
-        }
-        function closeLoginModal() {
-            document.getElementById('login-modal').classList.add('hidden');
-        }
-
-        // Demo Login / Logout Function
-        let isLoggedIn = false;
-        
-        function simulateLogin(name) {
-            isLoggedIn = true;
-            closeLoginModal();
-            
-            document.getElementById('nav-login-btn').classList.add('hidden');
-            document.getElementById('user-profile-info').classList.remove('hidden');
-            document.getElementById('nav-username').innerText = name;
-            
-            document.getElementById('user-name-display').innerText = name;
-            
-            // Hata do "Not Logged in" label
-            const label = document.querySelector('.bg-yellow-100');
-            if(label) label.style.display = 'none';
-        }
-
-        function logout() {
-            isLoggedIn = false;
-            document.getElementById('nav-login-btn').classList.remove('hidden');
-            document.getElementById('user-profile-info').classList.add('hidden');
-            document.getElementById('user-name-display').innerText = 'Guest';
-            
-            const label = document.querySelector('.bg-yellow-100');
-            if(label) label.style.display = 'inline-block';
-        }
+        function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
+        function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
 
         function startTask() {
-            if(!isLoggedIn) {
+            if(document.getElementById('user-name-display').innerText === 'Guest') {
                 openLoginModal();
             } else {
-                alert("Task starting soon... (Firebase is needed for real earning)");
+                alert("Task starting soon... Wallet system is coming next!");
             }
         }
     </script>
-</body>
-</html>
