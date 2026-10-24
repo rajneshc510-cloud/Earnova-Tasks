@@ -83,10 +83,28 @@
             <button onclick="showTab('tasks')" class="bg-royalblue hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition w-full md:w-auto">Start Earning Now ➔</button>
         </section>
 
-     <!-- TASKS TAB -->
+   <!-- TASKS TAB -->
         <section id="tasks" class="tab-content">
-            <h2 class="text-2xl font-bold text-royalblue mb-6">App Download Tasks</h2>
+            <h2 class="text-2xl font-bold text-royalblue mb-6">Earn Points & Cash</h2>
             
+            <!-- NAYA: DAILY BONUS SECTION -->
+            <div class="bg-gradient-to-r from-yellow-400 to-orange-500 p-1 rounded-xl shadow-lg mb-8 relative">
+                <div class="bg-white p-6 rounded-lg flex flex-col md:flex-row items-center justify-between">
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center text-4xl mr-4 shadow-sm">🎁</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">Daily Check-in Bonus</h3>
+                            <p class="text-sm text-gray-600">Come back every day to claim 50 free points!</p>
+                        </div>
+                    </div>
+                    <button id="daily-checkin-btn" onclick="claimDailyBonus()" class="bg-yellow-500 text-white font-bold px-8 py-3 rounded-full shadow-md hover:bg-yellow-600 transition flex items-center">
+                        Claim 50 Points
+                    </button>
+                </div>
+                <!-- Niche wali line mein aage chalkar AdSense ka Banner code lagega -->
+                <div class="text-center text-white text-[10px] py-1 font-semibold tracking-widest uppercase">Advertisement Space</div>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- App Task 1 -->
                 <div class="bg-white p-6 rounded-xl shadow border-l-4 border-royalblue relative overflow-hidden">
@@ -182,14 +200,14 @@
         import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
         // APNI ASALI API KEY YAHAN ZAROOR DAALEIN
-       const firebaseConfig = {
-  apiKey: "AIzaSyCHTnkaOHGfpE8xDQuPKijuBI8KgnL1rhI",
-  authDomain: "earnova-tasks.firebaseapp.com",
-  projectId: "earnova-tasks",
-  storageBucket: "earnova-tasks.firebasestorage.app",
-  messagingSenderId: "128153402677",
-  appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
-};
+        const firebaseConfig = {
+            apiKey: "AAPKI_SAHI_WALI_KEY", 
+            authDomain: "earnova-tasks.firebaseapp.com",
+            projectId: "earnova-tasks",
+            storageBucket: "earnova-tasks.firebasestorage.app",
+            messagingSenderId: "128153402677",
+            appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
+        };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -206,17 +224,44 @@
             signOut(auth);
         };
 
-        // NAYA: APP DOWNLOAD TASK FUNCTION
-        window.startAppTask = async function(rewardAmount) {
+        // NAYA: DAILY BONUS FUNCTION (24 Hour Check)
+        window.claimDailyBonus = async function() {
             if (!auth.currentUser) {
                 alert("Pehle login karein!");
                 return;
             }
             
-            // Play store par bhejne ka natak (Demo)
-            alert("Aapko Play Store par bheja ja raha hai... Kripya App install karein!");
+            const userRef = doc(db, "users", auth.currentUser.uid);
+            const snap = await getDoc(userRef);
             
-            // Database mein paise add karna
+            if (snap.exists()) {
+                const data = snap.data();
+                const currentPoints = data.points || 0;
+                const lastCheckIn = data.lastCheckInDate || ""; 
+                const todayDate = new Date().toDateString(); // Aaj ki date nikalna
+
+                // Check karna ki kya aaj points le liye hain
+                if (lastCheckIn === todayDate) {
+                    alert("Aap aaj ka bonus pehle hi le chuke hain. Kripya kal wapas aayen!");
+                    return;
+                }
+
+                // Agar nahi liye hain toh points add karna aur aaj ki date save karna
+                await updateDoc(userRef, {
+                    points: currentPoints + 50,
+                    lastCheckInDate: todayDate
+                });
+                
+                alert(`Success! 50 Points aapke account mein add ho gaye hain.`);
+            }
+        };
+
+        window.startAppTask = async function(rewardAmount) {
+            if (!auth.currentUser) {
+                alert("Pehle login karein!");
+                return;
+            }
+            alert("Aapko Play Store par bheja ja raha hai... Kripya App install karein!");
             const userRef = doc(db, "users", auth.currentUser.uid);
             const snap = await getDoc(userRef);
             if (snap.exists()) {
@@ -224,18 +269,15 @@
                 await updateDoc(userRef, {
                     walletBalance: currentWallet + rewardAmount
                 });
-                
                 alert(`Task Verified! Badhai ho, aapke wallet mein ₹${rewardAmount} add ho gaye hain.`);
             }
         };
 
-        // WITHDRAWAL FUNCTION 
         window.requestWithdrawal = async function() {
             if (!auth.currentUser) {
                 alert("Pehle login karein!");
                 return;
             }
-            
             const paymentMethod = document.getElementById('payment-method').value;
             const paymentDetail = document.getElementById('payment-detail').value;
             const amountInput = document.getElementById('withdraw-amount').value;
@@ -245,7 +287,6 @@
                 alert(`Kripya apni ${paymentMethod} details dalein taaki hum paise bhej sakein.`);
                 return;
             }
-
             if (isNaN(withdrawAmount) || withdrawAmount < 50) {
                 alert("Kam se kam ₹50 nikal sakte hain.");
                 return;
@@ -274,7 +315,7 @@
             }
         };
 
-        // LIVE DATABASE UPDATE
+        // LIVE DATABASE UPDATE (With Daily Check-in Button Update)
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 document.getElementById('nav-login-btn').classList.add('hidden');
@@ -299,7 +340,6 @@
                     });
                 }
 
-                // DASHBOARD & WALLET MEIN DATA DIKHANA
                 onSnapshot(userRef, (docSnap) => {
                     if (docSnap.exists()) {
                         const data = docSnap.data();
@@ -312,6 +352,23 @@
                         if(walletEl) walletEl.innerText = (data.walletBalance || 0).toFixed(2);
                         if(withdrawEl) withdrawEl.innerText = (data.walletBalance || 0).toFixed(2);
                         if(pendingEl) pendingEl.innerText = (data.pendingWithdrawals || 0).toFixed(2);
+
+                        // NAYA: Agar aaj ka bonus le liya hai, toh button ka rang badal do
+                        const todayDate = new Date().toDateString();
+                        const dailyBtn = document.getElementById('daily-checkin-btn');
+                        if (dailyBtn) {
+                            if (data.lastCheckInDate === todayDate) {
+                                dailyBtn.innerText = "Claimed for Today ✓";
+                                dailyBtn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
+                                dailyBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+                                dailyBtn.disabled = true;
+                            } else {
+                                dailyBtn.innerText = "Claim 50 Points";
+                                dailyBtn.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
+                                dailyBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                                dailyBtn.disabled = false;
+                            }
+                        }
                     }
                 });
             } else {
