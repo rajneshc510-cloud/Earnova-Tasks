@@ -178,28 +178,36 @@
         </div>
     </div>
 
-    <!-- REAL FIREBASE SCRIPT -->
+    <!-- REAL FIREBASE SCRIPT WITH DATABASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+        
+        // NAYA IMPORT: Database (Firestore) ke liye
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
-       const firebaseConfig = {
-  apiKey: "AIzaSyCHTnkaOHGfpE8xDQuPKijuBI8KgnL1rhI",
-  authDomain: "earnova-tasks.firebaseapp.com",
-  projectId: "earnova-tasks",
-  storageBucket: "earnova-tasks.firebasestorage.app",
-  messagingSenderId: "128153402677",
-  appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
-};
+        // APNI ASALI API KEY YAHAN ZAROOR DAALEIN
+        const firebaseConfig = {
+            apiKey: "AAPKI_SAHI_WALI_KEY", 
+            authDomain: "earnova-tasks.firebaseapp.com",
+            projectId: "earnova-tasks",
+            storageBucket: "earnova-tasks.firebasestorage.app",
+            messagingSenderId: "128153402677",
+            appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
+        };
+
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
+        
+        // DATABASE CHALU KIYA
+        const db = getFirestore(app); 
 
         // Login Function
         window.loginWithGoogle = function() {
             signInWithPopup(auth, provider).then((result) => {
-                closeLoginModal();
+                if(typeof closeLoginModal === 'function') closeLoginModal();
             }).catch((error) => {
                 alert("Login Error: " + error.message);
             });
@@ -210,10 +218,10 @@
             signOut(auth);
         };
 
-        // Check User Status (Logged in or not)
-        onAuthStateChanged(auth, (user) => {
+        // NAYA DATABASE LOGIC
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // Jab user login ho
+                // Jab user login ho jaye
                 document.getElementById('nav-login-btn').classList.add('hidden');
                 document.getElementById('user-profile-info').classList.remove('hidden');
                 document.getElementById('nav-username').innerText = user.displayName;
@@ -221,6 +229,25 @@
                 
                 const label = document.querySelector('.bg-yellow-100');
                 if(label) label.style.display = 'none';
+
+                // DATABASE MEIN USER KA ACCOUNT CHECK KAREIN
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+
+                if (userSnap.exists()) {
+                    // Agar purana user hai
+                    console.log("Welcome back! Data loaded.");
+                } else {
+                    // Agar NAYA user hai, toh database mein wallet banao
+                    await setDoc(userRef, {
+                        name: user.displayName,
+                        email: user.email,
+                        points: 0,
+                        walletBalance: 0,
+                        joinedAt: new Date()
+                    });
+                    console.log("Naya account database mein ban gaya!");
+                }
             } else {
                 // Jab user login NAHI ho
                 document.getElementById('nav-login-btn').classList.remove('hidden');
