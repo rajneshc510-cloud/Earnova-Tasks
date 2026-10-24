@@ -159,16 +159,14 @@
         </div>
     </div>
     
-<!-- REAL FIREBASE SCRIPT WITH EARNING SYSTEM -->
+<!-- REAL FIREBASE SCRIPT WITH EARNING & WITHDRAWAL -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-        
-        // NAYA IMPORT: Live points update karne ke liye onSnapshot aur updateDoc
         import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
         // APNI ASALI API KEY YAHAN ZAROOR DAALEIN
-        const firebaseConfig = {
+       const firebaseConfig = {
   apiKey: "AIzaSyCHTnkaOHGfpE8xDQuPKijuBI8KgnL1rhI",
   authDomain: "earnova-tasks.firebaseapp.com",
   projectId: "earnova-tasks",
@@ -192,30 +190,62 @@
             signOut(auth);
         };
 
-        // EARNING FUNCTION: Jab user "Start Earning Now" dabaye
+        // EARNING FUNCTION
         window.startTask = async function() {
             if (!auth.currentUser) {
                 alert("Pehle login karein!");
                 return;
             }
-            
             const userRef = doc(db, "users", auth.currentUser.uid);
             const snap = await getDoc(userRef);
-            
             if (snap.exists()) {
                 const currentPoints = snap.data().points || 0;
                 const currentWallet = snap.data().walletBalance || 0;
-
-                // Task poora hone par 50 Points aur ₹10 badhayenge
                 await updateDoc(userRef, {
                     points: currentPoints + 50,
                     walletBalance: currentWallet + 10
                 });
-                
                 alert("Badhai ho! Aapne task poora kiya. 50 Points aur ₹10 aapke wallet mein add ho gaye hain!");
             }
         };
 
+        // WITHDRAWAL FUNCTION (24 Hours Pending System)
+        window.requestWithdrawal = async function() {
+            if (!auth.currentUser) {
+                alert("Pehle login karein!");
+                return;
+            }
+            const amountInput = document.getElementById('withdraw-amount').value;
+            const withdrawAmount = parseFloat(amountInput);
+
+            if (isNaN(withdrawAmount) || withdrawAmount < 50) {
+                alert("Kam se kam ₹50 nikal sakte hain.");
+                return;
+            }
+
+            const userRef = doc(db, "users", auth.currentUser.uid);
+            const snap = await getDoc(userRef);
+            if (snap.exists()) {
+                const currentWallet = snap.data().walletBalance || 0;
+                const currentPending = snap.data().pendingWithdrawals || 0; 
+                
+                if (withdrawAmount > currentWallet) {
+                    alert("Aapke wallet mein itne paise nahi hain!");
+                    return;
+                }
+                
+                // Paise wallet se katkar pending mein dalna
+                await updateDoc(userRef, {
+                    walletBalance: currentWallet - withdrawAmount,
+                    pendingWithdrawals: currentPending + withdrawAmount
+                });
+                
+                document.getElementById('withdraw-amount').value = '';
+                alert(`Success! Aapki ₹${withdrawAmount} ki request lag gayi hai. Yeh paise 24 ghante ke andar transfer kar diye jayenge.`);
+            }
+        };
+
+        // LIVE DATABASE UPDATE
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 document.getElementById('nav-login-btn').classList.add('hidden');
@@ -235,22 +265,26 @@
                         email: user.email,
                         points: 0,
                         walletBalance: 0,
+                        pendingWithdrawals: 0,
                         joinedAt: new Date()
                     });
                 }
 
-                // LIVE DASHBOARD UPDATE: Database se points nikal kar website par dikhana
+                // DASHBOARD & WALLET MEIN DATA DIKHANA
                 onSnapshot(userRef, (docSnap) => {
                     if (docSnap.exists()) {
                         const data = docSnap.data();
                         const pointsEl = document.getElementById('points-display');
                         const walletEl = document.getElementById('wallet-display');
+                        const withdrawEl = document.getElementById('withdraw-balance-display');
+                        const pendingEl = document.getElementById('pending-display'); 
                         
-                        if(pointsEl) pointsEl.innerText = data.points;
-                        if(walletEl) walletEl.innerText = data.walletBalance.toFixed(2);
+                        if(pointsEl) pointsEl.innerText = data.points || 0;
+                        if(walletEl) walletEl.innerText = (data.walletBalance || 0).toFixed(2);
+                        if(withdrawEl) withdrawEl.innerText = (data.walletBalance || 0).toFixed(2);
+                        if(pendingEl) pendingEl.innerText = (data.pendingWithdrawals || 0).toFixed(2);
                     }
                 });
-
             } else {
                 document.getElementById('nav-login-btn').classList.remove('hidden');
                 document.getElementById('user-profile-info').classList.add('hidden');
@@ -258,12 +292,6 @@
                 
                 const label = document.querySelector('.bg-yellow-100');
                 if(label) label.style.display = 'inline-block';
-                
-                // Login na hone par 0 dikhaye
-                const pointsEl = document.getElementById('points-display');
-                const walletEl = document.getElementById('wallet-display');
-                if(pointsEl) pointsEl.innerText = '0';
-                if(walletEl) walletEl.innerText = '0.00';
             }
         });
     </script>
