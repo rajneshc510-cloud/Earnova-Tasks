@@ -112,12 +112,23 @@
             </div>
         </section>
 
-      <!-- Wallet Tab -->
+    <!-- Wallet Tab -->
         <div id="wallet" class="tab-content">
             <h2 class="text-2xl font-bold text-royalblue mb-6">Withdraw Funds</h2>
             <div class="bg-white p-6 rounded-xl shadow border-t-4 border-cyan max-w-md">
                 <p class="text-gray-600 mb-2">Available Balance:</p>
                 <p class="text-3xl font-bold text-gray-800 mb-6">₹<span id="withdraw-balance-display">0.00</span></p>
+
+                <!-- NAYA HISSA: UPI ya Bank select karne ke liye -->
+                <label class="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
+                <select id="payment-method" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-royalblue mb-4">
+                    <option value="UPI">UPI Transfer</option>
+                    <option value="Bank">Bank Account</option>
+                </select>
+
+                <!-- NAYA HISSA: UPI ID ya Bank Account No. likhne ke liye -->
+                <label class="block text-sm font-medium text-gray-700 mb-2">Enter UPI ID / Bank A/C No.</label>
+                <input type="text" id="payment-detail" placeholder="e.g. rajnesh@upi or A/C Number" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-royalblue mb-4">
 
                 <label class="block text-sm font-medium text-gray-700 mb-2">Withdrawal Amount (Min ₹50)</label>
                 <input type="number" id="withdraw-amount" placeholder="Enter amount (e.g. 50)" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-royalblue mb-4">
@@ -209,14 +220,23 @@
             }
         };
 
-        // WITHDRAWAL FUNCTION (24 Hours Pending System)
+       // WITHDRAWAL FUNCTION (UPI & Bank Details Ke Sath)
         window.requestWithdrawal = async function() {
             if (!auth.currentUser) {
                 alert("Pehle login karein!");
                 return;
             }
+            
+            const paymentMethod = document.getElementById('payment-method').value;
+            const paymentDetail = document.getElementById('payment-detail').value;
             const amountInput = document.getElementById('withdraw-amount').value;
             const withdrawAmount = parseFloat(amountInput);
+
+            // NAYA CHECK: Agar UPI ID ya Bank detail khali hai
+            if (paymentDetail.trim() === "") {
+                alert(`Kripya apni ${paymentMethod} details dalein taaki hum paise bhej sakein.`);
+                return;
+            }
 
             if (isNaN(withdrawAmount) || withdrawAmount < 50) {
                 alert("Kam se kam ₹50 nikal sakte hain.");
@@ -234,14 +254,17 @@
                     return;
                 }
                 
-                // Paise wallet se katkar pending mein dalna
+                // Paisa katna aur Firebase mein update karna
                 await updateDoc(userRef, {
                     walletBalance: currentWallet - withdrawAmount,
                     pendingWithdrawals: currentPending + withdrawAmount
                 });
                 
+                // Form ko wapas khali karna
                 document.getElementById('withdraw-amount').value = '';
-                alert(`Success! Aapki ₹${withdrawAmount} ki request lag gayi hai. Yeh paise 24 ghante ke andar transfer kar diye jayenge.`);
+                document.getElementById('payment-detail').value = '';
+                
+                alert(`Success! Aapki ₹${withdrawAmount} ki request (${paymentMethod}: ${paymentDetail}) lag gayi hai. Paise 24 ghante ke andar transfer kar diye jayenge.`);
             }
         };
 
