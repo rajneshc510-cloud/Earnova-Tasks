@@ -183,15 +183,14 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCHTnkaOHGfpE8xDQupKIjuBI8KgnL1rhI",
-            authDomain: "earnova-tasks.firebaseapp.com",
-            projectId: "earnova-tasks",
-            storageBucket: "earnova-tasks.firebasestorage.app",
-            messagingSenderId: "128153402677",
-            appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
-        };
-
+       const firebaseConfig = {
+  apiKey: "AIzaSyCHTnkaOHGfpE8xDQuPKijuBI8KgnL1rhI",
+  authDomain: "earnova-tasks.firebaseapp.com",
+  projectId: "earnova-tasks",
+  storageBucket: "earnova-tasks.firebasestorage.app",
+  messagingSenderId: "128153402677",
+  appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
+};
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
