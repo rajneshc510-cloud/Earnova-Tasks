@@ -363,6 +363,7 @@
             const paymentMethod = document.getElementById('payment-method').value;
             const paymentDetail = document.getElementById('payment-detail').value;
             const withdrawAmount = parseFloat(document.getElementById('withdraw-amount').value);
+            
             if (paymentDetail.trim() === "") return alert(`Kripya apni ${paymentMethod} details dalein.`);
             if (isNaN(withdrawAmount) || withdrawAmount < 50) return alert("Kam se kam ₹50 nikal sakte hain.");
 
@@ -370,15 +371,20 @@
             const snap = await getDoc(userRef);
             if (snap.exists()) {
                 if (withdrawAmount > (snap.data().walletBalance || 0)) return alert("Aapke wallet mein itne paise nahi hain!");
+                
+                // NAYA HISSA: Yahan hum UPI ID aur Method bhi database mein save kar rahe hain
                 await updateDoc(userRef, {
                     walletBalance: (snap.data().walletBalance || 0) - withdrawAmount,
-                    pendingWithdrawals: (snap.data().pendingWithdrawals || 0) + withdrawAmount
+                    pendingWithdrawals: (snap.data().pendingWithdrawals || 0) + withdrawAmount,
+                    lastWithdrawMethod: paymentMethod,
+                    lastWithdrawDetail: paymentDetail
                 });
-                document.getElementById('withdraw-amount').value = ''; document.getElementById('payment-detail').value = '';
-                alert(`Success! Aapki ₹${withdrawAmount} ki request lag gayi hai.`);
+                
+                document.getElementById('withdraw-amount').value = ''; 
+                document.getElementById('payment-detail').value = '';
+                alert(`Success! Aapki ₹${withdrawAmount} ki request lag gayi hai. Hum ise 24 ghante mein bhej denge.`);
             }
         };
-
         // LIVE DATABASE UPDATE
         onAuthStateChanged(auth, async (user) => {
             if (user) {
