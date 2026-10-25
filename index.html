@@ -24,29 +24,30 @@
     <!-- Navbar -->
     <nav class="bg-royalblue text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="flex flex-col lg:flex-row justify-center lg:justify-between items-center py-4 gap-4 w-full text-center">
-                
-                <!-- YAHAN NAVBAR MEIN LOGO LAGA DIYA HAI -->
-                <div class="text-2xl font-bold flex items-center gap-2">
-                    <img src="logo.png" class="h-8 w-8 rounded-full object-cover border border-cyan bg-white" alt="Earnova Logo"> 
-                    Earnova
-                </div>
-                
-                <!-- Center Menu -->
-                <div class="flex items-center gap-4 text-[11px] sm:text-sm font-medium overflow-x-auto whitespace-nowrap pb-1 max-w-full">
-                    <button onclick="showTab('dashboard')" class="hover:text-cyan transition">Dashboard</button>
-                    <button onclick="showTab('tasks')" class="hover:text-cyan transition">Tasks</button>
-                    <button onclick="showTab('refer')" class="hover:text-cyan transition font-bold text-yellow-500">Refer & Earn</button>
-                    <button onclick="showTab('wallet')" class="hover:text-cyan transition">Wallet</button>
-                </div>
+        <div class="flex flex-wrap items-center justify-between py-3">
+    <!-- 1. Left Side: Logo -->
+    <div class="text-xl font-bold flex items-center gap-2">
+        <img src="logo.png" class="h-8 w-8 rounded-full object-cover border border-cyan bg-white" alt="Earnova Logo">
+        Earnova
+    </div>
 
-                <!-- Right Side: Login Button -->
-                <div class="flex items-center gap-3">
-                    <button id="nav-login-btn" onclick="openLoginModal()" class="bg-white text-royalblue font-bold px-5 py-2 rounded-lg shadow hover:bg-gray-100 transition">Login</button>
-                    <div id="user-profile-info" class="hidden flex items-center gap-3">
-                        <span id="nav-username" class="font-bold text-sm"></span>
-                        <button onclick="logout()" class="text-xs bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Logout</button>
-                    </div>
+    <!-- 2. Right Side: Login/Logout -->
+    <div class="flex items-center gap-2">
+        <button id="nav-login-btn" onclick="openLoginModal()" class="bg-white text-royalblue font-bold px-4 py-1 rounded-lg shadow hover:bg-gray-100 transition text-sm">Login</button>
+        <div id="user-profile-info" class="hidden flex items-center gap-2">
+            <span id="nav-username" class="font-bold text-xs sm:text-sm tracking-wide"></span>
+            <button onclick="logout()" class="text-[10px] sm:text-xs font-bold bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded shadow">Logout</button>
+        </div>
+    </div>
+
+    <!-- 3. Bottom Row: Menu -->
+    <div class="flex w-full items-center gap-6 text-[12px] sm:text-sm font-medium overflow-x-auto whitespace-nowrap pt-3 pb-1 mt-1 justify-start sm:justify-center">
+        <button onclick="showTab('dashboard')" class="hover:text-cyan transition">Dashboard</button>
+        <button onclick="showTab('tasks')" class="hover:text-cyan transition">Tasks</button>
+        <button onclick="showTab('refer')" class="hover:text-cyan transition font-bold text-yellow-400 tracking-wide">Refer & Earn</button>
+        <button onclick="showTab('wallet')" class="hover:text-cyan transition">Wallet</button>
+    </div>
+</div>
                 </div>
             </div>
         </div>
