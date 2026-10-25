@@ -362,14 +362,25 @@
             }
         };
 
-        window.startAppTask = async function(rewardAmount) {
+       window.startAppTask = async function(rewardAmount, taskUrl) {
             if (!auth.currentUser) return alert("Pehle login karein!");
-            alert("Aapko Play Store par bheja ja raha hai... Kripya App install karein!");
+            
+            // YAHAN JADU HAI: Naye tab mein aapka asli link khulega
+            if (taskUrl) {
+                window.open(taskUrl, '_blank');
+            }
+
+            alert("Aapko Partner Website par bheja ja raha hai. Kripya apna Account / Task poora karein!");
+
             const userRef = doc(db, "users", auth.currentUser.uid);
             const snap = await getDoc(userRef);
             if (snap.exists()) {
                 await updateDoc(userRef, { walletBalance: (snap.data().walletBalance || 0) + rewardAmount });
-                alert(`Task Verified! Badhai ho, aapke wallet mein ₹${rewardAmount} add ho gaye hain.`);
+                
+                // Thodi der baad success message dikhayega
+                setTimeout(() => {
+                    alert(`Task Started! ₹${rewardAmount} aapke wallet mein add ho gaye hain. (Note: Asli paise withdraw karne ke liye task poora karna zaroori hai!)`);
+                }, 2000);
             }
         };
 
