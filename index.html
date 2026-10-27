@@ -38,10 +38,10 @@
     <!-- 2. Right Side: Login/Logout -->
     <div class="flex items-center gap-2">
         <button id="nav-login-btn" onclick="openLoginModal()" class="bg-white text-royalblue font-bold px-4 py-1 rounded-lg shadow hover:bg-gray-100 transition text-sm">Login</button>
-        <div id="user-profile-info" class="hidden flex items-center gap-2">
-            <span id="nav-username" class="font-bold text-xs sm:text-sm tracking-wide"></span>
-            <button onclick="logout()" class="text-[10px] sm:text-xs font-bold bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded shadow">Logout</button>
-        </div>
+       <div id="user-profile-info" class="hidden flex items-center">
+    <!-- Gol Profile Image (is par click karne se logout hoga) -->
+    <img id="nav-profile-pic" src="" alt="Profile" onclick="logout()" title="Logout karne ke liye click karein" class="w-9 h-9 rounded-full border-2 border-green-400 cursor-pointer shadow-md hover:scale-105 transition-transform object-cover">
+</div>
     </div>
 
     <!-- 3. Bottom Row: Menu -->
@@ -437,7 +437,7 @@
             if (user) {
                 document.getElementById('nav-login-btn').classList.add('hidden');
                 document.getElementById('user-profile-info').classList.remove('hidden');
-                document.getElementById('nav-username').innerText = user.displayName;
+                document.getElementById('nav-profile-pic').src = user.photoURL;
                 document.getElementById('user-name-display').innerText = user.displayName;
                 const label = document.querySelector('.bg-yellow-100'); if(label) label.style.display = 'none';
 
