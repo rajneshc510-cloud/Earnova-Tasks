@@ -38,9 +38,21 @@
     <!-- 2. Right Side: Login/Logout -->
     <div class="flex items-center gap-2">
         <button id="nav-login-btn" onclick="openLoginModal()" class="bg-white text-royalblue font-bold px-4 py-1 rounded-lg shadow hover:bg-gray-100 transition text-sm">Login</button>
-       <div id="user-profile-info" class="hidden flex items-center">
-    <!-- Gol Profile Image (is par click karne se logout hoga) -->
-    <img id="nav-profile-pic" src="" alt="Profile" onclick="logout()" title="Logout karne ke liye click karein" class="w-9 h-9 rounded-full border-2 border-green-400 cursor-pointer shadow-md hover:scale-105 transition-transform object-cover">
+    <div id="user-profile-info" class="hidden relative flex items-center">
+    <!-- Gol Profile Image (Ab click par popup khulega) -->
+    <img id="nav-profile-pic" src="" alt="Profile" onclick="toggleProfilePopup()" class="w-9 h-9 rounded-full border-2 border-green-400 cursor-pointer shadow-md hover:scale-105 transition-transform object-cover">
+    
+    <!-- Profile Dropdown Popup (Pehle chhipa rahega) -->
+    <div id="profile-popup" class="hidden absolute right-0 top-12 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden text-left">
+        <div class="px-4 py-3 bg-gray-50 border-b border-gray-100 text-slate-800">
+            <p id="popup-name" class="text-sm font-bold truncate">Naam</p>
+            <p id="popup-email" class="text-[11px] text-gray-500 truncate">Email ID</p>
+        </div>
+        <div class="py-1 text-slate-800">
+            <a href="mailto:support@earnova.com" class="block px-4 py-2 text-sm hover:bg-gray-100 transition">🎧 Help & Support</a>
+            <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm text-red-600 font-bold hover:bg-red-50 transition">🚪 Logout</button>
+        </div>
+    </div>
 </div>
     </div>
 
@@ -331,7 +343,9 @@
         window.logout = function() {
             signOut(auth);
         };
-
+window.toggleProfilePopup = function() {
+    document.getElementById('profile-popup').classList.toggle('hidden');
+};
         // NAYA: COPY REFERRAL LINK FUNCTION
         window.copyReferralLink = function() {
             const linkInput = document.getElementById('referral-link');
@@ -438,6 +452,8 @@
                 document.getElementById('nav-login-btn').classList.add('hidden');
                 document.getElementById('user-profile-info').classList.remove('hidden');
                 document.getElementById('nav-profile-pic').src = user.photoURL;
+                document.getElementById('popup-name').innerText = user.displayName;
+                document.getElementById('popup-email').innerText = user.email;
                 document.getElementById('user-name-display').innerText = user.displayName;
                 const label = document.querySelector('.bg-yellow-100'); if(label) label.style.display = 'none';
 
