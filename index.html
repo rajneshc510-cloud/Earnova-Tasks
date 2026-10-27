@@ -350,8 +350,8 @@ window.toggleProfilePopup = function() {
                 const data = snap.data();
                 const todayDate = new Date().toDateString();
                 if (data.lastCheckInDate === todayDate) return alert("Aap aaj ka bonus pehle hi le chuke hain. Kripya kal wapas aayen!");
-                await updateDoc(userRef, { points: (data.points || 0) + 50, lastCheckInDate: todayDate });
-                alert(`Success! 50 Points aapke account mein add ho gaye hain.`);
+                await updateDoc(userRef, { walletBalance: (data.walletBalance || 0) + 0.20, lastCheckInDate: todayDate });
+                alert('Success! ₹0.20 aapke wallet mein add ho gaye hain.');
             }
         };
 
