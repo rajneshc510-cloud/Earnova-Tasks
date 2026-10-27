@@ -609,6 +609,17 @@ window.toggleProfilePopup = function() {
             } else {
                 resultText.innerText = "🎉 Badhai ho! Aap jeete: " + wonPrize;
                 resultText.className = "font-bold text-lg text-green-600 h-6 mb-4";
+                if (auth.currentUser) {
+            const userRef = doc(db, "users", auth.currentUser.uid);
+            getDoc(userRef).then((snap) => {
+                if (snap.exists()) {
+                    let currentBal = snap.data().walletBalance || 0;
+                    // ₹ hata kar sirf number nikalna
+                    let prizeAmount = parseFloat(wonPrize.toString().replace('₹', '')) || 0; 
+                    updateDoc(userRef, { walletBalance: currentBal + prizeAmount });
+                }
+            });
+        }
             }
             
             // Save today's date so they can't spin again
