@@ -416,29 +416,40 @@ window.toggleProfilePopup = function() {
                 alert(`Success! Aapne ${pointsToConvert} points ko ₹${(pointsToConvert/100).toFixed(2)} mein badal liya hai.`);
             }
         };
+         let startedTasks = [];
+window.startAppTask = async function(rewardAmount, taskUrl) {
+    if (!auth.currentUser) return alert("Pehle login karein!");
 
-       window.startAppTask = async function(rewardAmount, taskUrl) {
-            if (!auth.currentUser) return alert("Pehle login karein!");
-            
-            // YAHAN JADU HAI: Naye tab mein aapka asli link khulega
-            if (taskUrl) {
-                window.open(taskUrl, '_blank');
-            }
+    // 1. CHECK: Kya yeh task pehle hi start ho chuka hai?
+    if (startedTasks.includes(taskUrl)) {
+        alert("Aapne yeh task pehle hi shuru kar diya hai! Kripya apna pending task poora karein.");
+        window.open(taskUrl, '_blank');
+        return; // Yahin ruk jao, paise add mat karo
+    }
 
-            alert("Aapko Partner Website par bheja ja raha hai. Kripya apna Account / Task poora karein!");
+    // 2. Agar naya task hai, toh is link ko memory (list) mein save kar lo
+    startedTasks.push(taskUrl);
 
-            const userRef = doc(db, "users", auth.currentUser.uid);
-            const snap = await getDoc(userRef);
-            if (snap.exists()) {
-                await updateDoc(userRef, { walletBalance: (snap.data().walletBalance || 0) + rewardAmount });
-                
-                // Thodi der baad success message dikhayega
-                setTimeout(() => {
-                    alert(`Task Started! ₹${rewardAmount} aapke wallet mein add ho gaye hain. (Note: Asli paise withdraw karne ke liye task poora karna zaroori hai!)`);
-                }, 2000);
-            }
-        };
+    // YAHAN JADU HAI: Naye tab mein aapka asli link khulega
+    if (taskUrl) {
+        window.open(taskUrl, '_blank');
+    }
 
+    alert("Aapko Partner Website par bheja ja raha hai. Kripya apna Account / Task poora karein!");
+
+    // 3. Database mein paise add karne ka code
+    const userRef = doc(db, "users", auth.currentUser.uid);
+    const snap = await getDoc(userRef);
+    if (snap.exists()) {
+        await updateDoc(userRef, { walletBalance: (snap.data().walletBalance || 0) + rewardAmount });
+
+        // Thodi der baad success message dikhayega
+        setTimeout(() => {
+            alert(`Task Started! ₹${rewardAmount} aapke wallet mein add ho gaye hain. (Note: Asli paise withdraw karne ke liye task poora karna zaroori hai!)`);
+        }, 2000);
+    }
+};
+        
         window.requestWithdrawal = async function() {
             if (!auth.currentUser) return alert("Pehle login karein!");
             const paymentMethod = document.getElementById('payment-method').value;
