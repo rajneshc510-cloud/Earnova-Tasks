@@ -267,45 +267,57 @@
             </div>
         </section>
   <!-- WALLET TAB -->
-        <section id="wallet" class="tab-content hidden">
-            <h2 class="text-2xl font-bold text-[#087E8B] mb-6">Wallet & Withdrawals</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+   <!-- WALLET & WITHDRAWALS SECTION -->
+<section id="wallet" class="tab-content hidden p-4 max-w-md mx-auto w-full">
+    <h2 class="text-xl font-bold text-[#087E8B] mb-4">Wallet & Withdrawals</h2>
+    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+        <h3 class="font-bold text-slate-800 mb-4">Withdraw Funds</h3>
+        
+        <!-- Balance Display -->
+        <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 mb-5 text-center">
+            <p class="text-xs text-gray-500 mb-1">Available Cash Balance</p>
+            <p class="text-3xl font-extrabold text-slate-800">₹<span id="wallet-display">245.20</span></p>
+        </div>
 
-                <!-- PURANA WALA WITHDRAW FUNDS WALA DABBA -->
-                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-cyan">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Withdraw Funds</h3>
-                    
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4">
-                        <span class="block text-sm text-gray-600 mb-1">Available Cash Balance:</span>
-                        <span class="text-3xl font-bold text-gray-800">₹<span id="withdraw-balance-display">0.00</span></span>
-                    </div>
+        <!-- Payment Method Dropdown -->
+        <div class="mb-4">
+            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">Payment Method</label>
+            <select id="paymentMethod" onchange="togglePaymentFields()" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm font-medium text-gray-700 bg-white focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
+                <option value="upi">UPI Transfer</option>
+                <option value="bank">Bank Transfer</option>
+            </select>
+        </div>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Payment Method</label>
-                        <select id="payment-method" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-[#087E8B]">
-                            <option value="UPI">UPI Transfer</option>
-                            <option value="Bank">Bank A/c No & IFSC</option>
-                            <option value="Paypal">PayPal</option>
-                        </select>
-                    </div>
+        <!-- UPI Field (Shuru mein yeh dikhega) -->
+        <div id="upiField" class="mb-4">
+            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">UPI ID</label>
+            <input type="text" id="upiId" placeholder="e.g. rajnesh@ybl" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
+        </div>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Enter Details (UPI / A/c No.)</label>
-                        <input type="text" id="payment-detail" placeholder="e.g. rajnesh@upi" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-[#087E8B]">
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Withdrawal Amount (Min ₹50)</label>
-                        <input type="number" id="withdraw-amount" placeholder="Enter amount (e.g. 50)" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-[#087E8B]">
-                    </div>
-                    
-                    <button onclick="requestWithdrawal()" class="w-full bg-[#087E8B] text-white font-bold px-4 py-3 rounded-lg shadow hover:bg-blue-700 transition">
-                        Withdraw Money
-                    </button>
-                </div>
+        <!-- Bank Fields (Shuru mein chupa rahega) -->
+        <div id="bankFields" class="mb-4 hidden space-y-4">
+            <div>
+                <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">Account Number</label>
+                <input type="number" id="bankAcc" placeholder="Enter Bank A/c No." class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
             </div>
-        </section>
+            <div>
+                <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">IFSC Code</label>
+                <input type="text" id="bankIfsc" placeholder="e.g. SBIN0001234" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm uppercase focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
+            </div>
+        </div>
+
+        <!-- Amount Field -->
+        <div class="mb-6">
+            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">Withdrawal Amount (Min ₹50)</label>
+            <input type="number" id="withdrawAmount" placeholder="Enter amount (e.g. 50)" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
+        </div>
+
+        <!-- Submit Button -->
+        <button onclick="processWithdraw()" class="w-full bg-[#087E8B] text-white font-bold py-3.5 rounded-xl shadow-md hover:bg-[#066570] hover:shadow-lg transition-all active:scale-[0.98]">
+            Withdraw Money
+        </button>
+    </div>
+</section>
     </main>
 
     <!-- LOGIN MODAL (Popup Form) -->
@@ -612,6 +624,19 @@ window.startAppTask = async function(rewardAmount, taskUrl) {
 </div>
 
 <script>
+    function togglePaymentFields() {
+    let method = document.getElementById('paymentMethod').value;
+    let upiField = document.getElementById('upiField');
+    let bankFields = document.getElementById('bankFields');
+
+    if (method === 'upi') {
+        upiField.classList.remove('hidden');
+        bankFields.classList.add('hidden');
+    } else if (method === 'bank') {
+        upiField.classList.add('hidden');
+        bankFields.classList.remove('hidden');
+    }
+}
     let currentRotation = 0;
     let isSpinning = false;
     // Prizes array matches the slices on the wheel
