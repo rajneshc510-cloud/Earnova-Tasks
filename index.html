@@ -11,7 +11,7 @@
    <script src="https://cdn.tailwindcss.com"></script>
 <script>
     tailwind.config = {
-        theme: { extend: { colors: { royalblue: '#087E8B', cyan: '#087E8B', } } }
+        theme: { extend: { colors: { [#087E8B]: '#087E8B', cyan: '#087E8B', } } }
     }
 </script>
     <style>
@@ -26,7 +26,7 @@
 <body class="text-slate-800 relative">
 
     <!-- Navbar -->
-    <nav class="bg-royalblue text-white shadow-lg sticky top-0 z-50">
+    <nav class="bg-[#087E8B] text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4">
         <div class="flex flex-wrap items-center justify-between py-3">
     <!-- 1. Left Side: Logo -->
@@ -37,7 +37,7 @@
 
     <!-- 2. Right Side: Login/Logout -->
     <div class="flex items-center gap-2">
-        <button id="nav-login-btn" onclick="openLoginModal()" class="bg-white text-royalblue font-bold px-4 py-1 rounded-lg shadow hover:bg-gray-100 transition text-sm">Login</button>
+        <button id="nav-login-btn" onclick="openLoginModal()" class="bg-white text-[#087E8B] font-bold px-4 py-1 rounded-lg shadow hover:bg-gray-100 transition text-sm">Login</button>
     <div id="user-profile-info" class="hidden relative flex items-center">
     <!-- Gol Profile Image (Ab click par popup khulega) -->
     <img id="nav-profile-pic" src="" alt="Profile" onclick="toggleProfilePopup()" class="w-9 h-9 rounded-full border-2 border-green-400 cursor-pointer shadow-md hover:scale-105 transition-transform object-cover">
@@ -75,7 +75,7 @@
         <!-- DASHBOARD TAB -->
         <section id="dashboard" class="tab-content active">
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-royalblue">Welcome, <span id="user-name-display">Guest</span>!</h1>
+                <h1 class="text-3xl font-bold text-[#087E8B]">Welcome, <span id="user-name-display">Guest</span>!</h1>
             </div>
           <!-- DASHBOARD AD BANNER -->
 <div class="w-full bg-gray-200 border border-gray-300 text-center py-3 mb-4 mt-2 rounded-lg shadow-inner">
@@ -145,8 +145,8 @@
             </div>
         </div>
         <div class="flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto mt-3 sm:mt-0 gap-1.5 shrink-0 ml-0 sm:ml-2">
-            <span class="font-bold text-royalblue text-sm">₹50</span>
-            <button onclick="window.open(' https://r.navi.com/gjH5QE', '_blank')" class="bg-royalblue text-white text-[10px] sm:text-xs font-bold px-4 sm:px-3 py-2 sm:py-1.5 rounded shadow hover:bg-blue-700 transition">Start Task</button>
+            <span class="font-bold text-[#087E8B] text-sm">₹50</span>
+            <button onclick="window.open(' https://r.navi.com/gjH5QE', '_blank')" class="bg-[#087E8B] text-white text-[10px] sm:text-xs font-bold px-4 sm:px-3 py-2 sm:py-1.5 rounded shadow hover:bg-blue-700 transition">Start Task</button>
         </div>
     </div>
 </div>
@@ -208,8 +208,8 @@
             </div>
         </div>
         <div class="flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto mt-3 sm:mt-0 gap-1.5 shrink-0 ml-0 sm:ml-2">
-            <span class="font-bold text-royalblue text-sm">₹50</span>
-            <button onclick="window.open('https://angel-one.onelink.me/Wjgr/jmfsje9r', '_blank')" class="bg-royalblue text-white text-[10px] sm:text-xs font-bold px-4 sm:px-3 py-2 sm:py-1.5 rounded shadow hover:bg-blue-700 transition">Start Task</button>
+            <span class="font-bold text-[#087E8B] text-sm">₹50</span>
+            <button onclick="window.open('https://angel-one.onelink.me/Wjgr/jmfsje9r', '_blank')" class="bg-[#087E8B] text-white text-[10px] sm:text-xs font-bold px-4 sm:px-3 py-2 sm:py-1.5 rounded shadow hover:bg-blue-700 transition">Start Task</button>
         </div>
     </div>
 </div>
@@ -217,7 +217,7 @@
         </section>
         <!-- REFER TAB -->
         <section id="refer" class="tab-content hidden">
-            <h2 class="text-2xl font-bold text-royalblue mb-6">Invite Friends & Earn</h2>
+            <h2 class="text-2xl font-bold text-[#087E8B] mb-6">Invite Friends & Earn</h2>
            <!-- REFER PAGE AD BANNER START -->
 <div class="w-full max-w-2xl mx-auto bg-gray-50 border-2 border-dashed border-gray-300 p-4 mb-6 rounded-lg text-center flex flex-col justify-center items-center min-h-[90px] shadow-sm">
     <span class="text-xs uppercase tracking-widest text-gray-400 mb-1">Advertisement</span>
@@ -257,7 +257,7 @@
         </section>
   <!-- WALLET TAB -->
         <section id="wallet" class="tab-content hidden">
-            <h2 class="text-2xl font-bold text-royalblue mb-6">Wallet & Withdrawals</h2>
+            <h2 class="text-2xl font-bold text-[#087E8B] mb-6">Wallet & Withdrawals</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -272,7 +272,7 @@
 
                     <div class="mb-4">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Payment Method</label>
-                        <select id="payment-method" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-royalblue">
+                        <select id="payment-method" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-[#087E8B]">
                             <option value="UPI">UPI Transfer</option>
                             <option value="Bank">Bank A/c No & IFSC</option>
                             <option value="Paypal">PayPal</option>
@@ -281,15 +281,15 @@
 
                     <div class="mb-4">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Enter Details (UPI / A/c No.)</label>
-                        <input type="text" id="payment-detail" placeholder="e.g. rajnesh@upi" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-royalblue">
+                        <input type="text" id="payment-detail" placeholder="e.g. rajnesh@upi" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-[#087E8B]">
                     </div>
 
                     <div class="mb-6">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Withdrawal Amount (Min ₹50)</label>
-                        <input type="number" id="withdraw-amount" placeholder="Enter amount (e.g. 50)" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-royalblue">
+                        <input type="number" id="withdraw-amount" placeholder="Enter amount (e.g. 50)" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-[#087E8B]">
                     </div>
                     
-                    <button onclick="requestWithdrawal()" class="w-full bg-royalblue text-white font-bold px-4 py-3 rounded-lg shadow hover:bg-blue-700 transition">
+                    <button onclick="requestWithdrawal()" class="w-full bg-[#087E8B] text-white font-bold px-4 py-3 rounded-lg shadow hover:bg-blue-700 transition">
                         Withdraw Money
                     </button>
                 </div>
@@ -304,17 +304,17 @@
             
             <!-- YAHAN LOGIN BOX MEIN BADA LOGO LAGA DIYA HAI -->
             <div class="text-4xl font-bold mb-2 flex items-center justify-center gap-2">
-                <img src="logo.png" class="h-12 w-12 rounded-full object-cover border-2 border-royalblue bg-white" alt="Earnova Logo">
+                <img src="logo.png" class="h-12 w-12 rounded-full object-cover border-2 border-[#087E8B] bg-white" alt="Earnova Logo">
                 Earnova
             </div>
             
             <p class="text-sm text-gray-500 text-center mb-6">Login to your Earnova account</p>
             
             <!-- Email & Password Form -->
-            <input type="email" placeholder="Email Address" class="w-full mb-4 px-4 py-3 border rounded-lg focus:outline-none focus:border-royalblue focus:ring-1 focus:ring-royalblue">
-            <input type="password" placeholder="Password" class="w-full mb-6 px-4 py-3 border rounded-lg focus:outline-none focus:border-royalblue focus:ring-1 focus:ring-royalblue">
+            <input type="email" placeholder="Email Address" class="w-full mb-4 px-4 py-3 border rounded-lg focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B]">
+            <input type="password" placeholder="Password" class="w-full mb-6 px-4 py-3 border rounded-lg focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B]">
             
-            <button onclick="simulateLogin('Rajnesh')" class="w-full bg-royalblue text-white font-bold py-3 rounded-lg mb-4 hover:bg-blue-700 shadow-md">Login</button>
+            <button onclick="simulateLogin('Rajnesh')" class="w-full bg-[#087E8B] text-white font-bold py-3 rounded-lg mb-4 hover:bg-blue-700 shadow-md">Login</button>
             
             <div class="flex items-center justify-center gap-2 mb-4">
                 <hr class="w-full border-gray-200">
