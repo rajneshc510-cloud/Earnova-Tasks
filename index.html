@@ -830,22 +830,6 @@ function closePopup() {
     document.getElementById('taskPopup').classList.add('hidden');
     document.getElementById('taskPopup').classList.remove('flex');
 }
-
- // SMART SYNC: Wallet ka balance Dashboard par auto-copy karne ke liye
-setInterval(() => {
-    let dashboard = document.getElementById('dashboard-balance');
-    let wallet = document.getElementById('wallet-display');
-    
-    // Wallet se paise copy karke Dashboard par ₹ ke saath paste karega
-    if (dashboard && wallet && wallet.innerText !== "0.00") {
-        // Yeh check karta hai ki agar already ₹ nahi laga hai, toh laga de
-        let amount = wallet.innerText;
-        if (!amount.includes('₹')) {
-            amount = '₹' + amount;
-        }
-        dashboard.innerText = amount;
-    }
-}, 1000);
     
 </script>
     
