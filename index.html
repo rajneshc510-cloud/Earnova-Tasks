@@ -119,20 +119,6 @@
         <section id="tasks" class="tab-content">
             <h2 class="text-2xl font-bold text-[#087E8B] mb-6">Earn Points & Cash</h2>
             
-            <!-- NAYA: DAILY BONUS SECTION -->
-            <div class="bg-gradient-to-r from-yellow-400 to-orange-500 p-1 rounded-xl shadow-lg mb-8 relative">
-                <div class="bg-white p-6 rounded-lg flex flex-col md:flex-row items-center justify-between">
-                    <div class="flex items-center mb-4 md:mb-0">
-                        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center text-4xl mr-4 shadow-sm">🎁</div>
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800">Daily Check-in Bonus</h3>
-                            <p class="text-sm text-gray-600">Come back every day to claim ₹0.20!</p>
-                        </div>
-                    </div>
-                    <button id="daily-checkin-btn" onclick="claimDailyBonus()" class="bg-yellow-500 text-white font-bold px-8 py-3 rounded-full shadow-md hover:bg-yellow-600 transition flex items-center">
-                        Claim ₹0.20
-                    </button>
-                </div>
                 <!-- Niche wali line mein aage chalkar AdSense ka Banner code lagega -->
                 <div class="text-center text-white text-[10px] py-1 font-semibold tracking-widest uppercase">Advertisement Space</div>
             </div>
@@ -635,6 +621,21 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     </script>
+    
+    <!-- NAYA: DAILY BONUS SECTION -->
+            <div class="bg-gradient-to-r from-yellow-400 to-orange-500 p-1 rounded-xl shadow-lg mb-8 relative">
+                <div class="bg-white p-6 rounded-lg flex flex-col md:flex-row items-center justify-between">
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center text-4xl mr-4 shadow-sm">🎁</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">Daily Check-in Bonus</h3>
+                            <p class="text-sm text-gray-600">Come back every day to claim ₹0.20!</p>
+                        </div>
+                    </div>
+                    <button id="daily-checkin-btn" onclick="claimDailyBonus()" class="bg-yellow-500 text-white font-bold px-8 py-3 rounded-full shadow-md hover:bg-yellow-600 transition flex items-center">
+                        Claim ₹0.20
+                    </button>
+                </div>
 
 <!-- SPIN & EARN SECTION -->
 <section id="spin-page" class="tab-content hidden p-3 sm:p-4 max-w-sm mx-auto w-full">
