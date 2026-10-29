@@ -42,11 +42,11 @@
 
             <!-- 2. MENU (Desktop par Center mein, Mobile par niche) -->
             <div class="w-full md:w-auto md:flex-1 order-last md:order-none mt-3 md:mt-0 flex items-center justify-between md:justify-center gap-1 sm:gap-4 overflow-x-auto pb-1 md:pb-0">
-                <button class="tab-btn active text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-white bg-white/20 whitespace-nowrap transition-all shadow-sm" onclick="showTab('dashboard')">Dashboard</button>
-                <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('tasks')">Tasks</button>
-                <button class="tab-btn text-[10px] sm:text-sm font-bold py-1.5 px-3 sm:px-4 rounded-full border border-yellow-400 text-yellow-300 bg-yellow-400/10 hover:bg-yellow-400/20 whitespace-nowrap transition-all" onclick="showTab('refer')">Refer & Earn</button>
-                <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('wallet')">Wallet</button>
-                <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('spin-page')">Spin</button>
+               <button id="btn-dashboard" class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-white hover:bg-white/20 whitespace-nowrap transition-all duration-200" onclick="showTab('dashboard', this)">Dashboard</button>
+               <button id="btn-tasks" class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-white hover:bg-white/20 whitespace-nowrap transition-all duration-200" onclick="showTab('tasks', this)">Tasks</button>
+               <button id="btn-refer" class="tab-btn text-[10px] sm:text-sm font-bold py-1.5 px-3 sm:px-4 rounded-full border border-yellow-400 text-yellow-300 bg-yellow-400/10 hover:bg-yellow-400/20 whitespace-nowrap transition-all duration-200" onclick="showTab('refer', this)">Refer & Earn</button>
+               <button id="btn-wallet" class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-white hover:bg-white/20 whitespace-nowrap transition-all duration-200" onclick="showTab('wallet', this)">Wallet</button>
+               <button id="btn-spin" class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-white hover:bg-white/20 whitespace-nowrap transition-all duration-200" onclick="showTab('spin-page', this)">Spin</button>
             </div>
 
             <!-- 3. LOGIN & PROFILE (Hamesha Right side) -->
@@ -579,10 +579,49 @@ window.startAppTask = async function(rewardAmount, taskUrl) {
     </script>
     <!-- UI aur Tabs ka Script -->
     <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+      // Naya showTab function jo buttons ko bhi update karega
+function showTab(tabId, clickedButton) {
+    // 1. Saare tab content chhupayein
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.classList.add('hidden');
+    });
+
+    // 2. Sirf select kiya hua tab dikhayein
+    const selectedTab = document.getElementById(tabId);
+    if (selectedTab) {
+        selectedTab.classList.remove('hidden');
+        selectedTab.classList.add('active');
+    }
+
+    // 3. Agar button par click kiya gaya hai, toh usko highlight karein
+    if (clickedButton) {
+        // Pehle saare buttons se highlight (bg-white/20 aur shadow) hata dein
+        const allTabButtons = document.querySelectorAll('.tab-btn');
+        allTabButtons.forEach(btn => {
+            if(btn.id !== 'btn-refer') {
+                btn.classList.remove('bg-white/20', 'shadow-sm');
+                btn.classList.add('hover:bg-white/20');
+            }
+        });
+
+        // Ab jis button par click hua hai, uspar highlight laga dein
+        if(clickedButton.id !== 'btn-refer') {
+            clickedButton.classList.remove('hover:bg-white/20');
+            clickedButton.classList.add('bg-white/20', 'shadow-sm');
         }
+    }
+}
+
+// Page load hone par Dashboard ko default active set karein
+document.addEventListener("DOMContentLoaded", function() {
+    let dashboardBtn = document.getElementById('btn-dashboard');
+    if(dashboardBtn) {
+        dashboardBtn.classList.add('bg-white/20', 'shadow-sm');
+        dashboardBtn.classList.remove('hover:bg-white/20');
+    }
+});
 
         function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
         function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
