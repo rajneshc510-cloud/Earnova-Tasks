@@ -54,18 +54,32 @@
                     <img id="nav-profile-pic" src="" alt="Profile" onclick="window.toggleProfilePopup()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-green-400 cursor-pointer shadow-md hover:scale-105 transition-transform object-cover">
                     
                     <!-- Dropdown -->
-                    <div id="profile-popup" class="hidden absolute right-0 top-12 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden text-left">
-                        <div class="p-3 border-b border-gray-100 bg-gray-50">
-                            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">Logged in as</p>
-                            <p id="popup-user-name" class="text-sm font-bold text-gray-800 truncate">User</p>
-                        </div>
-                        <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm font-bold text-red-600 hover:bg-red-50 transition-colors">
-                            🚪 Logout
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+                    <!-- Profile Dropdown -->
+<div id="profile-popup" class="hidden absolute right-0 top-12 w-60 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden text-left">
+    
+    <!-- User Info Section -->
+    <div class="p-3.5 border-b border-gray-100 bg-gray-50">
+        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Logged in as</p>
+        <p id="popup-user-name" class="text-sm font-bold text-gray-800 truncate">Guest</p>
+        <p id="popup-user-email" class="text-xs text-gray-500 truncate mt-0.5">guest@email.com</p>
+    </div>
+    
+    <!-- Menu Section -->
+    <div class="flex flex-col py-1">
+        
+        <!-- Help & Support -->
+        <button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors flex items-center gap-2">
+            🎧 Help & Support
+        </button>
+        
+        <!-- Logout -->
+        <button onclick="logout()" class="w-full text-left px-4 py-2.5 text-sm font-bold text-red-600 border-t border-gray-100 hover:bg-red-50 transition-colors flex items-center gap-2">
+            🚪 Logout
+        </button>
+        
+    </div>
+</div>
+                    
             <!-- 3. NAVIGATION MENU (Center) -->
             <div class="w-full md:w-auto order-3 md:order-2 mt-3 md:mt-0 flex items-center justify-between sm:justify-center gap-1 sm:gap-4 overflow-x-auto pb-1 md:pb-0">
                 <button class="tab-btn active text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-white bg-white/20 whitespace-nowrap transition-all" onclick="showTab('dashboard')">Dashboard</button>
