@@ -556,6 +556,7 @@ window.startAppTask = async function(rewardAmount, taskUrl) {
                         updateEl('points-display', data.points || 0);
                         updateEl('wallet-points-display', data.points || 0);
                         updateEl('wallet-display', (data.walletBalance || 0).toFixed(2));
+                        updateEl('dashboard-balance', (data.walletBalance || 0).toFixed(2));
                         updateEl('withdraw-balance-display', (data.walletBalance || 0).toFixed(2));
                         updateEl('pending-display', (data.pendingWithdrawals || 0).toFixed(2));
 
