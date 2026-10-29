@@ -727,35 +727,32 @@ window.startAppTask = async function(rewardAmount, taskUrl) {
             resultText.innerText = "🎉 Badhai ho! Aap jeete: " + wonPrize;
             resultText.className = "font-bold text-lg text-green-400 h-6 mb-4 drop-shadow-md relative z-10";
 
-            // 1. Prize Amount nikalein
             let prizeAmount = parseFloat(wonPrize.replace("₹", ""));
-            
-            // 2. Wallet ka purana balance uthayein
             let walletDisplay = document.getElementById('wallet-display');
             let currentBal = 0;
+            
             if (walletDisplay) {
                 currentBal = parseFloat(walletDisplay.innerText) || 0;
             }
             
-            // 3. Naya Balance banayein
             let newBalance = currentBal + prizeAmount;
             
-            // 4. Sabse pehle turant website (UI) par paise badha dein
+            // 1. Pehle screen par balance badhayein
             if (walletDisplay) {
                 walletDisplay.innerText = newBalance.toFixed(2);
             }
 
-            // 5. Ab background mein chupchap Firebase (Database) mein update karein
-            try {
-                if (typeof auth !== 'undefined' && auth.currentUser) {
-                    const userRef = doc(db, "users", auth.currentUser.uid);
-                    updateDoc(userRef, { walletBalance: newBalance });
-                }
-            } catch (err) {
-                console.log("Database update nahi hua: ", err);
+            // 2. Asli Database update (Aapka purana aur bilkul sahi tarika)
+            if (typeof updateDoc !== 'undefined' && typeof userRef !== 'undefined') {
+                updateDoc(userRef, { walletBalance: newBalance })
+                .then(() => {
+                    console.log("Success! Firebase database mein naya balance save ho gaya.");
+                })
+                .catch((error) => {
+                    console.log("Database update fail ho gaya: ", error);
+                });
             }
 
-            // 6. Success ka Popup dikhayein
             alert("Success! " + wonPrize + " aapke wallet mein add ho gaye hain.");
         }
 
