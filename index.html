@@ -712,49 +712,48 @@ window.startAppTask = async function(rewardAmount, taskUrl) {
         
         wheel.style.transform = `rotate(${currentRotation}deg)`;
         
-        setTimeout(() => {
-            // Find exactly which prize is at the TOP (Teer ke paas)
-            let pointerAngle = (360 - (currentRotation % 360)) % 360;
-            let winningIndex = Math.floor(pointerAngle / 60);
-            let wonPrize = prizes[winningIndex];
-            
-            if(wonPrize === "Try Again") {
-                resultText.innerText = "Oops! Try Again Tomorrow.";
-                resultText.className = "font-bold text-lg text-red-500 h-6 mb-4";
-            } else {
-                resultText.innerText = "🎉 Badhai ho! Aap jeete: " + wonPrize;
-                resultText.className = "font-bold text-lg text-green-600 h-6 mb-4";
-        
-        if (auth.currentUser) {
-            const userRef = doc(db, "users", auth.currentUser.uid);
-            getDoc(userRef).then((snap) => {
-                if (snap.exists()) {
-                    let currentBal = parseFloat(snap.data().walletBalance) || 0;
-                    let prizeAmount = parseFloat(wonPrize.toString().replace('₹', '').trim()) || 0;
-                    let newBalance = currentBal + prizeAmount;
-                    
-                    // Database mein save karna
-                    updateDoc(userRef, { walletBalance: newBalance }).then(() => {
-                        // Dashboard screen ko bhi turant update karna
-                        let walletDisplay = document.getElementById('wallet-display');
-                        if (walletDisplay) {
-                            walletDisplay.innerText = newBalance.toFixed(2);
-                        }
-                        // NAYA: Yeh popup confirm karega ki paise add ho gaye!
-                        alert("Success! ₹" + prizeAmount + " aapke wallet mein add ho gaye hain. Upar 'Dashboard' par click karke check karein!");
-                    });
-                }
-            });
-        }
+       setTimeout(() => {
+        let pointerAngle = (360 - (currentRotation % 360)) % 360;
+        let winningIndex = Math.floor(pointerAngle / 60);
+        let prizes = ["₹0.10", "Try Again", "₹0.50", "₹0.20", "₹0.30", "₹0.25"];
+        let wonPrize = prizes[winningIndex];
+
+        let resultText = document.getElementById("spinResult");
+
+        if (wonPrize === "Try Again") {
+            resultText.innerText = "Oops! Try Again Tomorrow.";
+            resultText.className = "font-bold text-lg text-red-500 h-6 mb-4 drop-shadow-md relative z-10";
+        } else {
+            resultText.innerText = "🎉 Badhai ho! Aap jeete: " + wonPrize;
+            resultText.className = "font-bold text-lg text-green-400 h-6 mb-4 drop-shadow-md relative z-10";
+
+            // Database (Firebase) mein paise add karne ka sahi logic
+            if (auth.currentUser) {
+                const userRef = doc(db, "users", auth.currentUser.uid);
+                getDoc(userRef).then((snap) => {
+                    if (snap.exists()) {
+                        let currentBal = parseFloat(snap.data().walletBalance) || 0;
+                        let prizeAmount = parseFloat(wonPrize.replace("₹", ""));
+                        let newBalance = currentBal + prizeAmount;
+                        
+                        updateDoc(userRef, { walletBalance: newBalance }).then(() => {
+                            let walletDisplay = document.getElementById('wallet-display');
+                            if (walletDisplay) {
+                                walletDisplay.innerText = newBalance.toFixed(2);
+                            }
+                            alert("Success! " + wonPrize + " aapke wallet mein add ho gaye hain. Upar Wallet mein check karein!");
+                        }).catch(err => console.log("Error updating balance:", err));
+                    }
+                }).catch(err => console.log("Error getting user:", err));
             }
-            
-            // Save today's date so they can't spin again
-            localStorage.setItem('earnova_last_spin', new Date().toDateString());
-            
-            // Lock the button
-            checkDailyLimit();
-            isSpinning = false;
-        }, 4000);
+        }
+
+        // Aaj ka spin lock karna (Taki koi dobara na ghuma paye)
+        localStorage.setItem('earnova_last_spin', new Date().toDateString());
+        checkDailyLimit();
+        isSpinning = false;
+    }, 4000);
+        
     }
     function openPopup(title, amount, link, termsId) {
     document.getElementById('popupTitle').innerText = title;
