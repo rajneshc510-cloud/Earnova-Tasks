@@ -61,26 +61,29 @@
     </div>
 
     <!-- 3. Bottom Row: Menu -->
-    <nav class="flex w-full items-center gap-2 text-[12px] sm:text-sm font-medium overflow-x-auto whitespace-nowrap pt-3 pb-1 mt-1 justify-start sm:justify-center">
-    <button onclick="showTab('dashboard')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-white hover:bg-white/20 transition-all duration-200">
-         Dashboard
+ <!-- TOP NAVIGATION MENU (Mobile Optimized) -->
+<nav class="flex items-center justify-between w-full max-w-md mx-auto px-1 sm:px-4 mt-4 overflow-hidden">
+    
+    <button class="tab-btn active text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-white bg-white/20 whitespace-nowrap transition-all" onclick="showTab('dashboard')">
+        Dashboard
     </button>
     
-    <button onclick="showTab('tasks')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-white hover:bg-white/20 transition-all duration-200">
-         Tasks
+    <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('tasks')">
+        Tasks
     </button>
     
-    <button onclick="showTab('refer')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-yellow-400/20 text-yellow-300 border border-yellow-400/30 font-bold hover:bg-yellow-400/30 shadow-sm transition-all duration-200">
-         Refer & Earn
+    <button class="tab-btn text-[10px] sm:text-sm font-bold py-1.5 px-2 sm:px-4 rounded-full border border-yellow-400 text-yellow-300 bg-yellow-400/10 hover:bg-yellow-400/20 whitespace-nowrap transition-all" onclick="showTab('refer')">
+        Refer & Earn
     </button>
     
-    <button onclick="showTab('wallet')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-white hover:bg-white/20 transition-all duration-200">
-         Wallet
+    <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('wallet')">
+        Wallet
     </button>
     
-    <button onclick="showTab('spin-page')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-green-300 hover:bg-white/20 transition-all duration-200">
-         Spin
+    <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('spin-page')">
+        Spin
     </button>
+
 </nav>
 </div>
                 </div>
