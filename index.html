@@ -99,7 +99,7 @@
              
                 <div class="bg-white p-6 rounded-xl shadow border-t-4 border-cyan">
                     <h3 class="text-gray-500 text-sm font-semibold">💳 Withdrawable Cash</h3>
-                 <p class="text-3xl font-bold text-gray-800 mt-2">₹<span id="wallet-display">0.00</span></p>
+                 <p class="text-3xl font-bold text-gray-800 mt-2" id="dashboard-balance">₹0.00</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow border-t-4 border-[#087E8B]">
                     <h3 class="text-gray-500 text-sm font-semibold">✅ Completed Tasks</h3>
@@ -830,7 +830,20 @@ function closePopup() {
     document.getElementById('taskPopup').classList.add('hidden');
     document.getElementById('taskPopup').classList.remove('flex');
 }
+
+   // SMART SYNC: Wallet ka balance Dashboard par auto-copy karne ke liye
+setInterval(() => {
+    let dashboard = document.getElementById('dashboard-balance');
+    let wallet = document.getElementById('wallet-display');
+    
+    // Wallet se paise copy karke Dashboard par paste karega
+    if (dashboard && wallet && wallet.innerText !== "0.00") {
+        dashboard.innerText = wallet.innerText;
+    }
+}, 1000);
+    
 </script>
+    
 <!-- NAYA SPIN AND EARN SECTION END -->
 </div>
 <!-- TASK TERMS POPUP -->
