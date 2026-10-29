@@ -403,6 +403,19 @@
 window.toggleProfilePopup = function() {
     document.getElementById('profile-popup').classList.toggle('hidden');
 };
+        // Bahar (empty space) click karne par popup band karne ka smart code
+document.addEventListener('click', function(event) {
+    let popup = document.getElementById('profile-popup');
+    let profilePic = document.getElementById('nav-profile-pic');
+    
+    // Check karein ki popup khula hai ya nahi
+    if (popup && !popup.classList.contains('hidden')) {
+        // Agar click profile photo par nahi hai, aur popup dabbe ke andar bhi nahi hai, toh band kar do
+        if (event.target !== profilePic && !popup.contains(event.target)) {
+            popup.classList.add('hidden');
+        }
+    }
+});
         // NAYA: COPY REFERRAL LINK FUNCTION
         window.copyReferralLink = function() {
             const linkInput = document.getElementById('referral-link');
