@@ -727,28 +727,39 @@ window.startAppTask = async function(rewardAmount, taskUrl) {
             resultText.innerText = "🎉 Badhai ho! Aap jeete: " + wonPrize;
             resultText.className = "font-bold text-lg text-green-400 h-6 mb-4 drop-shadow-md relative z-10";
 
-            // Database (Firebase) mein paise add karne ka sahi logic
-            if (auth.currentUser) {
-                const userRef = doc(db, "users", auth.currentUser.uid);
-                getDoc(userRef).then((snap) => {
-                    if (snap.exists()) {
-                        let currentBal = parseFloat(snap.data().walletBalance) || 0;
-                        let prizeAmount = parseFloat(wonPrize.replace("₹", ""));
-                        let newBalance = currentBal + prizeAmount;
-                        
-                        updateDoc(userRef, { walletBalance: newBalance }).then(() => {
-                            let walletDisplay = document.getElementById('wallet-display');
-                            if (walletDisplay) {
-                                walletDisplay.innerText = newBalance.toFixed(2);
-                            }
-                            alert("Success! " + wonPrize + " aapke wallet mein add ho gaye hain. Upar Wallet mein check karein!");
-                        }).catch(err => console.log("Error updating balance:", err));
-                    }
-                }).catch(err => console.log("Error getting user:", err));
+            // 1. Prize Amount nikalein
+            let prizeAmount = parseFloat(wonPrize.replace("₹", ""));
+            
+            // 2. Wallet ka purana balance uthayein
+            let walletDisplay = document.getElementById('wallet-display');
+            let currentBal = 0;
+            if (walletDisplay) {
+                currentBal = parseFloat(walletDisplay.innerText) || 0;
             }
+            
+            // 3. Naya Balance banayein
+            let newBalance = currentBal + prizeAmount;
+            
+            // 4. Sabse pehle turant website (UI) par paise badha dein
+            if (walletDisplay) {
+                walletDisplay.innerText = newBalance.toFixed(2);
+            }
+
+            // 5. Ab background mein chupchap Firebase (Database) mein update karein
+            try {
+                if (typeof auth !== 'undefined' && auth.currentUser) {
+                    const userRef = doc(db, "users", auth.currentUser.uid);
+                    updateDoc(userRef, { walletBalance: newBalance });
+                }
+            } catch (err) {
+                console.log("Database update nahi hua: ", err);
+            }
+
+            // 6. Success ka Popup dikhayein
+            alert("Success! " + wonPrize + " aapke wallet mein add ho gaye hain.");
         }
 
-        // Aaj ka spin lock karna (Taki koi dobara na ghuma paye)
+        // Aaj ka spin lock karein
         localStorage.setItem('earnova_last_spin', new Date().toDateString());
         checkDailyLimit();
         isSpinning = false;
