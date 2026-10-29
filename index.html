@@ -29,32 +29,31 @@
 
 <body class="text-slate-800 relative">
 
- <!-- MAIN HEADER START -->
+<!-- MAIN HEADER START -->
 <nav class="bg-[#087E8B] text-white shadow-lg sticky top-0 z-50">
-    
-    <!-- Top Row: Logo & Login/Profile -->
-    <div class="max-w-6xl mx-auto px-4">
-        <div class="flex flex-wrap items-center justify-between py-3">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4">
+        <!-- Flex Container: Laptop par 1 line, Phone par 2 line -->
+        <div class="flex flex-wrap items-center justify-between py-2 md:py-3">
             
-            <!-- Left Side: Logo -->
-            <div class="text-xl font-bold flex items-center gap-2">
-                <img src="logo.png" class="h-8 w-8 rounded-full object-cover border border-cyan bg-white" alt="Earnova Logo">
-                Earnova
+            <!-- 1. LOGO (Left) -->
+            <div class="flex items-center gap-2 order-1">
+                <img src="logo.png" class="h-8 w-8 rounded-full bg-white p-0.5 object-cover" alt="Earnova Logo">
+                <span class="text-xl font-bold tracking-wide">Earnova</span>
             </div>
 
-            <!-- Right Side: Login Button & Profile -->
-            <div class="flex items-center gap-2">
+            <!-- 2. PROFILE & LOGIN (Right) -->
+            <div class="flex items-center gap-2 order-2 md:order-3">
                 
-                <!-- Guest User ke liye Login Button -->
-                <button id="nav-login-btn" onclick="openLoginModal()" class="bg-white text-[#087E8B] font-bold px-4 py-1.5 rounded-lg shadow-md hover:bg-gray-100 transition text-sm">
+                <!-- Guest Login Button -->
+                <button id="nav-login-btn" onclick="openLoginModal()" class="bg-white text-[#087E8B] font-bold px-4 py-1.5 rounded-lg shadow-md text-xs sm:text-sm hover:bg-gray-100 transition">
                     Login
                 </button>
                 
-                <!-- Logged-in User ke liye Profile Pic & Dropdown -->
+                <!-- Logged-in User Profile -->
                 <div id="user-profile-info" class="hidden relative flex items-center">
-                    <img id="nav-profile-pic" src="" alt="Profile" onclick="window.toggleProfilePopup()" class="w-9 h-9 rounded-full border-2 border-green-400 cursor-pointer shadow-md hover:scale-105 transition-transform object-cover">
+                    <img id="nav-profile-pic" src="" alt="Profile" onclick="window.toggleProfilePopup()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-green-400 cursor-pointer shadow-md hover:scale-105 transition-transform object-cover">
                     
-                    <!-- Profile Dropdown -->
+                    <!-- Dropdown -->
                     <div id="profile-popup" class="hidden absolute right-0 top-12 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden text-left">
                         <div class="p-3 border-b border-gray-100 bg-gray-50">
                             <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">Logged in as</p>
@@ -65,21 +64,19 @@
                         </button>
                     </div>
                 </div>
-                
             </div>
-            
+
+            <!-- 3. NAVIGATION MENU (Center) -->
+            <div class="w-full md:w-auto order-3 md:order-2 mt-3 md:mt-0 flex items-center justify-between sm:justify-center gap-1 sm:gap-4 overflow-x-auto pb-1 md:pb-0">
+                <button class="tab-btn active text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-white bg-white/20 whitespace-nowrap transition-all" onclick="showTab('dashboard')">Dashboard</button>
+                <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('tasks')">Tasks</button>
+                <button class="tab-btn text-[10px] sm:text-sm font-bold py-1.5 px-2 sm:px-4 rounded-full border border-yellow-400 text-yellow-300 bg-yellow-400/10 hover:bg-yellow-400/20 whitespace-nowrap transition-all" onclick="showTab('refer')">Refer & Earn</button>
+                <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('wallet')">Wallet</button>
+                <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('spin-page')">Spin</button>
+            </div>
+
         </div>
     </div>
-
-    <!-- Bottom Row: Navigation Menu (Mobile Optimized) -->
-    <div class="flex items-center justify-between sm:justify-center sm:gap-4 w-full max-w-md sm:max-w-3xl mx-auto px-2 sm:px-4 pb-3 overflow-hidden">
-        <button class="tab-btn active text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-white bg-white/20 whitespace-nowrap transition-all" onclick="showTab('dashboard')">Dashboard</button>
-        <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('tasks')">Tasks</button>
-        <button class="tab-btn text-[10px] sm:text-sm font-bold py-1.5 px-2 sm:px-4 rounded-full border border-yellow-400 text-yellow-300 bg-yellow-400/10 hover:bg-yellow-400/20 whitespace-nowrap transition-all" onclick="showTab('refer')">Refer & Earn</button>
-        <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('wallet')">Wallet</button>
-        <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-2 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('spin-page')">Spin</button>
-    </div>
-    
 </nav>
     
 <!-- MAIN HEADER END -->
