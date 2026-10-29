@@ -42,7 +42,7 @@
 
             <!-- 2. MENU (Desktop par Center mein, Mobile par niche) -->
             <div class="w-full md:w-auto md:flex-1 order-last md:order-none mt-3 md:mt-0 flex items-center justify-between md:justify-center gap-1 sm:gap-4 overflow-x-auto pb-1 md:pb-0">
-                <button class="tab-btn active text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-[#087E8B] bg-white whitespace-nowrap transition-all shadow-sm" onclick="showTab('dashboard')">Dashboard</button>
+                <button class="tab-btn active text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-white bg-white/20 whitespace-nowrap transition-all shadow-sm" onclick="showTab('dashboard')">Dashboard</button>
                 <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('tasks')">Tasks</button>
                 <button class="tab-btn text-[10px] sm:text-sm font-bold py-1.5 px-3 sm:px-4 rounded-full border border-yellow-400 text-yellow-300 bg-yellow-400/10 hover:bg-yellow-400/20 whitespace-nowrap transition-all" onclick="showTab('refer')">Refer & Earn</button>
                 <button class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-gray-200 hover:text-white whitespace-nowrap transition-all" onclick="showTab('wallet')">Wallet</button>
@@ -520,8 +520,8 @@ window.startAppTask = async function(rewardAmount, taskUrl) {
                 document.getElementById('nav-login-btn').classList.add('hidden');
                 document.getElementById('user-profile-info').classList.remove('hidden');
                 document.getElementById('nav-profile-pic').src = user.photoURL;
-                document.getElementById('popup-name').innerText = user.displayName;
-                document.getElementById('popup-email').innerText = user.email;
+                document.getElementById('popup-user-name').innerText = user.displayName || 'User';
+                document.getElementById('popup-user-email').innerText = user.email || '';
                 document.getElementById('user-name-display').innerText = user.displayName;
                 const label = document.querySelector('.bg-yellow-100'); if(label) label.style.display = 'none';
 
