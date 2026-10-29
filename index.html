@@ -694,11 +694,11 @@ window.startAppTask = async function(rewardAmount, taskUrl) {
     // Call limit check when someone clicks Spin tab
     setTimeout(checkDailyLimit, 200);
 
-    function startSpin() {
+    function spinWheel() {
         if (isSpinning || checkDailyLimit()) return; 
         isSpinning = true;
         
-        let wheel = document.getElementById("spinWheel");
+        let wheel = document.getElementById("wheel");
         let resultText = document.getElementById("spinResult");
         let btn = document.getElementById("spinBtn");
         
