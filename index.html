@@ -884,6 +884,7 @@ function closePopup() {
     </div>
 </div>    
 
+<script>
 // 1. Spin Wheel Function
 function spinWheel() {
     const wheel = document.getElementById("wheel");
@@ -948,7 +949,7 @@ function claimDailyCheckin() {
   button.classList.add("opacity-50", "cursor-not-allowed");
 }
 
-// 3. Login System Theek Karne Ke Liye
+// 3. Login System Function
 document.addEventListener("DOMContentLoaded", function() {
     window.handleLogin = function() {
         const emailInput = document.querySelector("#login-modal input[type='email'], #email");
@@ -962,69 +963,5 @@ document.addEventListener("DOMContentLoaded", function() {
         
         location.reload();
     };
-});    
-    
-// 1. Spin Wheel Function
-function spinWheel() {
-    const wheel = document.getElementById("wheel");
-    const spinBtn = document.getElementById("spinBtn");
-    const result = document.getElementById("spinResult");
-
-    if (!wheel || !spinBtn) return;
-
-    spinBtn.disabled = true;
-    spinBtn.classList.add("opacity-50", "cursor-not-allowed");
-
-    const randomDegree = Math.floor(Math.random() * 360) + 1440;
-    wheel.style.transition = "transform 4s cubic-bezier(0.15, 0.90, 0.20, 1)";
-    wheel.style.transform = `rotate(${randomDegree}deg)`;
-
-    setTimeout(() => {
-        if (result) {
-            result.textContent = "🎉 Badhai ho! Aapne reward jeet liya hai!";
-        }
-        if (spinBtn) {
-            spinBtn.textContent = "Spin Completed";
-        }
-    }, 4000);
-}
-
-// 2. Daily Check-in Function
-function claimDailyCheckin() {
-  const today = new Date().toDateString();
-  const lastDate = localStorage.getItem("earnova_checkin_date");
-  const previousStreak = Number(localStorage.getItem("earnova_checkin_streak") || 0);
-
-  const status = document.getElementById("dailyStatus");
-  const button = document.getElementById("daily-checkin-btn");
-
-  if (!button) return;
-
-  if (lastDate === today) {
-    if (status) status.textContent = "Aap aaj ka reward claim kar chuke hain!";
-    return;
-  }
-
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  let streak = 1;
-  if (lastDate === yesterday.toDateString()) {
-    streak = previousStreak >= 7 ? 1 : previousStreak + 1;
-  }
-
-  const rewards = [0.01, 0.02, 0.03, 0.05, 0.07, 0.08, 0.10];
-  const reward = rewards[streak - 1];
-
-  localStorage.setItem("earnova_checkin_date", today);
-  localStorage.setItem("earnova_checkin_streak", streak);
-
-  if (status) {
-    status.textContent = "🎉 Day " + streak + " complete! Reward: ₹" + reward.toFixed(2);
-  }
-
-  button.textContent = "Claimed Today ✓";
-  button.disabled = true;
-  button.classList.add("opacity-50", "cursor-not-allowed");
-}
-</script>    
+});
+</script>
