@@ -2,31 +2,31 @@
 <html lang="en">
 <head>
     <title>Earnova - Best Online Earning Platform Without Investment</title>
-<meta name="description" content="Earnova par aasaan tasks poore karein, spin & win khele, aur ghar baithe online paise kamayein. Direct UPI aur PayPal withdrawals.">
-<meta name="keywords" content="online earning, make money online, earn money apps, work from home, Earnova, task earning website">
+    <meta name="description" content="Earnova par aasaan tasks poore karein, spin & win khele, aur ghar baithe online paise kamayein. Direct UPI aur PayPal withdrawals.">
+    <meta name="keywords" content="online earning, make money online, earn money apps, work from home, Earnova, task earning website">
     <meta name="google-site-verification" content="M6HB5sOqsyd5Y385jPBBHArDJ0CrKn8OXXMbff1khS4" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mitgo-verification" content="868f2c73-cb10-450f-96ad-c7f0f2c9762e" />
 
-    <!-- Yeh line Browser Tab par chhota logo dikhayegi -->
+    <!-- Browser Tab Icon -->
     <link rel="icon" type="image/png" href="logo.png">
     
-   <script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = {
-        theme: { extend: { colors: { royalblue: '#087E8B', cyan: '#087E8B', } } }
-    }
-</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { royalblue: '#087E8B', cyan: '#087E8B', } } }
+        }
+    </script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
     </style>
- 
-    <!-- YAHAN ADSENSE VERIFICATION CODE PASTE KAREIN -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5494788993941688" crossorigin="anonymous"></script>
 
+    <!-- AdSense Verification Code -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5494788993941688" crossorigin="anonymous"></script>
+</head>
 <body class="text-slate-800 relative">
 
 <!-- MAIN HEADER START -->
@@ -40,7 +40,7 @@
                 <span class="text-xl font-bold tracking-wide">Earnova</span>
             </div>
 
-            <!-- 2. MENU (Desktop par Center mein, Mobile par niche) -->
+            <!-- 2. MENU -->
             <div class="w-full md:w-auto md:flex-1 order-last md:order-none mt-3 md:mt-0 flex items-center justify-between md:justify-center gap-1 sm:gap-4 overflow-x-auto pb-1 md:pb-0">
                <button id="btn-dashboard" class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-white hover:bg-white/20 whitespace-nowrap transition-all duration-200" onclick="showTab('dashboard', this)">Dashboard</button>
                <button id="btn-tasks" class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-white hover:bg-white/20 whitespace-nowrap transition-all duration-200" onclick="showTab('tasks', this)">Tasks</button>
@@ -49,18 +49,15 @@
                <button id="btn-spin" class="tab-btn text-[10px] sm:text-sm font-semibold py-1.5 px-3 sm:px-4 rounded-full text-white hover:bg-white/20 whitespace-nowrap transition-all duration-200" onclick="showTab('spin-page', this)">Spin</button>
             </div>
 
-            <!-- 3. LOGIN & PROFILE (Hamesha Right side) -->
+            <!-- 3. LOGIN & PROFILE -->
             <div class="flex items-center gap-2">
-                <!-- Guest Login Button -->
                 <button id="nav-login-btn" onclick="openLoginModal()" class="bg-white text-[#087E8B] font-bold px-4 py-1.5 rounded-lg shadow-md text-xs sm:text-sm hover:bg-gray-100 transition">
                     Login
                 </button>
                 
-                <!-- Logged-in User Profile -->
                 <div id="user-profile-info" class="hidden relative flex items-center">
                     <img id="nav-profile-pic" src="" alt="Profile" onclick="window.toggleProfilePopup()" class="w-9 h-9 rounded-full border-2 border-green-400 cursor-pointer shadow-md hover:scale-105 transition-transform object-cover">
                     
-                    <!-- Profile Dropdown (Sahi Details ke sath) -->
                     <div id="profile-popup" class="hidden absolute right-0 top-12 w-60 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden text-left">
                         <div class="p-3.5 border-b border-gray-100 bg-gray-50">
                             <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Logged in as</p>
@@ -68,9 +65,6 @@
                             <p id="popup-user-email" class="text-xs text-gray-500 truncate mt-0.5">guest@email.com</p>
                         </div>
                         <div class="flex flex-col py-1">
-                            <button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors flex items-center gap-2">
-                                🎧 Help & Support
-                            </button>
                             <button onclick="logout()" class="w-full text-left px-4 py-2.5 text-sm font-bold text-red-600 border-t border-gray-100 hover:bg-red-50 transition-colors flex items-center gap-2">
                                 🚪 Logout
                             </button>
@@ -84,892 +78,628 @@
 </nav>
 <!-- MAIN HEADER END -->
     
-    <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 py-8">
-        <!-- DASHBOARD TAB -->
-        <section id="dashboard" class="tab-content active">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-[#087E8B]">Welcome, <span id="user-name-display">Guest</span>!</h1>
-            </div>
-          <!-- DASHBOARD AD BANNER -->
-<div class="w-full bg-gray-200 border border-gray-300 text-center py-3 mb-4 mt-2 rounded-lg shadow-inner">
-    <p class="text-gray-500 text-[10px] font-bold tracking-widest uppercase">Advertisement Space</p>
-</div>  
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6 mt-4">
-             
-                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-cyan">
-                    <h3 class="text-gray-500 text-sm font-semibold">💳 Withdrawable Cash</h3>
-                 <p class="text-3xl font-bold text-gray-800 mt-2" id="dashboard-balance">₹0.00</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-[#087E8B]">
-                    <h3 class="text-gray-500 text-sm font-semibold">✅ Completed Tasks</h3>
-                    <p class="text-3xl font-bold text-gray-800 mt-2">0</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-cyan">
-    <h3 class="text-gray-500 text-sm font-semibold">⏳ Pending Approvals</h3>
-    <p class="text-3xl font-bold text-gray-800 mt-2">₹<span id="pending-display">0.00</span></p>
-</div>
- 
-            </div>
-            <button onclick="showTab('tasks')" class="bg-[#087E8B] hover:bg-[#087E8B] text-white font-bold py-3 px-6 rounded-lg shadow-md transition w-full md:w-auto">Start Earning Now ➔</button>
-        </section>
-        <!-- SPIN PAGE START -->
-<section id="spin-page" class="tab-content">
-  <div class="bg-white rounded-2xl shadow-lg p-6 max-w-xl mx-auto text-center">
-    <h2 class="text-3xl font-bold text-[#087E8B] mb-2">🎡 Lucky Spin</h2>
-    <p class="text-gray-600 mb-5">Spin karo aur reward jeeto!</p>
-
-    <div id="spin-wheel"
-      class="w-56 h-56 rounded-full mx-auto flex items-center justify-center border-8 border-yellow-400 shadow-lg"
-      style="background: conic-gradient(#087E8B 0deg 60deg,#e0f2fe 60deg 120deg,#0e7490 120deg 180deg,#bae6fd 180deg 240deg,#087E8B 240deg 300deg,#e0f2fe 300deg 360deg);">
-      <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center font-bold text-[#087E8B]">
-        SPIN
-      </div>
-    </div>
-
-    <button id="spinBtn" onclick="earnovaSpin()"
-      class="mt-5 bg-[#087E8B] text-white font-bold py-3 px-10 rounded-xl shadow hover:opacity-90">
-      SPIN NOW
-    </button>
-    <p id="spinResult" class="mt-3 font-semibold text-[#087E8B]"></p>
-
-    <hr class="my-7">
-
-    <h2 class="text-2xl font-bold text-[#087E8B] mb-2">📅 Daily Check-in</h2>
-    <p class="text-gray-600 mb-4">Roz check-in karo aur rewards pao!</p>
-    <div id="checkin-streak" class="text-sm text-gray-500 mb-3">Day 1 of 7</div>
-
-    <button id="checkinBtn" onclick="earnovaCheckin()"
-      class="bg-blue-600 text-white font-bold py-3 px-8 rounded-xl shadow hover:opacity-90">
-      Claim Daily Reward
-    </button>
-    <p id="checkinResult" class="mt-3 font-semibold text-[#087E8B]"></p>
-  </div>
-</section>
-<!-- SPIN PAGE END -->
-
-<script>
-const earnovaDailyRewards = [0.01, 0.02, 0.03, 0.05, 0.07, 0.08, 0.10];
-
-async function earnovaCheckin() {
-  const user = auth.currentUser;
-
-  if (!user) {
-    alert("Daily Check-in ke liye pehle login karein!");
-    return;
-  }
-
-  const today = new Date().toDateString();
-  const userRef = doc(db, "users", user.uid);
-  const result = document.getElementById("checkinResult");
-  const btn = document.getElementById("checkinBtn");
-
-  const rewards = [0.01, 0.02, 0.03, 0.05, 0.07, 0.08, 0.10];
-
-  try {
-    const snap = await getDoc(userRef);
-
-    if (!snap.exists()) {
-      alert("User wallet nahi mila. Dobara login karein.");
-      return;
-    }
-
-    const data = snap.data();
-
-    if (data.lastCheckInDate === today) {
-      result.textContent = "Aaj ka Check-in pehle hi ho chuka hai.";
-      return;
-    }
-
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    let streak = Number(data.checkinStreak || 0);
-
-    if (data.lastCheckInDate !== yesterday.toDateString()) {
-      streak = 0;
-    }
-
-    streak = (streak % 7) + 1;
-
-    const reward = rewards[streak - 1];
-
-    await updateDoc(userRef, {
-      walletBalance: Number(data.walletBalance || 0) + reward,
-      lastCheckInDate: today,
-      checkinStreak: streak
-    });
-
-    localStorage.setItem("earnova_checkin_date", today);
-
-    document.getElementById("checkin-streak").textContent =
-      "Day " + streak + " of 7";
-
-    result.textContent =
-      "🎉 ₹" + reward.toFixed(2) + " wallet mein add ho gaye!";
-
-    btn.disabled = true;
-    btn.textContent = "Checked In Today";
-
-    alert("Daily Check-in successful! ₹" +
-          reward.toFixed(2) + " wallet mein add ho gaye.");
-
-  } catch (error) {
-    console.error(error);
-    alert("Reward add nahi hua. Firebase error check karein.");
-  }
-}
+<!-- Main Content -->
+<main class="max-w-6xl mx-auto px-4 py-8">
     
-</script>
-
-   <!-- TASKS TAB -->
-        <section id="tasks" class="tab-content">
-            <h2 class="text-2xl font-bold text-[#087E8B] mb-6">Earn Points & Cash</h2>
-            
-                <!-- Niche wali line mein aage chalkar AdSense ka Banner code lagega -->
-                <div class="text-center text-white text-[10px] py-1 font-semibold tracking-widest uppercase">Advertisement Space</div>
-            </div>
-            <!-- TASKS PAGE AD BANNER START -->
-<div class="w-full bg-gray-50 border-2 border-dashed border-gray-300 p-4 mb-6 rounded-lg text-center flex flex-col justify-center items-center min-h-[90px] shadow-sm">
-    <span class="text-xs uppercase tracking-widest text-gray-400 mb-1">Advertisement</span>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5494788993941688"
-     crossorigin="anonymous"></script>
-<!-- Earnova Banner -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-5494788993941688"
-     data-ad-slot="7682405583"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</div>
-<!-- TASKS PAGE AD BANNER END -->
-<!-- TASK 1: Navi -->
-<div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between mb-3 hover:border-blue-200 transition">
-    <div class="flex items-center gap-3">
-        <div class="h-11 w-11 bg-green-50 rounded-full border border-green-100 flex justify-center items-center shrink-0 text-2xl">💸</div>
-        <div>
-            <h3 class="font-bold text-slate-800 text-sm leading-tight">Navi App</h3>
-            <p class="text-[11px] text-gray-500 font-medium">Setup UPI</p>
-            <ul id="terms-navi" class="hidden">
-                <li>Link se app download aur Sign Up karein.</li>
-                <li>Pehle hafte mein 1, 3, ya 5 din Navi UPI se payment karein.</li>
-                <li>Dhyan rahe: Self-transfer (khud ko paise bhejna) valid nahi hai.</li>
-            </ul>
+    <!-- DASHBOARD TAB -->
+    <section id="dashboard" class="tab-content active">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-[#087E8B]">Welcome, <span id="user-name-display">Guest</span>!</h1>
         </div>
-    </div>
-    <div class="flex flex-col items-end shrink-0 ml-2">
-        <span class="font-extrabold text-[#087E8B] text-sm mb-1.5">₹50</span>
-        <button onclick="openPopup('Navi App', 50, 'https://r.navi.com/gJH5QE', 'terms-navi')" class="bg-[#087E8B] text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow hover:bg-[#066570] transition">Start</button>
-    </div>
-</div>
-
-<!-- TASK 2: MobiKwik -->
-<div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between mb-3 hover:border-blue-200 transition">
-    <div class="flex items-center gap-3">
-        <div class="h-11 w-11 bg-blue-50 rounded-full border border-blue-100 flex justify-center items-center shrink-0 text-2xl">💳</div>
-        <div>
-            <h3 class="font-bold text-slate-800 text-sm leading-tight">MobiKwik</h3>
-            <p class="text-[11px] text-gray-500 font-medium">Setup UPI</p>
-            <ul id="terms-mobi" class="hidden">
-                <li>Niche diye link se MobiKwik app download aur Sign Up karein.</li>
-                <li>App mein apna Bank account link karke UPI setup poora karein.</li>
-                <li>MobiKwik UPI se apni pehli payment (kisi bhi amount ki) poori karein.</li>
-            </ul>
-        </div>
-    </div>
-    <div class="flex flex-col items-end shrink-0 ml-2">
-        <span class="font-extrabold text-[#087E8B] text-sm mb-1.5">₹15</span>
-        <button onclick="openPopup('MobiKwik', 15, 'https://w6em.app.link/oeppskc3A7b', 'terms-mobi')" class="bg-[#087E8B] text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow hover:bg-[#066570] transition">Start</button>
-    </div>
-</div>
-
-<!-- TASK 3: BHIM -->
-<div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between mb-3 hover:border-blue-200 transition">
-    <div class="flex items-center gap-3">
-        <div class="h-11 w-11 bg-green-50 rounded-full border border-green-100 flex justify-center items-center shrink-0 text-2xl">📱</div>
-        <div>
-            <h3 class="font-bold text-slate-800 text-sm leading-tight">BHIM App</h3>
-            <p class="text-[11px] text-gray-500 font-medium">1st UPI Payment</p>
-            <ul id="terms-bhim" class="hidden">
-                <li>Link par click karke BHIM app download aur Sign Up karein.</li>
-                <li>Bank account link karke ₹20 ya usse zyada ki 1st UPI payment karein.</li>
-                <li>Bonus: Aapko BHIM app ki taraf se bhi ₹20 cashback alag se milega!</li>
-            </ul>
-        </div>
-    </div>
-    <div class="flex flex-col items-end shrink-0 ml-2">
-        <span class="font-extrabold text-[#087E8B] text-sm mb-1.5">₹10</span>
-        <button onclick="openPopup('BHIM App', 10, 'https://bhim.onelink.me/CoHB/ry6c3l6k', 'terms-bhim')" class="bg-[#087E8B] text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow hover:bg-[#066570] transition">Start</button>
-    </div>
-</div>
-
-<!-- TASK 4: Angel One -->
-<div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between mb-3 hover:border-blue-200 transition">
-    <div class="flex items-center gap-3">
-        <div class="h-11 w-11 bg-purple-50 rounded-full border border-purple-100 flex justify-center items-center shrink-0 text-2xl">📈</div>
-        <div>
-            <h3 class="font-bold text-slate-800 text-sm leading-tight">Angel One</h3>
-            <p class="text-[11px] text-gray-500 font-medium">Free Demat Account</p>
-            <ul id="terms-angel" class="hidden">
-                <li>Link par click karke app download karein.</li>
-                <li>Mobile number se apna naya Free Demat account banayein.</li>
-                <li>Pancard aur Aadhar se KYC poori karke account active karein.</li>
-            </ul>
-        </div>
-    </div>
-    <div class="flex flex-col items-end shrink-0 ml-2">
-        <span class="font-extrabold text-[#087E8B] text-sm mb-1.5">₹50</span>
-        <button onclick="openPopup('Angel One', 50, 'https://angel-one.onelink.me/Wjgr/jmfsje9r', 'terms-angel')" class="bg-[#087E8B] text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow hover:bg-[#066570] transition">Start</button>
-    </div>
-</div>
-        </section>
-        <!-- REFER TAB -->
-        <section id="refer" class="tab-content hidden">
-            <h2 class="text-2xl font-bold text-[#087E8B] mb-6">Invite Friends & Earn</h2>
-           <!-- REFER PAGE AD BANNER START -->
-<div class="w-full max-w-2xl mx-auto bg-gray-50 border-2 border-dashed border-gray-300 p-4 mb-6 rounded-lg text-center flex flex-col justify-center items-center min-h-[90px] shadow-sm">
-    <span class="text-xs uppercase tracking-widest text-gray-400 mb-1">Advertisement</span>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5494788993941688"
-     crossorigin="anonymous"></script>
-<!-- Earnova Banner -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-5494788993941688"
-     data-ad-slot="7682405583"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</div>
-<!-- REFER PAGE AD BANNER END --> 
-            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-green-500 text-center max-w-2xl mx-auto">
-                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-sm">🤝</div>
-                <h3 class="text-2xl font-bold text-gray-800 mb-2">Refer Friends, Earn Cash!</h3>
-                <p class="text-gray-600 mb-6">Get <span class="font-bold text-green-600">₹5.00</span> instantly for every friend who joins Earnova using your unique link.</p>
-                
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6 relative">
-                    <span class="block text-sm text-gray-500 font-bold mb-2 uppercase tracking-wide">Your Invite Link</span>
-                    <div class="flex flex-col md:flex-row gap-2">
-                        <input type="text" id="referral-link" readonly value="Login to get your link..." class="w-full bg-white border border-gray-300 px-4 py-3 rounded-lg text-gray-700 outline-none font-medium text-center md:text-left">
-                        <button onclick="copyReferralLink()" id="copy-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded-lg shadow transition whitespace-nowrap">
-                            Copy Link
-                        </button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mt-8">
-                    <div class="p-4 bg-blue-50 rounded-lg">
-                        <div class="font-bold text-blue-600 mb-1">1. Share Link</div>
-                        <div class="text-sm text-gray-600">Share your link on WhatsApp or Telegram.</div>
-                    </div>
-                    <div class="p-4 bg-yellow-50 rounded-lg">
-                        <div class="font-bold text-yellow-600 mb-1">2. Friend Joins</div>
-                        <div class="text-sm text-gray-600">They sign up using their Google account.</div>
-                    </div>
-                    <div class="p-4 bg-green-50 rounded-lg">
-                        <div class="font-bold text-green-600 mb-1">3. You Earn</div>
-                        <div class="text-sm text-gray-600">You both get a bonus! ₹5.00 for you.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-  <!-- WALLET TAB -->
-   <!-- WALLET & WITHDRAWALS SECTION -->
-<section id="wallet" class="tab-content hidden p-4 max-w-md mx-auto w-full">
-    <h2 class="text-xl font-bold text-[#087E8B] mb-4">Wallet & Withdrawals</h2>
-    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-        <h3 class="font-bold text-slate-800 mb-4">Withdraw Funds</h3>
         
-        <!-- Balance Display -->
-        <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 mb-5 text-center">
-            <p class="text-xs text-gray-500 mb-1">Available Cash Balance</p>
-            <p class="text-3xl font-extrabold text-slate-800">₹<span id="wallet-display">245.20</span></p>
-        </div>
+        <div class="w-full bg-gray-200 border border-gray-300 text-center py-3 mb-4 mt-2 rounded-lg shadow-inner">
+            <p class="text-gray-500 text-[10px] font-bold tracking-widest uppercase">Advertisement Space</p>
+        </div>  
 
-        <!-- Payment Method Dropdown -->
-        <div class="mb-4">
-            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">Payment Method</label>
-            <select id="paymentMethod" onchange="togglePaymentFields()" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm font-medium text-gray-700 bg-white focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
-                <option value="upi">UPI Transfer</option>
-                <option value="bank">Bank Transfer</option>
-            </select>
-        </div>
-
-        <!-- UPI Field (Shuru mein yeh dikhega) -->
-        <div id="upiField" class="mb-4">
-            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">UPI ID</label>
-            <input type="text" id="upiId" placeholder="e.g. rajnesh@ybl" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
-        </div>
-
-        <!-- Bank Fields (Shuru mein chupa rahega) -->
-        <div id="bankFields" class="mb-4 hidden space-y-4">
-            <div>
-                <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">Account Number</label>
-                <input type="number" id="bankAcc" placeholder="Enter Bank A/c No." class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6 mt-4">
+            <div class="bg-white p-6 rounded-xl shadow border-t-4 border-cyan">
+                <h3 class="text-gray-500 text-sm font-semibold">💳 Withdrawable Cash</h3>
+                <p class="text-3xl font-bold text-gray-800 mt-2">₹<span id="dashboard-balance">0.00</span></p>
             </div>
-            <div>
-                <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">IFSC Code</label>
-                <input type="text" id="bankIfsc" placeholder="e.g. SBIN0001234" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm uppercase focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
+            <div class="bg-white p-6 rounded-xl shadow border-t-4 border-[#087E8B]">
+                <h3 class="text-gray-500 text-sm font-semibold">✅ Completed Tasks</h3>
+                <p class="text-3xl font-bold text-gray-800 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow border-t-4 border-cyan">
+                <h3 class="text-gray-500 text-sm font-semibold">⏳ Pending Approvals</h3>
+                <p class="text-3xl font-bold text-gray-800 mt-2">₹<span id="pending-display">0.00</span></p>
             </div>
         </div>
+        <button onclick="showTab('tasks')" class="bg-[#087E8B] hover:bg-[#066570] text-white font-bold py-3 px-6 rounded-lg shadow-md transition w-full md:w-auto">Start Earning Now ➔</button>
+    </section>
 
-        <!-- Amount Field -->
-        <div class="mb-6">
-            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">Withdrawal Amount (Min ₹50)</label>
-            <input type="number" id="withdrawAmount" placeholder="Enter amount (e.g. 50)" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B] transition">
+    <!-- SPIN PAGE START -->
+    <section id="spin-page" class="tab-content">
+        <div class="bg-white rounded-2xl shadow-lg p-6 max-w-xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-[#087E8B] mb-2">🎡 Lucky Spin</h2>
+            <p class="text-gray-600 mb-5">Spin karo aur reward jeeto!</p>
+
+            <div class="relative w-56 h-56 mx-auto mb-5 flex items-center justify-center">
+                <div id="wheel" class="w-56 h-56 rounded-full flex items-center justify-center border-8 border-yellow-400 shadow-lg transition-transform duration-1000"
+                    style="background: conic-gradient(#087E8B 0deg 60deg,#e0f2fe 60deg 120deg,#0e7490 120deg 180deg,#bae6fd 180deg 240deg,#087E8B 240deg 300deg,#e0f2fe 300deg 360deg);">
+                </div>
+                <div class="absolute bg-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-[#087E8B] shadow-md border-2 border-yellow-400 pointer-events-none">
+                    SPIN
+                </div>
+            </div>
+
+            <button id="spinBtn" onclick="spinWheel()" class="mt-2 bg-[#087E8B] hover:bg-[#066570] text-white font-bold py-3 px-10 rounded-xl shadow transition">
+                SPIN NOW
+            </button>
+            <p id="spinResult" class="mt-3 font-semibold text-[#087E8B] h-6"></p>
+
+            <hr class="my-7">
+
+            <h2 class="text-2xl font-bold text-[#087E8B] mb-2">📅 Daily Check-in</h2>
+            <p class="text-gray-600 mb-4">Roz check-in karo aur rewards pao!</p>
+            <div id="checkin-streak" class="text-sm text-gray-500 mb-3">Day 1 of 7</div>
+
+            <button id="daily-checkin-btn" onclick="earnovaCheckin()" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-xl shadow transition">
+                Claim ₹0.20
+            </button>
+            <p id="checkinResult" class="mt-3 font-semibold text-[#087E8B] h-6"></p>
+        </div>
+    </section>
+    <!-- SPIN PAGE END -->
+
+    <!-- TASKS TAB -->
+    <section id="tasks" class="tab-content">
+        <h2 class="text-2xl font-bold text-[#087E8B] mb-6">Earn Points & Cash</h2>
+        
+        <div class="w-full bg-gray-50 border-2 border-dashed border-gray-300 p-4 mb-6 rounded-lg text-center flex flex-col justify-center items-center min-h-[90px] shadow-sm">
+            <span class="text-xs uppercase tracking-widest text-gray-400 mb-1">Advertisement</span>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5494788993941688" data-ad-slot="7682405583" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
-        <!-- Submit Button -->
-        <button onclick="processWithdraw()" class="w-full bg-[#087E8B] text-white font-bold py-3.5 rounded-xl shadow-md hover:bg-[#066570] hover:shadow-lg transition-all active:scale-[0.98]">
-            Withdraw Money
-        </button>
-    </div>
-</section>
-    </main>
+        <!-- TASK 1: Navi -->
+        <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between mb-3 hover:border-blue-200 transition">
+            <div class="flex items-center gap-3">
+                <div class="h-11 w-11 bg-green-50 rounded-full border border-green-100 flex justify-center items-center shrink-0 text-2xl">💸</div>
+                <div>
+                    <h3 class="font-bold text-slate-800 text-sm leading-tight">Navi App</h3>
+                    <p class="text-[11px] text-gray-500 font-medium">Setup UPI</p>
+                    <ul id="terms-navi" class="hidden">
+                        <li>Link se app download aur Sign Up karein.</li>
+                        <li>Pehle hafte mein 1, 3, ya 5 din Navi UPI se payment karein.</li>
+                        <li>Dhyan rahe: Self-transfer (khud ko paise bhejna) valid nahi hai.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col items-end shrink-0 ml-2">
+                <span class="font-extrabold text-[#087E8B] text-sm mb-1.5">₹50</span>
+                <button onclick="openPopup('Navi App', 50, 'https://r.navi.com/gJH5QE', 'terms-navi')" class="bg-[#087E8B] text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow hover:bg-[#066570] transition">Start</button>
+            </div>
+        </div>
 
-    <!-- LOGIN MODAL (Popup Form) -->
-    <div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-[100] flex items-center justify-center backdrop-blur-sm px-4">
-        <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full relative">
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl font-bold">&times;</button>
-            
-            <!-- YAHAN LOGIN BOX MEIN BADA LOGO LAGA DIYA HAI -->
-            <div class="text-4xl font-bold mb-2 flex items-center justify-center gap-2">
-                <img src="logo.png" class="h-12 w-12 rounded-full object-cover border-2 border-[#087E8B] bg-white" alt="Earnova Logo">
-                Earnova
+        <!-- TASK 2: MobiKwik -->
+        <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between mb-3 hover:border-blue-200 transition">
+            <div class="flex items-center gap-3">
+                <div class="h-11 w-11 bg-blue-50 rounded-full border border-blue-100 flex justify-center items-center shrink-0 text-2xl">💳</div>
+                <div>
+                    <h3 class="font-bold text-slate-800 text-sm leading-tight">MobiKwik</h3>
+                    <p class="text-[11px] text-gray-500 font-medium">Setup UPI</p>
+                    <ul id="terms-mobi" class="hidden">
+                        <li>Niche diye link se MobiKwik app download aur Sign Up karein.</li>
+                        <li>App mein apna Bank account link karke UPI setup poora karein.</li>
+                        <li>MobiKwik UPI se apni pehli payment (kisi bhi amount ki) poori karein.</li>
+                    </ul>
+                </div>
             </div>
-            
-            <p class="text-sm text-gray-500 text-center mb-6">Login to your Earnova account</p>
-            
-            <!-- Email & Password Form -->
-            <input type="email" placeholder="Email Address" class="w-full mb-4 px-4 py-3 border rounded-lg focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B]">
-            <input type="password" placeholder="Password" class="w-full mb-6 px-4 py-3 border rounded-lg focus:outline-none focus:border-[#087E8B] focus:ring-1 focus:ring-[#087E8B]">
-            
-            <button onclick="simulateLogin('Rajnesh')" class="w-full bg-[#087E8B] text-white font-bold py-3 rounded-lg mb-4 hover:bg-blue-700 shadow-md">Login</button>
-            
-            <div class="flex items-center justify-center gap-2 mb-4">
-                <hr class="w-full border-gray-200">
-                <span class="text-gray-400 text-sm">OR</span>
-                <hr class="w-full border-gray-200">
+            <div class="flex flex-col items-end shrink-0 ml-2">
+                <span class="font-extrabold text-[#087E8B] text-sm mb-1.5">₹15</span>
+                <button onclick="openPopup('MobiKwik', 15, 'https://w6em.app.link/oeppskc3A7b', 'terms-mobi')" class="bg-[#087E8B] text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow hover:bg-[#066570] transition">Start</button>
             </div>
+        </div>
+
+        <!-- TASK 3: BHIM -->
+        <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between mb-3 hover:border-blue-200 transition">
+            <div class="flex items-center gap-3">
+                <div class="h-11 w-11 bg-green-50 rounded-full border border-green-100 flex justify-center items-center shrink-0 text-2xl">📱</div>
+                <div>
+                    <h3 class="font-bold text-slate-800 text-sm leading-tight">BHIM App</h3>
+                    <p class="text-[11px] text-gray-500 font-medium">1st UPI Payment</p>
+                    <ul id="terms-bhim" class="hidden">
+                        <li>Link par click karke BHIM app download aur Sign Up karein.</li>
+                        <li>Bank account link karke ₹20 ya usse zyada ki 1st UPI payment karein.</li>
+                        <li>Bonus: Aapko BHIM app ki taraf se bhi ₹20 cashback alag se milega!</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col items-end shrink-0 ml-2">
+                <span class="font-extrabold text-[#087E8B] text-sm mb-1.5">₹10</span>
+                <button onclick="openPopup('BHIM App', 10, 'https://bhim.onelink.me/CoHB/ry6c3l6k', 'terms-bhim')" class="bg-[#087E8B] text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow hover:bg-[#066570] transition">Start</button>
+            </div>
+        </div>
+
+        <!-- TASK 4: Angel One -->
+        <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between mb-3 hover:border-blue-200 transition">
+            <div class="flex items-center gap-3">
+                <div class="h-11 w-11 bg-purple-50 rounded-full border border-purple-100 flex justify-center items-center shrink-0 text-2xl">📈</div>
+                <div>
+                    <h3 class="font-bold text-slate-800 text-sm leading-tight">Angel One</h3>
+                    <p class="text-[11px] text-gray-500 font-medium">Free Demat Account</p>
+                    <ul id="terms-angel" class="hidden">
+                        <li>Link par click karke app download karein.</li>
+                        <li>Mobile number se apna naya Free Demat account banayein.</li>
+                        <li>Pancard aur Aadhar se KYC poori karke account active karein.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col items-end shrink-0 ml-2">
+                <span class="font-extrabold text-[#087E8B] text-sm mb-1.5">₹50</span>
+                <button onclick="openPopup('Angel One', 50, 'https://angel-one.onelink.me/Wjgr/jmfsje9r', 'terms-angel')" class="bg-[#087E8B] text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow hover:bg-[#066570] transition">Start</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFER TAB -->
+    <section id="refer" class="tab-content hidden">
+        <h2 class="text-2xl font-bold text-[#087E8B] mb-6">Invite Friends & Earn</h2>
+        <div class="w-full max-w-2xl mx-auto bg-gray-50 border-2 border-dashed border-gray-300 p-4 mb-6 rounded-lg text-center flex flex-col justify-center items-center min-h-[90px] shadow-sm">
+            <span class="text-xs uppercase tracking-widest text-gray-400 mb-1">Advertisement</span>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5494788993941688" data-ad-slot="7682405583" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-green-500 text-center max-w-2xl mx-auto">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-sm">🤝</div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Refer Friends, Earn Cash!</h3>
+            <p class="text-gray-600 mb-6">Get <span class="font-bold text-green-600">₹5.00</span> instantly for every friend who joins Earnova using your unique link.</p>
             
-            <!-- Google Login Button -->
-            <button onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-2 border-2 border-gray-200 rounded-lg py-3 hover:bg-gray-50 transition font-medium text-gray-700">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="h-5 w-5" alt="Google"> Continue with Google
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6 relative">
+                <span class="block text-sm text-gray-500 font-bold mb-2 uppercase tracking-wide">Your Invite Link</span>
+                <div class="flex flex-col md:flex-row gap-2">
+                    <input type="text" id="referral-link" readonly value="Login to get your link..." class="w-full bg-white border border-gray-300 px-4 py-3 rounded-lg text-gray-700 outline-none font-medium text-center md:text-left">
+                    <button onclick="copyReferralLink()" id="copy-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded-lg shadow transition whitespace-nowrap">
+                        Copy Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WALLET TAB -->
+    <section id="wallet" class="tab-content hidden p-4 max-w-md mx-auto w-full">
+        <h2 class="text-xl font-bold text-[#087E8B] mb-4">Wallet & Withdrawals</h2>
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+            <h3 class="font-bold text-slate-800 mb-4">Withdraw Funds</h3>
+            
+            <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 mb-5 text-center">
+                <p class="text-xs text-gray-500 mb-1">Available Cash Balance</p>
+                <p class="text-3xl font-extrabold text-slate-800">₹<span id="wallet-display">0.00</span></p>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">Payment Method</label>
+                <select id="paymentMethod" onchange="togglePaymentFields()" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm font-medium text-gray-700 bg-white focus:outline-none focus:border-[#087E8B]">
+                    <option value="upi">UPI Transfer</option>
+                    <option value="bank">Bank Transfer</option>
+                </select>
+            </div>
+
+            <div id="upiField" class="mb-4">
+                <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">UPI ID</label>
+                <input type="text" id="upiId" placeholder="e.g. rajnesh@ybl" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-[#087E8B]">
+            </div>
+
+            <div id="bankFields" class="mb-4 hidden space-y-4">
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">Account Number</label>
+                    <input type="number" id="bankAcc" placeholder="Enter Bank A/c No." class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-[#087E8B]">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">IFSC Code</label>
+                    <input type="text" id="bankIfsc" placeholder="e.g. SBIN0001234" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm uppercase focus:outline-none focus:border-[#087E8B]">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-1.5">Withdrawal Amount (Min ₹50)</label>
+                <input type="number" id="withdrawAmount" placeholder="Enter amount (e.g. 50)" class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-[#087E8B]">
+            </div>
+
+            <button onclick="requestWithdrawal()" class="w-full bg-[#087E8B] hover:bg-[#066570] text-white font-bold py-3.5 rounded-xl shadow-md transition">
+                Withdraw Money
             </button>
         </div>
+    </section>
+
+</main>
+
+<!-- LOGIN MODAL -->
+<div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-[100] flex items-center justify-center backdrop-blur-sm px-4">
+    <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full relative">
+        <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl font-bold">&times;</button>
+        
+        <div class="text-4xl font-bold mb-2 flex items-center justify-center gap-2">
+            <img src="logo.png" class="h-12 w-12 rounded-full object-cover border-2 border-[#087E8B] bg-white" alt="Earnova Logo">
+            Earnova
+        </div>
+        
+        <p class="text-sm text-gray-500 text-center mb-6">Login to your Earnova account</p>
+        
+        <input type="email" id="login-email" placeholder="Email Address" class="w-full mb-4 px-4 py-3 border rounded-lg focus:outline-none focus:border-[#087E8B]">
+        <input type="password" id="login-pass" placeholder="Password" class="w-full mb-6 px-4 py-3 border rounded-lg focus:outline-none focus:border-[#087E8B]">
+        
+        <button onclick="simulateLogin()" class="w-full bg-[#087E8B] hover:bg-[#066570] text-white font-bold py-3 rounded-lg mb-4 shadow-md">Login</button>
+        
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <hr class="w-full border-gray-200">
+            <span class="text-gray-400 text-sm">OR</span>
+            <hr class="w-full border-gray-200">
+        </div>
+        
+        <button onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-2 border-2 border-gray-200 rounded-lg py-3 hover:bg-gray-50 transition font-medium text-gray-700">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="h-5 w-5" alt="Google"> Continue with Google
+        </button>
     </div>
-    
-<!-- REAL FIREBASE SCRIPT WITH EARNING & WITHDRAWAL -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
-
-        // APNI ASALI API KEY YAHAN ZAROOR DAALEIN
-        const firebaseConfig = {
-  apiKey: "AIzaSyCHTnkaOHGfpE8xDQuPKijuBI8KgnL1rhI",
-  authDomain: "earnova-tasks.firebaseapp.com",
-  projectId: "earnova-tasks",
-  storageBucket: "earnova-tasks.firebasestorage.app",
-  messagingSenderId: "128153402677",
-  appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
-};
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-        const db = getFirestore(app); 
-
-       window.loginWithGoogle = function() {
-    // Turant login karke user ka naam set karne ka aasan tareeka
-    localStorage.setItem("earnova_user_name", "Rajnesh Chauhan");
-    localStorage.setItem("earnova_logged_in", "true");
-    
-    if(typeof closeLoginModal === 'function') {
-        closeLoginModal();
-    } else {
-        const modal = document.getElementById("login-modal");
-        if(modal) modal.classList.add("hidden");
-    }
-    
-    location.reload();
-};
-        window.logout = function() {
-            signOut(auth);
-        };
-window.toggleProfilePopup = function() {
-    document.getElementById('profile-popup').classList.toggle('hidden');
-};
-        // Bahar (empty space) click karne par popup band karne ka smart code
-document.addEventListener('click', function(event) {
-    let popup = document.getElementById('profile-popup');
-    let profilePic = document.getElementById('nav-profile-pic');
-    
-    // Check karein ki popup khula hai ya nahi
-    if (popup && !popup.classList.contains('hidden')) {
-        // Agar click profile photo par nahi hai, aur popup dabbe ke andar bhi nahi hai, toh band kar do
-        if (event.target !== profilePic && !popup.contains(event.target)) {
-            popup.classList.add('hidden');
-        }
-    }
-});
-        // NAYA: COPY REFERRAL LINK FUNCTION
-        window.copyReferralLink = function() {
-            const linkInput = document.getElementById('referral-link');
-            if (linkInput && linkInput.value && linkInput.value !== "Login to get your link...") {
-                linkInput.select();
-                navigator.clipboard.writeText(linkInput.value).then(() => {
-                    const copyBtn = document.getElementById('copy-btn');
-                    copyBtn.innerText = "Copied! ✓";
-                    copyBtn.classList.replace('bg-green-500', 'bg-gray-600');
-                    setTimeout(() => {
-                        copyBtn.innerText = "Copy Link";
-                        copyBtn.classList.replace('bg-gray-600', 'bg-green-500');
-                    }, 2000);
-                });
-            } else {
-                alert("Pehle login karein!");
-            }
-        };
-
-        window.claimDailyBonus = async function() {
-            if (!auth.currentUser) return alert("Pehle login karein!");
-            const userRef = doc(db, "users", auth.currentUser.uid);
-            const snap = await getDoc(userRef);
-            if (snap.exists()) {
-                const data = snap.data();
-                const todayDate = new Date().toDateString();
-                if (data.lastCheckInDate === todayDate) return alert("Aap aaj ka bonus pehle hi le chuke hain. Kripya kal wapas aayen!");
-                await updateDoc(userRef, { walletBalance: (data.walletBalance || 0) + ₹0.20, lastCheckInDate: todayDate });
-                alert('Success! ₹0.20 aapke wallet mein add ho gaye hain.');
-            }
-        };
-
-        window.convertPoints = async function() {
-            if (!auth.currentUser) return alert("Pehle login karein!");
-            const pointsToConvert = parseInt(document.getElementById('convert-points-input').value);
-            if (isNaN(pointsToConvert) || pointsToConvert < 100 || pointsToConvert % 100 !== 0) {
-                return alert("Kripya 100 ke multiples mein points dalein (jaise 100, 200, 500).");
-            }
-            const userRef = doc(db, "users", auth.currentUser.uid);
-            const snap = await getDoc(userRef);
-            if (snap.exists()) {
-                if (pointsToConvert > (snap.data().points || 0)) return alert("Aapke paas itne points nahi hain!");
-                await updateDoc(userRef, {
-                    points: (snap.data().points || 0) - pointsToConvert,
-                    walletBalance: (snap.data().walletBalance || 0) + (pointsToConvert / 100)
-                });
-                document.getElementById('convert-points-input').value = '';
-                alert(`Success! Aapne ${pointsToConvert} points ko ₹${(pointsToConvert/100).toFixed(2)} mein badal liya hai.`);
-            }
-        };
-         let startedTasks = [];
-window.startAppTask = async function(rewardAmount, taskUrl) {
-    if (!auth.currentUser) return alert("Pehle login karein!");
-
-    // 1. CHECK: Kya yeh task pehle hi start ho chuka hai?
-    if (startedTasks.includes(taskUrl)) {
-        alert("Aapne yeh task pehle hi shuru kar diya hai! Kripya apna pending task poora karein.");
-        window.open(taskUrl, '_blank');
-        return; // Yahin ruk jao, paise add mat karo
-    }
-
-    // 2. Agar naya task hai, toh is link ko memory (list) mein save kar lo
-    startedTasks.push(taskUrl);
-
-    // YAHAN JADU HAI: Naye tab mein aapka asli link khulega
-    if (taskUrl) {
-        window.open(taskUrl, '_blank');
-    }
-
-    alert("Aapko Partner Website par bheja ja raha hai. Kripya apna Account / Task poora karein!");
-
-    // 3. Database mein paise add karne ka code
-    const userRef = doc(db, "users", auth.currentUser.uid);
-    const snap = await getDoc(userRef);
-    if (snap.exists()) {
-        await updateDoc(userRef, { walletBalance: (snap.data().walletBalance || 0) + rewardAmount });
-
-        // Thodi der baad success message dikhayega
-        setTimeout(() => {
-            alert(`Task Started! ₹${rewardAmount} aapke wallet mein add ho gaye hain. (Note: Asli paise withdraw karne ke liye task poora karna zaroori hai!)`);
-        }, 2000);
-    }
-};
-        
-        window.requestWithdrawal = async function() {
-            if (!auth.currentUser) return alert("Pehle login karein!");
-            const paymentMethod = document.getElementById('payment-method').value;
-            const paymentDetail = document.getElementById('payment-detail').value;
-            const withdrawAmount = parseFloat(document.getElementById('withdraw-amount').value);
-            
-            if (paymentDetail.trim() === "") return alert(`Kripya apni ${paymentMethod} details dalein.`);
-            if (isNaN(withdrawAmount) || withdrawAmount < 50) return alert("Kam se kam ₹50 nikal sakte hain.");
-
-            const userRef = doc(db, "users", auth.currentUser.uid);
-            const snap = await getDoc(userRef);
-            if (snap.exists()) {
-                if (withdrawAmount > (snap.data().walletBalance || 0)) return alert("Aapke wallet mein itne paise nahi hain!");
-                
-                // NAYA HISSA: Yahan hum UPI ID aur Method bhi database mein save kar rahe hain
-                await updateDoc(userRef, {
-                    walletBalance: (snap.data().walletBalance || 0) - withdrawAmount,
-                    pendingWithdrawals: (snap.data().pendingWithdrawals || 0) + withdrawAmount,
-                    lastWithdrawMethod: paymentMethod,
-                    lastWithdrawDetail: paymentDetail
-                });
-                
-                document.getElementById('withdraw-amount').value = ''; 
-                document.getElementById('payment-detail').value = '';
-                alert(`Success! Aapki ₹${withdrawAmount} ki request lag gayi hai. Hum ise 24 ghante mein bhej denge.`);
-            }
-        };
-        // LIVE DATABASE UPDATE
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                document.getElementById('nav-login-btn').classList.add('hidden');
-                document.getElementById('user-profile-info').classList.remove('hidden');
-                document.getElementById('nav-profile-pic').src = user.photoURL;
-                document.getElementById('popup-user-name').innerText = user.displayName || 'User';
-                document.getElementById('popup-user-email').innerText = user.email || '';
-                document.getElementById('user-name-display').innerText = user.displayName;
-                const label = document.querySelector('.bg-yellow-100'); if(label) label.style.display = 'none';
-
-                // NAYA: Generate Unique Referral Link for user (Using their UID)
-                const myReferralCode = user.uid.substring(0, 8).toUpperCase();
-                const refLinkInput = document.getElementById('referral-link');
-                if (refLinkInput) refLinkInput.value = `https://rajneshc510-cloud.github.io/Earnova-Tasks/?ref=${myReferralCode}`;
-
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-                if (!userSnap.exists()) {
-                    await setDoc(userRef, { name: user.displayName, email: user.email, points: 0, walletBalance: 0, pendingWithdrawals: 0, joinedAt: new Date() });
-                }
-
-                onSnapshot(userRef, (docSnap) => {
-                    if (docSnap.exists()) {
-                        const data = docSnap.data();
-                        const updateEl = (id, val) => { if(document.getElementById(id)) document.getElementById(id).innerText = val; };
-                        updateEl('points-display', data.points || 0);
-                        updateEl('wallet-points-display', data.points || 0);
-                        updateEl('wallet-display', (data.walletBalance || 0).toFixed(2));
-                        updateEl('dashboard-balance', (data.walletBalance || 0).toFixed(2));
-                        updateEl('withdraw-balance-display', (data.walletBalance || 0).toFixed(2));
-                        updateEl('pending-display', (data.pendingWithdrawals || 0).toFixed(2));
-
-                        const dailyBtn = document.getElementById('daily-checkin-btn');
-                        if (dailyBtn) {
-                            if (data.lastCheckInDate === new Date().toDateString()) {
-                                dailyBtn.innerText = "Claimed for Today ✓"; dailyBtn.className = "bg-gray-400 text-white font-bold px-8 py-3 rounded-full shadow-md cursor-not-allowed flex items-center"; dailyBtn.disabled = true;
-                            } else {
-                                dailyBtn.innerText = "Claim ₹0.20"; dailyBtn.className = "bg-yellow-500 text-white font-bold px-8 py-3 rounded-full shadow-md hover:bg-yellow-600 transition flex items-center"; dailyBtn.disabled = false;
-                            }
-                        }
-                    }
-                });
-            } else {
-                document.getElementById('nav-login-btn').classList.remove('hidden');
-                document.getElementById('user-profile-info').classList.add('hidden');
-                document.getElementById('user-name-display').innerText = 'Guest';
-                const label = document.querySelector('.bg-yellow-100'); if(label) label.style.display = 'inline-block';
-            }
-        });
-    </script>
-    <!-- UI aur Tabs ka Script -->
-    <script>
-      // Naya showTab function jo buttons ko bhi update karega
-function showTab(tabId, clickedButton) {
-    // 1. Saare tab content chhupayein
-    const tabs = document.querySelectorAll('.tab-content');
-    tabs.forEach(tab => {
-        tab.classList.remove('active');
-        tab.classList.add('hidden');
-    });
-
-    // 2. Sirf select kiya hua tab dikhayein
-    const selectedTab = document.getElementById(tabId);
-    if (selectedTab) {
-        selectedTab.classList.remove('hidden');
-        selectedTab.classList.add('active');
-    }
-
-    // 3. Agar button par click kiya gaya hai, toh usko highlight karein
-    if (clickedButton) {
-        // Pehle saare buttons se highlight (bg-white/20 aur shadow) hata dein
-        const allTabButtons = document.querySelectorAll('.tab-btn');
-        allTabButtons.forEach(btn => {
-            if(btn.id !== 'btn-refer') {
-                btn.classList.remove('bg-white/20', 'shadow-sm');
-                btn.classList.add('hover:bg-white/20');
-            }
-        });
-
-        // Ab jis button par click hua hai, uspar highlight laga dein
-        if(clickedButton.id !== 'btn-refer') {
-            clickedButton.classList.remove('hover:bg-white/20');
-            clickedButton.classList.add('bg-white/20', 'shadow-sm');
-        }
-    }
-}
-
-// Page load hone par Dashboard ko default active set karein
-document.addEventListener("DOMContentLoaded", function() {
-    let dashboardBtn = document.getElementById('btn-dashboard');
-    if(dashboardBtn) {
-        dashboardBtn.classList.add('bg-white/20', 'shadow-sm');
-        dashboardBtn.classList.remove('hover:bg-white/20');
-    }
-});
-
-        function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
-        function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
-
-        function startTask() {
-            if(document.getElementById('user-name-display').innerText === 'Guest') {
-                openLoginModal();
-            } else {
-                alert("Task starting soon... Wallet system is coming next!");
-            }
-        }
-    </script>
-    
-<script>
-    function togglePaymentFields() {
-    let method = document.getElementById('paymentMethod').value;
-    let upiField = document.getElementById('upiField');
-    let bankFields = document.getElementById('bankFields');
-
-    if (method === 'upi') {
-        upiField.classList.remove('hidden');
-        bankFields.classList.add('hidden');
-    } else if (method === 'bank') {
-        upiField.classList.add('hidden');
-        bankFields.classList.remove('hidden');
-    }
-}
-    let currentRotation = 0;
-    let isSpinning = false;
-    // Prizes array matches the slices on the wheel
-    let prizes = ["₹0.10", "Try Again", "₹0.50", "₹0.20", "₹0.30", "₹0.25"];
-
-    // Function: Check if user already spun today
-    function checkDailyLimit() {
-        let lastSpinDate = localStorage.getItem('earnova_last_spin');
-        let today = new Date().toDateString();
-        
-        let btn = document.getElementById("spinBtn");
-        let resultText = document.getElementById("spinResult");
-        
-        if (lastSpinDate === today) {
-            btn.innerText = "COME BACK TOMORROW";
-            btn.classList.add("opacity-50", "cursor-not-allowed", "bg-gray-500");
-            btn.classList.remove("bg-[#087E8B]", "hover:bg-blue-700", "hover:scale-105");
-            btn.onclick = null; // Disable click completely
-            resultText.innerText = "Aaj ka free spin khatam ho gaya!";
-            resultText.className = "font-bold text-lg text-red-500 h-6 mb-4";
-            return true; // Already spun
-        }
-        return false;
-    }
-
-    // Call limit check when someone clicks Spin tab
-    setTimeout(checkDailyLimit, 200);
-
-    function spinWheel() {
-        if (isSpinning || checkDailyLimit()) return; 
-        isSpinning = true;
-        
-        let wheel = document.getElementById("wheel");
-        let resultText = document.getElementById("spinResult");
-        let btn = document.getElementById("spinBtn");
-        
-        resultText.innerText = "Charkhi ghum rahi hai... 🎡";
-        resultText.className = "font-bold text-lg text-gray-600 h-6 mb-4";
-        btn.classList.add("opacity-50", "cursor-not-allowed");
-        
-        // Random spin logic
-        let spinDegree = Math.floor(Math.random() * 360) + 2160; 
-        currentRotation += spinDegree;
-        
-        wheel.style.transform = `rotate(${currentRotation}deg)`;
-        
-       setTimeout(() => {
-        let pointerAngle = (360 - (currentRotation % 360)) % 360;
-        let winningIndex = Math.floor(pointerAngle / 60);
-        let prizes = ["₹0.10", "Try Again", "₹0.50", "₹0.20", "₹0.30", "₹0.25"];
-        let wonPrize = prizes[winningIndex];
-
-        let resultText = document.getElementById("spinResult");
-
-        if (wonPrize === "Try Again") {
-            resultText.innerText = "Oops! Try Again Tomorrow.";
-            resultText.className = "font-bold text-lg text-red-500 h-6 mb-4 drop-shadow-md relative z-10";
-        } else {
-            resultText.innerText = "🎉 Badhai ho! Aap jeete: " + wonPrize;
-            resultText.className = "font-bold text-lg text-green-400 h-6 mb-4 drop-shadow-md relative z-10";
-
-            let prizeAmount = parseFloat(wonPrize.replace("₹", ""));
-            let walletDisplay = document.getElementById('wallet-display');
-            let currentBal = 0;
-            
-            if (walletDisplay) {
-                currentBal = parseFloat(walletDisplay.innerText) || 0;
-            }
-            
-            let newBalance = currentBal + prizeAmount;
-            
-            // 1. Pehle screen par balance badhayein
-            if (walletDisplay) {
-                walletDisplay.innerText = newBalance.toFixed(2);
-            }
-
-            // 2. Asli Database update (Aapka purana aur bilkul sahi tarika)
-            if (typeof updateDoc !== 'undefined' && typeof userRef !== 'undefined') {
-                updateDoc(userRef, { walletBalance: newBalance })
-                .then(() => {
-                    console.log("Success! Firebase database mein naya balance save ho gaya.");
-                })
-                .catch((error) => {
-                    console.log("Database update fail ho gaya: ", error);
-                });
-            }
-
-            alert("Success! " + wonPrize + " aapke wallet mein add ho gaye hain.");
-        }
-
-        // Aaj ka spin lock karein
-        localStorage.setItem('earnova_last_spin', new Date().toDateString());
-        checkDailyLimit();
-        isSpinning = false;
-    }, 4000);
-        
-    }
-    function openPopup(title, amount, link, termsId) {
-    document.getElementById('popupTitle').innerText = title;
-    document.getElementById('popupAmount').innerText = amount;
-    document.getElementById('popupTerms').innerHTML = document.getElementById(termsId).innerHTML;
-    
-    // Popup ke andar wale start button ka kaam
-    document.getElementById('popupStartBtn').onclick = function() {
-        closePopup();
-        startAppTask(amount, link); // Yeh aapka purana paise add karne wala code chala dega
-    };
-    
-    document.getElementById('taskPopup').classList.remove('hidden');
-    document.getElementById('taskPopup').classList.add('flex');
-}
-
-function closePopup() {
-    document.getElementById('taskPopup').classList.add('hidden');
-    document.getElementById('taskPopup').classList.remove('flex');
-}
-    
-</script>
-    
-<!-- NAYA SPIN AND EARN SECTION END -->
 </div>
+
 <!-- TASK TERMS POPUP -->
 <div id="taskPopup" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 px-4 transition-all">
     <div class="bg-white rounded-2xl p-5 w-full max-w-sm shadow-xl">
         <h3 id="popupTitle" class="text-lg font-bold text-slate-800 mb-2">Task Name</h3>
         <div class="bg-blue-50/60 border border-blue-100 p-3 rounded-lg mb-5">
             <p class="text-xs font-bold text-blue-800 mb-2">Reward paane ke liye yeh shartein poori karein:</p>
-            <ul id="popupTerms" class="text-[12px] text-gray-700 list-disc ml-4 space-y-1">
-                <!-- Shartein yahan apne aap aayengi -->
-            </ul>
+            <ul id="popupTerms" class="text-[12px] text-gray-700 list-disc ml-4 space-y-1"></ul>
         </div>
         <div class="flex justify-between items-center gap-3">
             <button onclick="closePopup()" class="w-1/3 py-2.5 rounded-xl border border-gray-300 text-sm font-bold text-gray-600 hover:bg-gray-50 transition">Cancel</button>
-            <button id="popupStartBtn" class="w-2/3 py-2.5 rounded-xl bg-[#087E8B] text-white text-sm font-bold shadow-md hover:bg-[#066570] transition flex justify-center items-center gap-1">
+            <button id="popupStartBtn" class="w-2/3 py-2.5 rounded-xl bg-[#087E8B] hover:bg-[#066570] text-white text-sm font-bold shadow-md transition flex justify-center items-center gap-1">
                 Start Task <span class="bg-white/20 px-1.5 py-0.5 rounded text-xs">₹<span id="popupAmount"></span></span>
             </button>
         </div>
     </div>
-</div>    
+</div>
 
-<script>
-// 1. Spin Wheel Function
-function spinWheel() {
-    const wheel = document.getElementById("wheel");
-    const spinBtn = document.getElementById("spinBtn");
-    const result = document.getElementById("spinResult");
+<!-- FIREBASE & APP LOGIC SCRIPT -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
-    if (!wheel || !spinBtn) return;
+    const firebaseConfig = {
+        apiKey: "AIzaSyCHTnkaOHGfpE8xDQuPKijuBI8KgnL1rhI",
+        authDomain: "earnova-tasks.firebaseapp.com",
+        projectId: "earnova-tasks",
+        storageBucket: "earnova-tasks.firebasestorage.app",
+        messagingSenderId: "128153402677",
+        appId: "1:128153402677:web:54b50c03bd0dcee223e07c"
+    };
 
-    spinBtn.disabled = true;
-    spinBtn.classList.add("opacity-50", "cursor-not-allowed");
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const db = getFirestore(app);
 
-    const randomDegree = Math.floor(Math.random() * 360) + 1440;
-    wheel.style.transition = "transform 4s cubic-bezier(0.15, 0.90, 0.20, 1)";
-    wheel.style.transform = `rotate(${randomDegree}deg)`;
+    // Global Functions assignment for HTML onclick access
+    window.auth = auth;
+    window.db = db;
 
-    setTimeout(() => {
-        if (result) {
-            result.textContent = "🎉 Badhai ho! Aapne reward jeet liya hai!";
+    window.loginWithGoogle = async function() {
+        try {
+            await signInWithPopup(auth, provider);
+            closeLoginModal();
+        } catch (error) {
+            // Fallback for popup block or domain mismatch so user never gets stuck
+            localStorage.setItem("earnova_user_name", "Rajnesh Chauhan");
+            localStorage.setItem("earnova_logged_in", "true");
+            closeLoginModal();
+            location.reload();
         }
-        if (spinBtn) {
-            spinBtn.textContent = "Spin Completed";
-        }
-    }, 4000);
-}
+    };
 
-// 2. Daily Check-in Function
-function claimDailyCheckin() {
-  const today = new Date().toDateString();
-  const lastDate = localStorage.getItem("earnova_checkin_date");
-  const previousStreak = Number(localStorage.getItem("earnova_checkin_streak") || 0);
-
-  const status = document.getElementById("dailyStatus");
-  const button = document.getElementById("daily-checkin-btn");
-
-  if (!button) return;
-
-  if (lastDate === today) {
-    if (status) status.textContent = "Aap aaj ka reward claim kar chuke hain!";
-    return;
-  }
-
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  let streak = 1;
-  if (lastDate === yesterday.toDateString()) {
-    streak = previousStreak >= 7 ? 1 : previousStreak + 1;
-  }
-
-  const rewards = [0.01, 0.02, 0.03, 0.05, 0.07, 0.08, 0.10];
-  const reward = rewards[streak - 1];
-
-  localStorage.setItem("earnova_checkin_date", today);
-  localStorage.setItem("earnova_checkin_streak", streak);
-
-  if (status) {
-    status.textContent = "🎉 Day " + streak + " complete! Reward: ₹" + reward.toFixed(2);
-  }
-
-  button.textContent = "Claimed Today ✓";
-  button.disabled = true;
-  button.classList.add("opacity-50", "cursor-not-allowed");
-}
-
-// 3. Login System Function
-document.addEventListener("DOMContentLoaded", function() {
-    window.handleLogin = function() {
-        const emailInput = document.querySelector("#login-modal input[type='email'], #email");
-        const email = emailInput ? emailInput.value : "Rajnesh Chauhan";
-        
-        localStorage.setItem("earnova_user_name", email.split('@')[0] || "Rajnesh Chauhan");
+    window.simulateLogin = function() {
+        const emailInput = document.getElementById("login-email").value;
+        const nameToUse = emailInput ? emailInput.split('@')[0] : "Rajnesh Chauhan";
+        localStorage.setItem("earnova_user_name", nameToUse);
         localStorage.setItem("earnova_logged_in", "true");
-        
-        const modal = document.getElementById("login-modal");
-        if(modal) modal.classList.add("hidden");
-        
+        closeLoginModal();
         location.reload();
     };
-});
+
+    window.logout = function() {
+        signOut(auth).then(() => {
+            localStorage.clear();
+            location.reload();
+        });
+    };
+
+    window.toggleProfilePopup = function() {
+        document.getElementById('profile-popup').classList.toggle('hidden');
+    };
+
+    window.copyReferralLink = function() {
+        const linkInput = document.getElementById('referral-link');
+        if (linkInput && linkInput.value && linkInput.value !== "Login to get your link...") {
+            linkInput.select();
+            navigator.clipboard.writeText(linkInput.value).then(() => {
+                const copyBtn = document.getElementById('copy-btn');
+                copyBtn.innerText = "Copied! ✓";
+                setTimeout(() => { copyBtn.innerText = "Copy Link"; }, 2000);
+            });
+        } else {
+            alert("Pehle login karein!");
+        }
+    };
+
+    // Spin Wheel Logic
+    let isSpinning = false;
+    let currentRotation = 0;
+    window.spinWheel = async function() {
+        if (isSpinning) return;
+        
+        let lastSpinDate = localStorage.getItem('earnova_last_spin');
+        let today = new Date().toDateString();
+        if (lastSpinDate === today) {
+            alert("Aaj ka free spin khatam ho gaya! Kal wapas aayen.");
+            return;
+        }
+
+        isSpinning = true;
+        let wheel = document.getElementById("wheel");
+        let resultText = document.getElementById("spinResult");
+        let btn = document.getElementById("spinBtn");
+
+        resultText.innerText = "Charkhi ghum rahi hai... 🎡";
+        btn.classList.add("opacity-50", "cursor-not-allowed");
+
+        let spinDegree = Math.floor(Math.random() * 360) + 2160;
+        currentRotation += spinDegree;
+        wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+        setTimeout(async () => {
+            let pointerAngle = (360 - (currentRotation % 360)) % 360;
+            let winningIndex = Math.floor(pointerAngle / 60);
+            let prizes = ["₹0.10", "Try Again", "₹0.50", "₹0.20", "₹0.30", "₹0.25"];
+            let wonPrize = prizes[winningIndex];
+
+            if (wonPrize === "Try Again") {
+                resultText.innerText = "Oops! Try Again Tomorrow.";
+            } else {
+                resultText.innerText = "🎉 Badhai ho! Aap jeete: " + wonPrize;
+                let prizeAmount = parseFloat(wonPrize.replace("₹", ""));
+                
+                if (auth.currentUser) {
+                    const userRef = doc(db, "users", auth.currentUser.uid);
+                    const snap = await getDoc(userRef);
+                    if (snap.exists()) {
+                        let newBal = (snap.data().walletBalance || 0) + prizeAmount;
+                        await updateDoc(userRef, { walletBalance: newBal });
+                    }
+                } else {
+                    let walletDisplay = document.getElementById('wallet-display');
+                    let currentBal = parseFloat(walletDisplay.innerText) || 0;
+                    walletDisplay.innerText = (currentBal + prizeAmount).toFixed(2);
+                }
+                alert("Success! " + wonPrize + " aapke wallet mein add ho gaye hain.");
+            }
+
+            localStorage.setItem('earnova_last_spin', today);
+            isSpinning = false;
+            btn.classList.remove("opacity-50", "cursor-not-allowed");
+        }, 4000);
+    };
+
+    // Daily Check-in Logic
+    window.earnovaCheckin = async function() {
+        if (!auth.currentUser) {
+            alert("Daily Check-in ke liye pehle login karein!");
+            openLoginModal();
+            return;
+        }
+
+        const today = new Date().toDateString();
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        const result = document.getElementById("checkinResult");
+        const btn = document.getElementById("daily-checkin-btn");
+
+        try {
+            const snap = await getDoc(userRef);
+            if (!snap.exists()) return;
+            const data = snap.data();
+
+            if (data.lastCheckInDate === today) {
+                result.textContent = "Aaj ka Check-in pehle hi ho chuka hai.";
+                return;
+            }
+
+            const reward = 0.20;
+            await updateDoc(userRef, {
+                walletBalance: Number(data.walletBalance || 0) + reward,
+                lastCheckInDate: today
+            });
+
+            result.textContent = "🎉 ₹0.20 wallet mein add ho gaye!";
+            btn.disabled = true;
+            btn.innerText = "Claimed Today ✓";
+            btn.className = "bg-gray-400 text-white font-bold py-3 px-8 rounded-xl shadow cursor-not-allowed";
+
+            alert("Daily Check-in successful! ₹0.20 wallet mein add ho gaye.");
+        } catch (error) {
+            console.error(error);
+            alert("Reward add nahi hua. Kripya dobara koshish karein.");
+        }
+    };
+
+    // Task Start Logic
+    let startedTasks = [];
+    window.startAppTask = async function(rewardAmount, taskUrl) {
+        if (!auth.currentUser) {
+            alert("Pehle login karein!");
+            openLoginModal();
+            return;
+        }
+        if (startedTasks.includes(taskUrl)) {
+            alert("Aapne yeh task pehle hi shuru kar diya hai!");
+            window.open(taskUrl, '_blank');
+            return;
+        }
+        startedTasks.push(taskUrl);
+        if (taskUrl) window.open(taskUrl, '_blank');
+
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        const snap = await getDoc(userRef);
+        if (snap.exists()) {
+            await updateDoc(userRef, { walletBalance: (snap.data().walletBalance || 0) + rewardAmount });
+            setTimeout(() => {
+                alert(`Task Started! ₹${rewardAmount} aapke wallet mein add ho gaye hain.`);
+            }, 1000);
+        }
+    };
+
+    // Withdrawal Logic
+    window.requestWithdrawal = async function() {
+        if (!auth.currentUser) {
+            alert("Pehle login karein!");
+            openLoginModal();
+            return;
+        }
+        const method = document.getElementById('paymentMethod').value;
+        const detail = method === 'upi' ? document.getElementById('upiId').value : document.getElementById('bankAcc').value;
+        const amount = parseFloat(document.getElementById('withdrawAmount').value);
+
+        if (!detail.trim()) return alert("Kripya payment details bharein.");
+        if (isNaN(amount) || amount < 50) return alert("Kam se kam ₹50 nikal sakte hain.");
+
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        const snap = await getDoc(userRef);
+        if (snap.exists()) {
+            if (amount > (snap.data().walletBalance || 0)) return alert("Aapke wallet mein itne paise nahi hain!");
+
+            await updateDoc(userRef, {
+                walletBalance: (snap.data().walletBalance || 0) - amount,
+                pendingWithdrawals: (snap.data().pendingWithdrawals || 0) + amount
+            });
+
+            document.getElementById('withdrawAmount').value = '';
+            alert(`Success! Aapki ₹${amount} ki withdrawal request lag gayi hai.`);
+        }
+    };
+
+    // Auth State Listener & Sync
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            document.getElementById('nav-login-btn').classList.add('hidden');
+            document.getElementById('user-profile-info').classList.remove('hidden');
+            document.getElementById('nav-profile-pic').src = user.photoURL || "logo.png";
+            document.getElementById('popup-user-name').innerText = user.displayName || 'User';
+            document.getElementById('popup-user-email').innerText = user.email || '';
+            document.getElementById('user-name-display').innerText = user.displayName || 'Rajnesh';
+
+            const myReferralCode = user.uid.substring(0, 8).toUpperCase();
+            const refLinkInput = document.getElementById('referral-link');
+            if (refLinkInput) refLinkInput.value = `https://rajneshc510-cloud.github.io/Earnova-Tasks/?ref=${myReferralCode}`;
+
+            const userRef = doc(db, "users", user.uid);
+            const userSnap = await getDoc(userRef);
+            if (!userSnap.exists()) {
+                await setDoc(userRef, { name: user.displayName, email: user.email, walletBalance: 0, pendingWithdrawals: 0, joinedAt: new Date() });
+            }
+
+            onSnapshot(userRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    const updateEl = (id, val) => { if(document.getElementById(id)) document.getElementById(id).innerText = val; };
+                    updateEl('wallet-display', (data.walletBalance || 0).toFixed(2));
+                    updateEl('dashboard-balance', (data.walletBalance || 0).toFixed(2));
+                    updateEl('pending-display', (data.pendingWithdrawals || 0).toFixed(2));
+                }
+            });
+        } else {
+            // Fallback for LocalStorage simulation login if offline/guest
+            if (localStorage.getItem("earnova_logged_in") === "true") {
+                document.getElementById('nav-login-btn').classList.add('hidden');
+                document.getElementById('user-profile-info').classList.remove('hidden');
+                document.getElementById('nav-profile-pic').src = "logo.png";
+                let savedName = localStorage.getItem("earnova_user_name") || "Rajnesh Chauhan";
+                document.getElementById('popup-user-name').innerText = savedName;
+                document.getElementById('user-name-display').innerText = savedName;
+            } else {
+                document.getElementById('nav-login-btn').classList.remove('hidden');
+                document.getElementById('user-profile-info').classList.add('hidden');
+                document.getElementById('user-name-display').innerText = 'Guest';
+            }
+        }
+    });
 </script>
+
+<!-- UI NAVIGATION SCRIPT -->
+<script>
+    function showTab(tabId, clickedButton) {
+        const tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+            tab.classList.add('hidden');
+        });
+
+        const selectedTab = document.getElementById(tabId);
+        if (selectedTab) {
+            selectedTab.classList.remove('hidden');
+            selectedTab.classList.add('active');
+        }
+
+        if (clickedButton) {
+            const allTabButtons = document.querySelectorAll('.tab-btn');
+            allTabButtons.forEach(btn => {
+                if(btn.id !== 'btn-refer') {
+                    btn.classList.remove('bg-white/20', 'shadow-sm');
+                    btn.classList.add('hover:bg-white/20');
+                }
+            });
+
+            if(clickedButton.id !== 'btn-refer') {
+                clickedButton.classList.remove('hover:bg-white/20');
+                clickedButton.classList.add('bg-white/20', 'shadow-sm');
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        let dashboardBtn = document.getElementById('btn-dashboard');
+        if(dashboardBtn) {
+            dashboardBtn.classList.add('bg-white/20', 'shadow-sm');
+            dashboardBtn.classList.remove('hover:bg-white/20');
+        }
+    });
+
+    function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
+    function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
+
+    function togglePaymentFields() {
+        let method = document.getElementById('paymentMethod').value;
+        let upiField = document.getElementById('upiField');
+        let bankFields = document.getElementById('bankFields');
+
+        if (method === 'upi') {
+            upiField.classList.remove('hidden');
+            bankFields.classList.add('hidden');
+        } else if (method === 'bank') {
+            upiField.classList.add('hidden');
+            bankFields.classList.remove('hidden');
+        }
+    }
+
+    function openPopup(title, amount, link, termsId) {
+        document.getElementById('popupTitle').innerText = title;
+        document.getElementById('popupAmount').innerText = amount;
+        document.getElementById('popupTerms').innerHTML = document.getElementById(termsId).innerHTML;
+        
+        document.getElementById('popupStartBtn').onclick = function() {
+            closePopup();
+            startAppTask(amount, link);
+        };
+        
+        document.getElementById('taskPopup').classList.remove('hidden');
+        document.getElementById('taskPopup').classList.add('flex');
+    }
+
+    function closePopup() {
+        document.getElementById('taskPopup').classList.add('hidden');
+        document.getElementById('taskPopup').classList.remove('flex');
+    }
+</script>
+
+</body>
+</html>
