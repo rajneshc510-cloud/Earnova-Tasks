@@ -707,42 +707,43 @@ document.addEventListener('click', function(event) {
 </script>
 
 <!-- UI NAVIGATION SCRIPT -->
+    
 <script>
-  function showTab(tabId) {
-    // 1. Sabhi pages (tabs) ko chupao
-    let tabs = document.querySelectorAll('.tab-content');
-    tabs.forEach(tab => {
-        tab.classList.add('hidden');
-    });
+    
+ function showTab(tabId) {
+        // 1. Sabhi pages (tabs) ko chupao aur classes reset karo
+        let tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+            tab.classList.add('hidden');
+        });
 
-    // 2. Sirf click kiye hue page ko dikhao
-    let activeTab = document.getElementById(tabId);
-    if (activeTab) {
-        activeTab.classList.remove('hidden');
-    }
-
-    // 3. Sabhi buttons se border aur background hatao
-    let btns = document.querySelectorAll('.nav-btn');
-    btns.forEach(btn => {
-        btn.classList.remove('border-white', 'bg-white/20');
-        btn.classList.add('border-transparent');
-    });
-
-    // 4. Jis button par click kiya hai, sirf uspar border aur background lagao
-    let activeBtn = document.getElementById('btn-' + tabId);
-    if (activeBtn) {
-        activeBtn.classList.remove('border-transparent');
-        activeBtn.classList.add('border-white', 'bg-white/20');
-    }
-}
-    document.addEventListener("DOMContentLoaded", function() {
-        let dashboardBtn = document.getElementById('btn-dashboard');
-        if(dashboardBtn) {
-            dashboardBtn.classList.add('bg-white/20', 'shadow-sm');
-            dashboardBtn.classList.remove('hover:bg-white/20');
+        // 2. Sirf click kiye hue page ko dikhao
+        let activeTab = document.getElementById(tabId);
+        if (activeTab) {
+            activeTab.classList.remove('hidden');
+            activeTab.classList.add('active');
         }
-    });
 
+        // 3. Sabhi buttons se border aur background hatao
+        let btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn => {
+            btn.classList.remove('border-white', 'bg-white/20', 'shadow-sm');
+            btn.classList.add('border-transparent');
+        });
+
+        // 4. Jis button par click kiya hai, uspe border lagao
+        let activeBtn = document.getElementById('btn-' + tabId);
+        if (activeBtn) {
+            activeBtn.classList.remove('border-transparent');
+            activeBtn.classList.add('border-white', 'bg-white/20', 'shadow-sm');
+        }
+    }
+
+    // Jaise hi website khulegi, 'Home' page aur uska border automatically set ho jayega
+    document.addEventListener("DOMContentLoaded", function() {
+        showTab('dashboard'); 
+    });
     function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
     function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
 
