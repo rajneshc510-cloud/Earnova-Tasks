@@ -152,77 +152,145 @@
 <script>
 const earnovaDailyRewards = [0.01, 0.02, 0.03, 0.05, 0.07, 0.08, 0.10];
 
-function earnovaSpin() {
-  const today = new Date().toDateString();
-  const result = document.getElementById('spinResult');
-  const btn = document.getElementById('spinBtn');
+async function earnovaSpin() {
+  const user = auth.currentUser;
 
-  if (localStorage.getItem('earnova_spin_date') === today) {
-    result.textContent = 'Aaj ka Spin pehle hi use ho chuka hai.';
+  if (!user) {
+    alert("Reward paane ke liye pehle login karein!");
     return;
   }
 
-  const rewards = [
-    { amount: 0.01, chance: 30 },
-    { amount: 0.02, chance: 25 },
-    { amount: 0.05, chance: 20 },
-    { amount: 0.10, chance: 15 },
-    { amount: 0.25, chance: 8 },
-    { amount: 0.50, chance: 2 }
-  ];
+  const today = new Date().toDateString();
+  const result = document.getElementById("spinResult");
+  const btn = document.getElementById("spinBtn");
 
-  let random = Math.random() * 100;
-  let selected = rewards[0].amount;
+  const userRef = doc(db, "users", user.uid);
 
-  for (const reward of rewards) {
-    random -= reward.chance;
-    if (random < 0) {
-      selected = reward.amount;
-      break;
+  try {
+    const snap = await getDoc(userRef);
+
+    if (!snap.exists()) {
+      alert("User wallet nahi mila. Dobara login karein.");
+      return;
     }
-  }
 
-  localStorage.setItem('earnova_spin_date', today);
-  localStorage.setItem('earnova_spin_reward', selected.toFixed(2));
-  result.textContent = '🎉 Aap jeete ₹' + selected.toFixed(2) +
-    '! Reward abhi demo hai, wallet mein add nahi hua.';
-  btn.disabled = true;
-  btn.textContent = 'Come Back Tomorrow';
+    const data = snap.data();
+
+    if (data.lastSpinDate === today) {
+      result.textContent = "Aaj ka Spin pehle hi use ho chuka hai.";
+      return;
+    }
+
+    const rewards = [
+      { amount: 0.01, chance: 30 },
+      { amount: 0.02, chance: 25 },
+      { amount: 0.05, chance: 20 },
+      { amount: 0.10, chance: 15 },
+      { amount: 0.25, chance: 8 },
+      { amount: 0.50, chance: 2 }
+    ];
+
+    let random = Math.random() * 100;
+    let selected = 0.01;
+
+    for (const reward of rewards) {
+      random -= reward.chance;
+      if (random < 0) {
+        selected = reward.amount;
+        break;
+      }
+    }
+
+    await updateDoc(userRef, {
+      walletBalance: Number(data.walletBalance || 0) + selected,
+      lastSpinDate: today
+    });
+
+    localStorage.setItem("earnova_spin_date", today);
+
+    result.textContent =
+      "🎉 Aap jeete ₹" + selected.toFixed(2) + "!";
+
+    btn.disabled = true;
+    btn.textContent = "Come Back Tomorrow";
+
+    alert("₹" + selected.toFixed(2) +
+          " wallet mein add ho gaye!");
+
+  } catch (error) {
+    console.error(error);
+    alert("Reward add nahi hua. Firebase error check karein.");
+  }
 }
 
-function earnovaCheckin() {
-  const today = new Date().toDateString();
-  const lastDate = localStorage.getItem('earnova_checkin_date');
-  const result = document.getElementById('checkinResult');
-  const btn = document.getElementById('checkinBtn');
-  let streak = Number(localStorage.getItem('earnova_checkin_streak') || 0);
 
-  if (lastDate === today) {
-    result.textContent = 'Aaj ka Daily Check-in ho chuka hai.';
+async function earnovaCheckin() {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Daily Check-in ke liye pehle login karein!");
     return;
   }
 
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
+  const today = new Date().toDateString();
+  const userRef = doc(db, "users", user.uid);
+  const result = document.getElementById("checkinResult");
+  const btn = document.getElementById("checkinBtn");
 
-  if (lastDate !== yesterday.toDateString()) {
-    streak = 0;
+  const rewards = [0.01, 0.02, 0.03, 0.05, 0.07, 0.08, 0.10];
+
+  try {
+    const snap = await getDoc(userRef);
+
+    if (!snap.exists()) {
+      alert("User wallet nahi mila. Dobara login karein.");
+      return;
+    }
+
+    const data = snap.data();
+
+    if (data.lastCheckInDate === today) {
+      result.textContent = "Aaj ka Check-in pehle hi ho chuka hai.";
+      return;
+    }
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    let streak = Number(data.checkinStreak || 0);
+
+    if (data.lastCheckInDate !== yesterday.toDateString()) {
+      streak = 0;
+    }
+
+    streak = (streak % 7) + 1;
+
+    const reward = rewards[streak - 1];
+
+    await updateDoc(userRef, {
+      walletBalance: Number(data.walletBalance || 0) + reward,
+      lastCheckInDate: today,
+      checkinStreak: streak
+    });
+
+    localStorage.setItem("earnova_checkin_date", today);
+
+    document.getElementById("checkin-streak").textContent =
+      "Day " + streak + " of 7";
+
+    result.textContent =
+      "🎉 ₹" + reward.toFixed(2) + " wallet mein add ho gaye!";
+
+    btn.disabled = true;
+    btn.textContent = "Checked In Today";
+
+    alert("Daily Check-in successful! ₹" +
+          reward.toFixed(2) + " wallet mein add ho gaye.");
+
+  } catch (error) {
+    console.error(error);
+    alert("Reward add nahi hua. Firebase error check karein.");
   }
-
-  streak = (streak % 7) + 1;
-  const reward = earnovaDailyRewards[streak - 1];
-
-  localStorage.setItem('earnova_checkin_date', today);
-  localStorage.setItem('earnova_checkin_streak', streak);
-  localStorage.setItem('earnova_checkin_reward', reward.toFixed(2));
-
-  document.getElementById('checkin-streak').textContent =
-    'Day ' + streak + ' of 7';
-
-  result.textContent = '🎉 Daily reward ₹' + reward.toFixed(2) +
-    '! Yeh demo reward hai, wallet mein add nahi hua.';
-  btn.disabled = true;
-  btn.textContent = 'Checked In Today';
 }
     
 </script>
