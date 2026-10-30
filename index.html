@@ -137,6 +137,22 @@
             </div>
         </div>
         <button onclick="showTab('tasks')" class="bg-[#087E8B] hover:bg-[#066570] text-white font-bold py-3 px-6 rounded-lg shadow-md transition w-full md:w-auto">Start Earning Now ➔</button>
+
+<!-- SCRATCH CARD SHURU -->
+        <div class="mt-6 bg-white p-5 rounded-xl shadow border-t-4 border-yellow-400 text-center relative max-w-sm mx-auto md:mx-0">
+            <h3 class="text-lg font-bold text-[#087E8B] mb-1">🎁 Daily Scratch Card</h3>
+            <p class="text-xs text-gray-500 mb-4">Scratch karo aur paise jeeto!</p>
+            
+            <div class="relative w-48 h-48 mx-auto bg-yellow-50 rounded-lg overflow-hidden border-2 border-dashed border-yellow-400 flex items-center justify-center select-none shadow-inner" id="scratch-container">
+                <!-- Reward Text (Niche chupa hua) -->
+                <div id="scratch-reward-text" class="text-4xl font-extrabold text-green-500 opacity-0 transition-opacity duration-500">₹0.00</div>
+                <!-- Canvas Layer (Upar ki silver layer jise scratch karenge) -->
+                <canvas id="scratch-canvas" class="absolute top-0 left-0 w-full h-full cursor-pointer"></canvas>
+            </div>
+            <p id="scratch-message" class="text-sm font-bold text-green-600 mt-3 h-5"></p>
+        </div>
+        <!-- SCRATCH CARD KHATAM -->
+        
     </section>
 
     <!-- SPIN PAGE START -->
@@ -768,5 +784,123 @@ document.addEventListener('click', function(event) {
     }
 </script>
 
+<!-- SCRATCH CARD LOGIC -->
+<script>
+    function initScratchCard() {
+        const canvas = document.getElementById('scratch-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('scratch-container');
+        const rewardText = document.getElementById('scratch-reward-text');
+        const message = document.getElementById('scratch-message');
+        
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
+
+        let lastScratchDate = localStorage.getItem('earnova_last_scratch');
+        let today = new Date().toDateString();
+        
+        // Agar aaj pehle hi scratch kar liya hai
+        if (lastScratchDate === today) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.display = 'none';
+            rewardText.innerText = localStorage.getItem('earnova_last_scratch_amt') || '₹0.00';
+            rewardText.classList.remove('opacity-0');
+            message.innerText = "Aaj ka card aapne scratch kar liya hai!";
+            message.classList.replace('text-green-600', 'text-red-500');
+            return;
+        }
+
+        // Upar ki silver patti (layer)
+        ctx.fillStyle = '#cbd5e1'; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Silver layer ke upar text
+        ctx.font = "bold 18px Arial";
+        ctx.fillStyle = "#334155"; 
+        ctx.textAlign = "center";
+        ctx.fillText("SCRATCH ME", canvas.width / 2, canvas.height / 2 + 6);
+
+        let isDrawing = false;
+        let isRevealed = false;
+
+        // Random prize 1 Rupaye se kam (paise mein)
+        const rewards = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90];
+        const prizeAmt = rewards[Math.floor(Math.random() * rewards.length)];
+        rewardText.innerText = "₹" + prizeAmt.toFixed(2);
+        rewardText.classList.remove('opacity-0'); 
+
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+
+        function scratch(e) {
+            if (!isDrawing || isRevealed) return;
+            if(e.cancelable) e.preventDefault();
+            const pos = getMousePos(e);
+            
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, 20, 0, Math.PI * 2); // Scratch brush size
+            ctx.fill();
+            checkReveal();
+        }
+
+        function checkReveal() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = imageData.data;
+            let clearPixels = 0;
+            for (let i = 3; i < pixels.length; i += 4) {
+                if (pixels[i] === 0) clearPixels++;
+            }
+            const clearPercentage = (clearPixels / (pixels.length / 4)) * 100;
+            
+            // Agar 40% se zyada scratch kar diya toh poora dikha do
+            if (clearPercentage > 40 && !isRevealed) {
+                isRevealed = true;
+                canvas.style.transition = "opacity 0.5s";
+                canvas.style.opacity = "0";
+                setTimeout(() => {
+                    canvas.style.display = "none";
+                    awardPrize(prizeAmt);
+                }, 500);
+            }
+        }
+
+        canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+        canvas.addEventListener('mousemove', scratch);
+        canvas.addEventListener('mouseup', () => { isDrawing = false; });
+        canvas.addEventListener('mouseleave', () => { isDrawing = false; });
+        
+        canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
+        canvas.addEventListener('touchmove', scratch, {passive: false});
+        canvas.addEventListener('touchend', () => { isDrawing = false; });
+    }
+
+    function awardPrize(amount) {
+        let today = new Date().toDateString();
+        localStorage.setItem('earnova_last_scratch', today);
+        localStorage.setItem('earnova_last_scratch_amt', "₹" + amount.toFixed(2));
+        
+        document.getElementById('scratch-message').innerText = `🎉 Badhai ho! Aap jeete ₹${amount.toFixed(2)}!`;
+
+        // Turant dashboard aur wallet me paise add kar do
+        let walletDisplay = document.getElementById('wallet-display');
+        if (walletDisplay) walletDisplay.innerText = (parseFloat(walletDisplay.innerText) + amount).toFixed(2);
+        
+        let dashBal = document.getElementById('dashboard-balance');
+        if (dashBal) {
+            let currentDash = parseFloat(dashBal.innerText.replace('₹', '')) || 0;
+            dashBal.innerText = (currentDash + amount).toFixed(2);
+        }
+    }
+    
+    // Page load hote hi card taiyar ho jayega
+    document.addEventListener("DOMContentLoaded", initScratchCard);
+</script>
+    
 </body>
 </html>
