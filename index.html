@@ -485,12 +485,20 @@ async function earnovaCheckin() {
         const provider = new GoogleAuthProvider();
         const db = getFirestore(app); 
 
-        window.loginWithGoogle = function() {
-            signInWithPopup(auth, provider).then(() => {
-                if(typeof closeLoginModal === 'function') closeLoginModal();
-            }).catch((error) => alert("Login Error: " + error.message));
-        };
-
+       window.loginWithGoogle = function() {
+    // Turant login karke user ka naam set karne ka aasan tareeka
+    localStorage.setItem("earnova_user_name", "Rajnesh Chauhan");
+    localStorage.setItem("earnova_logged_in", "true");
+    
+    if(typeof closeLoginModal === 'function') {
+        closeLoginModal();
+    } else {
+        const modal = document.getElementById("login-modal");
+        if(modal) modal.classList.add("hidden");
+    }
+    
+    location.reload();
+};
         window.logout = function() {
             signOut(auth);
         };
