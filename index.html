@@ -609,7 +609,7 @@ document.addEventListener('click', function(event) {
                 const data = snap.data();
                 const todayDate = new Date().toDateString();
                 if (data.lastCheckInDate === todayDate) return alert("Aap aaj ka bonus pehle hi le chuke hain. Kripya kal wapas aayen!");
-                await updateDoc(userRef, { walletBalance: (data.walletBalance || 0) + 0.20, lastCheckInDate: todayDate });
+                await updateDoc(userRef, { walletBalance: (data.walletBalance || 0) + ₹0.20, lastCheckInDate: todayDate });
                 alert('Success! ₹0.20 aapke wallet mein add ho gaye hain.');
             }
         };
