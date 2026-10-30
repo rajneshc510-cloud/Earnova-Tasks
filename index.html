@@ -34,8 +34,15 @@
     <div class="max-w-7xl mx-auto px-4 py-5">
         <div class="flex flex-wrap items-center justify-between">
             
-            <!-- 1. LOGO -->
-            <div class="flex items-center gap-2">
+           <!-- 1. LOGO & BACK ARROW -->
+            <div class="flex items-center gap-1 sm:gap-2">
+                <!-- Back Arrow Button -->
+                <button onclick="history.back()" class="text-white hover:bg-white/20 p-1.5 rounded-full transition-all mr-1" title="Go Back">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 sm:w-6 sm:h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                    </svg>
+                </button>
+                
                 <img src="logo.png" class="h-8 w-8 rounded-full bg-white p-0.5 object-cover" alt="Earnova Logo">
                 <span class="text-xl font-bold tracking-wide">Earnova</span>
             </div>
