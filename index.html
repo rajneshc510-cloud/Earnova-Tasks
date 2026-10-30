@@ -58,18 +58,42 @@
                 <div id="user-profile-info" class="hidden relative flex items-center">
                     <img id="nav-profile-pic" src="" alt="Profile" onclick="window.toggleProfilePopup()" class="w-9 h-9 rounded-full border-2 border-green-400 cursor-pointer shadow-md hover:scale-105 transition-transform object-cover">
                     
-                    <div id="profile-popup" class="hidden absolute right-0 top-12 w-60 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden text-left">
-                        <div class="p-3.5 border-b border-gray-100 bg-gray-50">
-                            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Logged in as</p>
-                            <p id="popup-user-name" class="text-sm font-bold text-gray-800 truncate">Guest</p>
-                            <p id="popup-user-email" class="text-xs text-gray-500 truncate mt-0.5">guest@email.com</p>
-                        </div>
-                        <div class="flex flex-col py-1">
-                            <button onclick="logout()" class="w-full text-left px-4 py-2.5 text-sm font-bold text-red-600 border-t border-gray-100 hover:bg-red-50 transition-colors flex items-center gap-2">
-                                🚪 Logout
-                            </button>
-                        </div>
-                    </div>
+                   <div id="profile-popup" class="hidden absolute right-0 top-12 w-64 bg-white rounded-xl shadow-xl border border-gray-200 z-50 overflow-hidden text-left transition-all">
+    
+    <!-- User Details Section -->
+    <div class="p-4 border-b border-gray-100 bg-gray-50/50">
+        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Logged in as</p>
+        <p id="popup-user-name" class="text-base font-bold text-slate-800 truncate">Guest</p>
+        <p id="popup-user-email" class="text-xs text-gray-500 truncate mt-0.5">guest@email.com</p>
+        
+        <!-- Member Since (New) -->
+        <div class="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-[#087E8B] bg-cyan-50 w-fit px-2 py-1 rounded-md border border-cyan-100">
+            <span>📅</span> Member since: Oct 2026
+        </div>
+    </div>
+
+    <!-- Menu Options -->
+    <div class="flex flex-col py-1.5">
+        
+        <!-- Help & Support (New) -->
+        <a href="mailto:support@earnova.com" class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 hover:text-slate-800 hover:bg-gray-50 transition-colors flex items-center gap-3">
+            <span class="text-lg">🎧</span> Help & Support
+        </a>
+
+        <!-- Privacy Policy (New) -->
+        <a href="privacy.html" class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 hover:text-slate-800 hover:bg-gray-50 transition-colors flex items-center gap-3">
+            <span class="text-lg">🔒</span> Privacy Policy
+        </a>
+
+        <hr class="border-gray-100 my-1">
+
+        <!-- Logout -->
+        <button onclick="logout()" class="w-full text-left px-4 py-2.5 text-sm font-bold text-red-600 hover:bg-red-50 transition-colors flex items-center gap-3">
+            <span class="text-lg">🚪</span> Logout
+        </button>
+
+    </div>
+</div>
                 </div>
             </div>
 
