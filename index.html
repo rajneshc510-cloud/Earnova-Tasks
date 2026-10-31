@@ -994,29 +994,66 @@ function earnovaCheckin() {
 }
 </script>   
 
-<!-- NAYA PREMIUM SCRATCH CARD SCRIPT -->
+<!-- NAYA PREMIUM SCRATCH CARD SCRIPT (WITH MEMORY) -->
 <script>
+// 1. Page load hote hi browser ki memory check karna
+document.addEventListener("DOMContentLoaded", function() {
+    let savedBalance = localStorage.getItem('earnova_saved_balance');
+    let dashBalance = document.getElementById('dashboard-balance');
+    
+    // Agar balance memory mein save hai, toh wahi dikhao
+    if (savedBalance && dashBalance) {
+        dashBalance.innerText = savedBalance;
+    }
+
+    // Check karo ki aaj card scratch hua hai ya nahi
+    let today = new Date().toDateString();
+    let lastScratch = localStorage.getItem('earnova_scratch_date');
+    
+    if (lastScratch === today) {
+        let overlay = document.getElementById('scratch-overlay');
+        let msg = document.getElementById('scratch-msg');
+        
+        if (overlay) overlay.style.display = 'none'; // Card khula hua dikhao
+        if (msg) {
+            msg.style.opacity = '1';
+            msg.innerText = "Aaj ka claim ho chuka hai!";
+        }
+    }
+});
+
+// 2. Scratch karne par chalne wala main function
 function revealScratchCard() {
+    let today = new Date().toDateString();
     let overlay = document.getElementById('scratch-overlay');
     let msg = document.getElementById('scratch-msg');
-    let balanceElement = document.getElementById('dashboard-balance'); 
+    let dashBalance = document.getElementById('dashboard-balance'); 
 
-    if(overlay && overlay.style.pointerEvents !== 'none') {
+    // Agar pehle hi scratch kar liya hai, toh action rok do
+    if (localStorage.getItem('earnova_scratch_date') === today) {
+        return;
+    }
+
+    if (overlay && overlay.style.pointerEvents !== 'none') {
         
-        // 1. Card scratch karne ka animation
+        // Animation
         overlay.style.opacity = '0';
         overlay.style.transform = 'scale(1.1) translateY(-20px)';
         overlay.style.pointerEvents = 'none'; 
         
-        if(msg) {
-            msg.style.opacity = '1';
-        }
+        if (msg) msg.style.opacity = '1';
 
-        // 2. Main balance mein paise add karna
-        if(balanceElement) {
-            let currentBalance = parseFloat(balanceElement.innerText) || 0;
+        // Memory mein save karo ki aaj ka task ho gaya
+        localStorage.setItem('earnova_scratch_date', today);
+
+        // Paise add karna aur hamesha ke liye save karna
+        if (dashBalance) {
+            let currentBalance = parseFloat(dashBalance.innerText) || 0;
             let newBalance = currentBalance + 0.40;
-            balanceElement.innerText = newBalance.toFixed(2);
+            dashBalance.innerText = newBalance.toFixed(2);
+            
+            // Refresh ke baad yaad rakhne ke liye save karo
+            localStorage.setItem('earnova_saved_balance', newBalance.toFixed(2));
         }
     }
 }
