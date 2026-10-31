@@ -616,34 +616,34 @@ document.addEventListener('click', function(event) {
         }
     };
 
-   // Task Start Logic
+   // Task Start Logic (Permanent Save ke sath)
     let startedTasks = [];
     window.startAppTask = async function(rewardAmount, taskUrl) {
         
-        // 1. Agar task pehle hi click kar diya hai toh dubara start na ho
+        // 1. Agar task pehle hi click kar diya hai
         if (startedTasks.includes(taskUrl)) {
             alert("Aapne yeh task pehle hi shuru kar diya hai! Kripya link se app install karke registration poora karein.");
             window.open(taskUrl, '_blank');
             return;
         }
 
-        // 2. Naya task open karna
+        // 2. Task open karna
         startedTasks.push(taskUrl);
         if (taskUrl) window.open(taskUrl, '_blank');
 
-        // 3. User ko message dikhana ki paise turant nahi milenge (Verification hogi)
+        // 3. Message dikhana
         setTimeout(() => {
             alert("Task Shuru! Aapko link se app download karke process poora karna hoga. Verification ke baad ₹" + rewardAmount + " aapke main wallet mein add ho jayenge.");
         }, 1000);
 
-        // 4. Main balance ki jagah paise "Pending Approvals" mein dikhana
+        // 4. Pending Approvals mein paise add karna aur memory mein save karna
         let pendingDisplay = document.getElementById('pending-display');
         if (pendingDisplay) {
             let currentPending = parseFloat(pendingDisplay.innerText) || 0;
             let newPending = currentPending + rewardAmount;
             pendingDisplay.innerText = newPending.toFixed(2);
             
-            // Pending balance ko bhi browser ki memory mein save kar lete hain
+            // Refresh ke baad hatne na paye, isiliye browser memory mein save kiya
             localStorage.setItem('earnova_saved_pending', newPending.toFixed(2));
         }
     };
@@ -1040,6 +1040,11 @@ function earnovaCheckin() {
 // 1. Page load hote hi browser ki memory check karna
 document.addEventListener("DOMContentLoaded", function() {
     let savedBalance = localStorage.getItem('earnova_saved_balance');
+    let savedPending = localStorage.getItem('earnova_saved_pending');
+    let pendingDisplay = document.getElementById('pending-display');
+    if (savedPending && pendingDisplay) {
+        pendingDisplay.innerText = savedPending;
+    }
     let dashBalance = document.getElementById('dashboard-balance');
     
     // Agar balance memory mein save hai, toh wahi dikhao
