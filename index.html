@@ -992,7 +992,7 @@ function earnovaCheckin() {
   let streak = Number(localStorage.getItem('earnova_checkin_streak') || 0);
 
   if (lastDate === today) {
-    result.textContent = 'Aaj ka Daily Check-in ho chuka hai.';
+    result.textContent = 'Aaj ka Daily Check-in pehle hi ho chuka hai.';
     return;
   }
 
@@ -1000,7 +1000,7 @@ function earnovaCheckin() {
   yesterday.setDate(yesterday.getDate() - 1);
 
   if (lastDate !== yesterday.toDateString()) {
-    streak = 0;
+    streak = 0; 
   }
 
   streak = (streak % 7) + 1;
@@ -1008,15 +1008,30 @@ function earnovaCheckin() {
 
   localStorage.setItem('earnova_checkin_date', today);
   localStorage.setItem('earnova_checkin_streak', streak);
-  localStorage.setItem('earnova_checkin_reward', reward.toFixed(2));
 
-  document.getElementById('checkin-streak').textContent =
-    'Day ' + streak + ' of 7';
+  let streakDisplay = document.getElementById('checkin-streak');
+  if(streakDisplay) {
+      streakDisplay.textContent = 'Day ' + streak + ' of 7';
+  }
 
-  result.textContent = '🎉 Daily reward ₹' + reward.toFixed(2) +
-    '! Yeh demo reward hai, wallet mein add nahi hua.';
+  result.textContent = '🎉 Badhai ho! Daily reward ₹' + reward.toFixed(2) + ' wallet mein add ho gaye!';
   btn.disabled = true;
-  btn.textContent = 'Checked In Today';
+  btn.textContent = 'Claimed Today ✓';
+  btn.classList.replace('bg-blue-600', 'bg-gray-400');
+  btn.classList.add('cursor-not-allowed');
+
+  let dashBalance = document.getElementById('dashboard-balance');
+  let walletDisplay = document.getElementById('wallet-display');
+  
+  if (dashBalance) {
+      let currentBalance = parseFloat(dashBalance.innerText) || 0;
+      let newBalance = currentBalance + reward;
+      
+      dashBalance.innerText = newBalance.toFixed(2);
+      if (walletDisplay) walletDisplay.innerText = newBalance.toFixed(2);
+      
+      localStorage.setItem('earnova_saved_balance', newBalance.toFixed(2));
+  }
 }
 </script>   
 
