@@ -618,7 +618,13 @@ document.addEventListener('click', function(event) {
 
    // Task Start Logic (Permanent Save ke sath)
     let startedTasks = [];
-    window.startAppTask = async function(rewardAmount, taskUrl) {
+   window.startAppTask = async function(rewardAmount, taskUrl) {
+    if (!auth.currentUser) {
+        alert("Task start karne ke liye pehle login karein!");
+        openLoginModal();
+        return;
+    }
+
     if (startedTasks.includes(taskUrl)) {
         alert("Aapne yeh task pehle hi shuru kar diya hai! Kripya link se app install karke registration poora karein.");
         window.open(taskUrl, '_blank');
@@ -632,35 +638,24 @@ document.addEventListener('click', function(event) {
         alert("Task Shuru! Aapko link se app download karke process poora karna hoga. Verification ke baad ₹" + rewardAmount + " aapke main wallet mein add ho jayenge.");
     }, 1000);
 
-    // Agar user logged in hai, toh Firebase Firestore mein save karo
-    if (auth.currentUser) {
-        try {
-            const userRef = doc(db, "users", auth.currentUser.uid);
-            const snap = await getDoc(userRef);
-            if (snap.exists()) {
-                let currentPending = Number(snap.data().pendingWithdrawals || 0);
-                let newPending = currentPending + rewardAmount;
-                
-                // Firebase Database update
-                await updateDoc(userRef, {
-                    pendingWithdrawals: newPending
-                });
-            }
-        } catch (error) {
-            console.error("Firebase update error:", error);
-        }
-    } else {
-        // Agar guest mode me hai toh LocalStorage me save karo
-        let pendingDisplay = document.getElementById('pending-display');
-        if (pendingDisplay) {
-            let currentPending = parseFloat(pendingDisplay.innerText) || 0;
+    // Seedha Firebase Firestore Database mein pendingWithdrawals update karna
+    try {
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        const snap = await getDoc(userRef);
+        if (snap.exists()) {
+            let currentPending = Number(snap.data().pendingWithdrawals || 0);
             let newPending = currentPending + rewardAmount;
-            pendingDisplay.innerText = newPending.toFixed(2);
-            localStorage.setItem('earnova_saved_pending', newPending.toFixed(2));
+            
+            // Firebase database mein save hoga taaki aapko console me dikhe
+            await updateDoc(userRef, {
+                pendingWithdrawals: newPending
+            });
         }
+    } catch (error) {
+        console.error("Firebase update error:", error);
+        alert("Database update karne mein error aayi.");
     }
 };
-
     // Withdrawal Logic
     window.requestWithdrawal = async function() {
         if (!auth.currentUser) {
