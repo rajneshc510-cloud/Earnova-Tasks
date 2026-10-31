@@ -1046,36 +1046,24 @@ function earnovaCheckin() {
 }
 </script>   
 
-<!-- NAYA PERMANENT TASK & MEMORY SCRIPT -->
+<!-- NAYA FIREBASE-SYNCED TASK SCRIPT -->
 <script>
-// 1. Page load hote hi sare saved balances (Wallet + Pending) wapas laana
+// 1. Page load hote hi Firebase se user ka data laana
 document.addEventListener("DOMContentLoaded", function() {
     let savedBalance = localStorage.getItem('earnova_saved_balance');
-    let savedPending = localStorage.getItem('earnova_saved_pending');
-    
     let dashBalance = document.getElementById('dashboard-balance');
     let walletDisplay = document.getElementById('wallet-display');
-    let pendingDisplay = document.getElementById('pending-display');
     
-    // Wallet Balance load karo
     if (savedBalance) {
         if (dashBalance) dashBalance.innerText = savedBalance;
         if (walletDisplay) walletDisplay.innerText = savedBalance;
     }
 
-    // Pending Approvals load karo
-    if (savedPending && pendingDisplay) {
-        pendingDisplay.innerText = savedPending;
-    }
-
-    // Check karo ki aaj card scratch hua hai ya nahi
     let today = new Date().toDateString();
     let lastScratch = localStorage.getItem('earnova_scratch_date');
-    
     if (lastScratch === today) {
         let overlay = document.getElementById('scratch-overlay');
         let msg = document.getElementById('scratch-msg');
-        
         if (overlay) overlay.style.display = 'none';
         if (msg) {
             msg.style.opacity = '1';
@@ -1084,10 +1072,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// 2. 100% Working Task Start Function (Refresh par nahi udega)
+// 2. Task Start Function - Seedha Firebase Database mein save karega
 let startedTasks = [];
-window.startAppTask = function(rewardAmount, taskUrl) {
-    
+window.startAppTask = async function(rewardAmount, taskUrl) {
+    if (!auth.currentUser) {
+        alert("Task start karne ke liye pehle login karein!");
+        openLoginModal();
+        return;
+    }
+
     if (startedTasks.includes(taskUrl)) {
         alert("Aapne yeh task pehle hi shuru kar diya hai! Kripya link se app install karke registration poora karein.");
         window.open(taskUrl, '_blank');
@@ -1101,14 +1094,23 @@ window.startAppTask = function(rewardAmount, taskUrl) {
         alert("Task Shuru! Aapko link se app download karke process poora karna hoga. Verification ke baad ₹" + rewardAmount + " aapke main wallet mein add ho jayenge.");
     }, 1000);
 
-    let pendingDisplay = document.getElementById('pending-display');
-    if (pendingDisplay) {
-        let currentPending = parseFloat(pendingDisplay.innerText) || 0;
-        let newPending = currentPending + rewardAmount;
-        pendingDisplay.innerText = newPending.toFixed(2);
-        
-        // Browser ki memory mein hamesha ke liye save karna
-        localStorage.setItem('earnova_saved_pending', newPending.toFixed(2));
+    // Firebase Database mein pendingWithdrawals update karna
+    try {
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        const snap = await getDoc(userRef);
+        if (snap.exists()) {
+            let currentPending = Number(snap.data().pendingWithdrawals || 0);
+            let newPending = currentPending + rewardAmount;
+            
+            // Firebase Firestore mein update hoga jo aapko Firebase console me dikhega
+            await updateDoc(userRef, {
+                pendingWithdrawals: newPending
+            });
+            console.log("Pending approval updated in Firebase:", newPending);
+        }
+    } catch (error) {
+        console.error("Firebase update error:", error);
+        alert("Database update karne mein error aayi.");
     }
 };
 
