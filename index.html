@@ -1035,21 +1035,26 @@ function earnovaCheckin() {
 }
 </script>   
 
-<!-- NAYA PREMIUM SCRATCH CARD SCRIPT (WITH MEMORY) -->
+<!-- NAYA PERMANENT TASK & MEMORY SCRIPT -->
 <script>
-// 1. Page load hote hi browser ki memory check karna
+// 1. Page load hote hi sare saved balances (Wallet + Pending) wapas laana
 document.addEventListener("DOMContentLoaded", function() {
     let savedBalance = localStorage.getItem('earnova_saved_balance');
     let savedPending = localStorage.getItem('earnova_saved_pending');
+    
+    let dashBalance = document.getElementById('dashboard-balance');
+    let walletDisplay = document.getElementById('wallet-display');
     let pendingDisplay = document.getElementById('pending-display');
+    
+    // Wallet Balance load karo
+    if (savedBalance) {
+        if (dashBalance) dashBalance.innerText = savedBalance;
+        if (walletDisplay) walletDisplay.innerText = savedBalance;
+    }
+
+    // Pending Approvals load karo
     if (savedPending && pendingDisplay) {
         pendingDisplay.innerText = savedPending;
-    }
-    let dashBalance = document.getElementById('dashboard-balance');
-    
-    // Agar balance memory mein save hai, toh wahi dikhao
-    if (savedBalance && dashBalance) {
-        dashBalance.innerText = savedBalance;
     }
 
     // Check karo ki aaj card scratch hua hai ya nahi
@@ -1060,7 +1065,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let overlay = document.getElementById('scratch-overlay');
         let msg = document.getElementById('scratch-msg');
         
-        if (overlay) overlay.style.display = 'none'; // Card khula hua dikhao
+        if (overlay) overlay.style.display = 'none';
         if (msg) {
             msg.style.opacity = '1';
             msg.innerText = "Aaj ka claim ho chuka hai!";
@@ -1068,37 +1073,58 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// 2. Scratch karne par chalne wala main function
+// 2. 100% Working Task Start Function (Refresh par nahi udega)
+let startedTasks = [];
+window.startAppTask = function(rewardAmount, taskUrl) {
+    
+    if (startedTasks.includes(taskUrl)) {
+        alert("Aapne yeh task pehle hi shuru kar diya hai! Kripya link se app install karke registration poora karein.");
+        window.open(taskUrl, '_blank');
+        return;
+    }
+
+    startedTasks.push(taskUrl);
+    if (taskUrl) window.open(taskUrl, '_blank');
+
+    setTimeout(() => {
+        alert("Task Shuru! Aapko link se app download karke process poora karna hoga. Verification ke baad ₹" + rewardAmount + " aapke main wallet mein add ho jayenge.");
+    }, 1000);
+
+    let pendingDisplay = document.getElementById('pending-display');
+    if (pendingDisplay) {
+        let currentPending = parseFloat(pendingDisplay.innerText) || 0;
+        let newPending = currentPending + rewardAmount;
+        pendingDisplay.innerText = newPending.toFixed(2);
+        
+        // Browser ki memory mein hamesha ke liye save karna
+        localStorage.setItem('earnova_saved_pending', newPending.toFixed(2));
+    }
+};
+
+// 3. Scratch Card reveal function
 function revealScratchCard() {
     let today = new Date().toDateString();
     let overlay = document.getElementById('scratch-overlay');
     let msg = document.getElementById('scratch-msg');
     let dashBalance = document.getElementById('dashboard-balance'); 
 
-    // Agar pehle hi scratch kar liya hai, toh action rok do
     if (localStorage.getItem('earnova_scratch_date') === today) {
         return;
     }
 
     if (overlay && overlay.style.pointerEvents !== 'none') {
-        
-        // Animation
         overlay.style.opacity = '0';
         overlay.style.transform = 'scale(1.1) translateY(-20px)';
         overlay.style.pointerEvents = 'none'; 
         
         if (msg) msg.style.opacity = '1';
 
-        // Memory mein save karo ki aaj ka task ho gaya
         localStorage.setItem('earnova_scratch_date', today);
 
-        // Paise add karna aur hamesha ke liye save karna
         if (dashBalance) {
             let currentBalance = parseFloat(dashBalance.innerText) || 0;
             let newBalance = currentBalance + 0.40;
             dashBalance.innerText = newBalance.toFixed(2);
-            
-            // Refresh ke baad yaad rakhne ke liye save karo
             localStorage.setItem('earnova_saved_balance', newBalance.toFixed(2));
         }
     }
