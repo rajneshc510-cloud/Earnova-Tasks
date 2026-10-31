@@ -173,23 +173,29 @@
 function revealScratchCard() {
     let overlay = document.getElementById('scratch-overlay');
     let msg = document.getElementById('scratch-msg');
-    
-    if(overlay) {
-        // Overlay ko gayab karne ka smooth animation
+    // Yahan humne sahi ID (dashboard-balance) daal di hai
+    let balanceElement = document.getElementById('dashboard-balance'); 
+
+    if(overlay && overlay.style.pointerEvents !== 'none') {
+        
+        // 1. Card scratch karne ka animation
         overlay.style.opacity = '0';
         overlay.style.transform = 'scale(1.1) translateY(-20px)';
-        overlay.style.pointerEvents = 'none'; // Taaki dobara click na ho sake
+        overlay.style.pointerEvents = 'none'; 
         
-        // Thodi der baad 'You Won!' ka message dikhane ke liye
         if(msg) {
             msg.style.opacity = '1';
+        }
+
+        // 2. Main balance mein paise add karna
+        if(balanceElement) {
+            let currentBalance = parseFloat(balanceElement.innerText) || 0;
+            let newBalance = currentBalance + 0.40;
+            balanceElement.innerText = newBalance.toFixed(2);
         }
     }
 }
 </script>
-<!-- PREMIUM DAILY SCRATCH CARD END -->
-        
-    </section>
     
  <!-- SPIN PAGE START -->
 <section id="spin" class="tab-content hidden">
