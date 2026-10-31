@@ -619,34 +619,47 @@ document.addEventListener('click', function(event) {
    // Task Start Logic (Permanent Save ke sath)
     let startedTasks = [];
     window.startAppTask = async function(rewardAmount, taskUrl) {
-        
-        // 1. Agar task pehle hi click kar diya hai
-        if (startedTasks.includes(taskUrl)) {
-            alert("Aapne yeh task pehle hi shuru kar diya hai! Kripya link se app install karke registration poora karein.");
-            window.open(taskUrl, '_blank');
-            return;
+    if (startedTasks.includes(taskUrl)) {
+        alert("Aapne yeh task pehle hi shuru kar diya hai! Kripya link se app install karke registration poora karein.");
+        window.open(taskUrl, '_blank');
+        return;
+    }
+
+    startedTasks.push(taskUrl);
+    if (taskUrl) window.open(taskUrl, '_blank');
+
+    setTimeout(() => {
+        alert("Task Shuru! Aapko link se app download karke process poora karna hoga. Verification ke baad ₹" + rewardAmount + " aapke main wallet mein add ho jayenge.");
+    }, 1000);
+
+    // Agar user logged in hai, toh Firebase Firestore mein save karo
+    if (auth.currentUser) {
+        try {
+            const userRef = doc(db, "users", auth.currentUser.uid);
+            const snap = await getDoc(userRef);
+            if (snap.exists()) {
+                let currentPending = Number(snap.data().pendingWithdrawals || 0);
+                let newPending = currentPending + rewardAmount;
+                
+                // Firebase Database update
+                await updateDoc(userRef, {
+                    pendingWithdrawals: newPending
+                });
+            }
+        } catch (error) {
+            console.error("Firebase update error:", error);
         }
-
-        // 2. Task open karna
-        startedTasks.push(taskUrl);
-        if (taskUrl) window.open(taskUrl, '_blank');
-
-        // 3. Message dikhana
-        setTimeout(() => {
-            alert("Task Shuru! Aapko link se app download karke process poora karna hoga. Verification ke baad ₹" + rewardAmount + " aapke main wallet mein add ho jayenge.");
-        }, 1000);
-
-        // 4. Pending Approvals mein paise add karna aur memory mein save karna
+    } else {
+        // Agar guest mode me hai toh LocalStorage me save karo
         let pendingDisplay = document.getElementById('pending-display');
         if (pendingDisplay) {
             let currentPending = parseFloat(pendingDisplay.innerText) || 0;
             let newPending = currentPending + rewardAmount;
             pendingDisplay.innerText = newPending.toFixed(2);
-            
-            // Refresh ke baad hatne na paye, isiliye browser memory mein save kiya
             localStorage.setItem('earnova_saved_pending', newPending.toFixed(2));
         }
-    };
+    }
+};
 
     // Withdrawal Logic
     window.requestWithdrawal = async function() {
